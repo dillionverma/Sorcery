@@ -1,0 +1,6 @@
+# Things we don't want to appear in git repository
+
+*.d
+*.o
+*.swp
+*.out
