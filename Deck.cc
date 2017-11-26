@@ -1,12 +1,17 @@
 #include <vector>
 #include <string>
+#include <fstream>
 #include "Deck.h"
+#include "Minion.h"
+#include "Spell.h"
+#include "Enchantment.h"
+#include "Ritual.h"
 
 using namespace std;
 
 Deck::Deck() {
     // Create vector containing ALL possible cards
-    vector<Card> allCards;
+    vector<Card *> allCards;
     
     // reading from formatted file
     ifstream f("CardList.txt");
@@ -49,19 +54,19 @@ Deck::Deck() {
 
             Minion newMinion = Minion(name, cost, description, Card::Location::None,
                 attack, defense, abilityCost);
-            allCards.push_back(newMinion);
+            allCards.push_back(&newMinion);
 
         }
 
         if (type == "Enchantment") {
             Enchantment newEnchantment = Enchantment(name, cost, description,
                 Card::Location::None);
-            allCards.push_back(newEnchantment);
+            allCards.push_back(&newEnchantment);
         }
 
         if (type == "Spell") {
             Spell newSpell = Spell(name, cost, description, Card::Location::None);
-            allCards.push_back(newSpell);
+            allCards.push_back(&newSpell);
         }
 
         if (type == "Ritual") {
@@ -75,12 +80,13 @@ Deck::Deck() {
             getline(f, tempAC, '|');
             activationCost = stoi(tempAC);
        
-            Ritual = newRitual = Ritual(name, cost, description, Card::Location::None,
+            Ritual newRitual = Ritual(name, cost, description, Card::Location::None,
                 numCharges, activationCost);
-            allCards.push_back(newRitual);
+            allCards.push_back(&newRitual);
         }
+    }
 }
 
 void Deck::shuffle() {
-    random_shuffle(cards.begin(), cards.end());
+    //random_shuffle(cards.begin(), cards.end());
 }

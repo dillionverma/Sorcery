@@ -23,15 +23,15 @@ Player::Player(string name) : name{name} {
     // put cards in deck
     for (int i = 0; i < 20; i++) {
         // point to instances of classes that inherit from Card but are not abstract
-        Card *cardToMove = &(allCards.cards.back());
+        Card *cardToMove = allCards.cards.back();
         allCards.cards.pop_back();
 
         if (i < 15) {
-            deck.cards.push_back(*cardToMove);
+            deck.cards.push_back(cardToMove);
             cardToMove->changeLocation(Card::Location::Deck);
         } else {
         // put last five cards in hand (all random)
-            hand.push_back(*cardToMove);
+            hand.push_back(cardToMove);
             cardToMove->changeLocation(Card::Location::Hand);
         }
     }
@@ -45,11 +45,11 @@ void Player::drawFromDeck() {
         return;
     } 
     
-    Card *drawnCard = &(deck.cards.back());
+    Card *drawnCard = deck.cards.back();
     // remove card from deck
     deck.cards.pop_back();
     // put card in hand
-    hand.push_back(*drawnCard);
+    hand.push_back(drawnCard);
 
     drawnCard->changeLocation(Card::Location::Hand);
 }

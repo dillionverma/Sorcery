@@ -11,12 +11,12 @@ class Player {
     int mana = 3;
     // Board board;
     Deck deck;
-    std::vector<Card> hand;
-    std::vector<Card> grave;
+    std::vector<Card *> hand;
+    std::vector<Card *> grave;
 
     public:
     Player(std::string name);
-    void shuffleDeck(std::vector<Card> deck);
+    void shuffleDeck(std::vector<Card *> deck);
     void drawFromDeck();
     //void updateHealth(int newHealth);
     //void updateMana(int newMana);

@@ -9,7 +9,7 @@ class Enchantment: public Card {
     
     public:
     Enchantment(std::string name, int action, std::string info, Card::Location location);
-    virtual void playCard();
+    void playCard() override;
 };
 
 #endif

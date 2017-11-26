@@ -16,7 +16,7 @@ class Minion: public Card {
     // only int rn for simplification of skeleton
     Minion(std::string name, int cost, std::string info, Card::Location location, int attack, 
         int defense, int abilityCost);
-    virtual void playCard();
+    void playCard() override;
 
 };
 

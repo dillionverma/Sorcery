@@ -22,6 +22,10 @@ Card::Location Card::getLocation() const {
     return location;
 }
 
+//void Card::playCard() {
+    //return location;
+//}
+
 void Card::changeLocation(Card::Location newLocation) {
     location = newLocation;
 }

@@ -7,7 +7,7 @@ class Spell: public Card {
     
     public:
     Spell(std::string, int cost, std::string info, Card::Location location); 
-    virtual void playCard();
+    void playCard() override;
 
 };
 

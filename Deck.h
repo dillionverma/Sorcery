@@ -6,7 +6,7 @@
 
 class Deck {
     public:
-    std::vector<Card> cards;
+    std::vector<Card *> cards;
     Deck(); 
     void shuffle();
 };

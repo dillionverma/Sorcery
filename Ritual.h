@@ -11,7 +11,7 @@ class Ritual: public Card {
     Ritual(std::string name, int cost, std::string info, Card::Location location,
         int numCharges, int activationCost);
 
-    virtual void playCard();
+    void playCard() override;
 };
 
 #endif
