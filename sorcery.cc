@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Player.h"
 
 using namespace std;
 
@@ -38,6 +39,19 @@ int main(int argc, char *argv[]) {
     cout << "deck2: " << deck2 << endl;
 
 
+
+
+    // The game begins by first asking both players for their names.
+    cout << "Player 1, please enter your name" << endl;
+    string playerOneName;
+    cin >> playerOneName;
+    cout << "Player 2, please enter your name" << endl;
+    string playerTwoName;
+    cin >> playerTwoName;
+    // Create players - this also shuffles and sets up decks and hands
+    Player playerOne(playerOneName);
+    Player playerTwo(playerTwoName);
+
     string command;
 
     while(cin >> command) {
@@ -60,8 +74,10 @@ int main(int argc, char *argv[]) {
                 "      hand -- Describe all cards in your hand.\n"
                 "      board -- Describe all cards on the board.\n";
         } else if (command == "end") {
+            // end of turn events occur for current player
             cout << "end" << endl;
             // swap(activePlayer, nonActivePlayer);
+            // beginning of turn events occur for new player
         } else if (command == "quit") {
             break;
         } else if (command == "attack") {
