@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "Player.h"
 
 using namespace std;
 
@@ -16,7 +17,6 @@ int main(int argc, char *argv[]) {
     //Player *activePlayer = nullptr;
     //Player *nonActivePlayer = nullptr;
 
-
     // change default state from command line arguments
     for (int i = 1; i < argc; ++i) { 
         if (string(argv[i]) == "-deck1") deck1 = argv[i+1];
@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
     // print game state (for testing purposes
     cout << "init: " << init << " " << initfile << endl;
     cout << "graphics: " << graphics << endl;
@@ -37,6 +36,23 @@ int main(int argc, char *argv[]) {
     cout << "deck1: " << deck1 << endl;
     cout << "deck2: " << deck2 << endl;
 
+    // The game begins by first asking both players for their names.
+    cout << "Player 1, please enter your name" << endl;
+    string playerOneName;
+    cin >> playerOneName;
+    cout << "Player 2, please enter your name" << endl;
+    string playerTwoName;
+    cin >> playerTwoName;
+   
+    cout << "Welcome, " << playerOneName << " and " << playerTwoName << "!" << endl;
+
+    // Create players - this also shuffles and sets up decks and hands
+    Player playerOne(playerOneName);
+    Player playerTwo(playerTwoName);
+
+    // game begins within no command, so first effects must occur right away
+    // activePlayer.updateMana(activePlayer.mana++);
+    // activePlayer.drawFromDeck();
 
     string command;
 
@@ -60,8 +76,12 @@ int main(int argc, char *argv[]) {
                 "      hand -- Describe all cards in your hand.\n"
                 "      board -- Describe all cards on the board.\n";
         } else if (command == "end") {
+            // end of turn events occur for current player
             cout << "end" << endl;
             // swap(activePlayer, nonActivePlayer);
+            // activePlayer.updateMana(activePlayer.mana++);
+            // activePlayer.drawFromDeck();
+            // beginning of turn events occur for new player
         } else if (command == "quit") {
             break;
         } else if (command == "attack") {
@@ -134,6 +154,7 @@ int main(int argc, char *argv[]) {
             cout << "board" << endl;
         } else if (command == "draw") {
             if (testing) {
+             //   activePlayer.drawFromDeck();
                 cout << "draw" << endl;
             }
         } else if (command == "discard") {
