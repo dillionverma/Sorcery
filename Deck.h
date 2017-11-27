@@ -7,7 +7,9 @@
 class Deck {
     public:
     std::vector<Card *> cards;
-    Deck(); 
+
+    // when true, creates a deck containing every possible card
+    Deck(bool isFullDeck = false); 
     void shuffle();
 };
 

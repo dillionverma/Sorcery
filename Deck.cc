@@ -1,6 +1,9 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <algorithm>
+#include <iostream>
+#include <sstream>
 #include "Deck.h"
 #include "Minion.h"
 #include "Spell.h"
@@ -9,32 +12,37 @@
 
 using namespace std;
 
-Deck::Deck() {
+Deck::Deck(bool isFullDeck) {
+    // only needed when creating all cards, otherwise, cards are added
+    //  to player's deck in Player class
+    if (isFullDeck) {
     // Create vector containing ALL possible cards
-    vector<Card *> allCards;
+    //vector<Card *> allCards;
     
     // reading from formatted file
     ifstream f("CardList.txt");
-    string line;
+    string line = " ";
 
     while(getline(f, line)) {
+        istringstream cardVals(line);
         // check if its a commented line
         if (line.at(0) == '/') {
             continue;
-        }
-        
+        } 
+       
         string name;
-        getline(f, name, '|');
-
+        getline(cardVals, name, '|');
+        
         string type;
-        getline(f, type, '|');
-
+        getline(cardVals, type, '|');
+        
         string description;
-        getline(f, description, '|');
-    
+        getline(cardVals, description, '|');
+        
         string tempCost;
         int cost;
-        getline(f, tempCost, '|');
+        
+        getline(cardVals, tempCost, '|');
         cost = stoi(tempCost);
 
         // constructors for various card types
@@ -43,30 +51,28 @@ Deck::Deck() {
             string tempAtk, tempDef, tempAC;
             int attack, defense, abilityCost;
 
-            getline(f, tempAtk, '|');
+            getline(cardVals, tempAtk, '|');
             attack = stoi(tempAtk);
 
-            getline(f, tempDef, '|');
+            getline(cardVals, tempDef, '|');
             defense = stoi(tempDef);
-
-            getline(f, tempAC, '|');
+ 
+            getline(cardVals, tempAC, '|');
             abilityCost = stoi(tempAC);
 
-            Minion newMinion = Minion(name, cost, description, Card::Location::None,
+            Minion newMinion = Minion(name, cost, description,
                 attack, defense, abilityCost);
-            allCards.push_back(&newMinion);
-
+            cards.push_back(&newMinion);
         }
 
         if (type == "Enchantment") {
-            Enchantment newEnchantment = Enchantment(name, cost, description,
-                Card::Location::None);
-            allCards.push_back(&newEnchantment);
+            Enchantment newEnchantment = Enchantment(name, cost, description);
+            cards.push_back(&newEnchantment);
         }
 
         if (type == "Spell") {
-            Spell newSpell = Spell(name, cost, description, Card::Location::None);
-            allCards.push_back(&newSpell);
+            Spell newSpell = Spell(name, cost, description);
+            cards.push_back(&newSpell);
         }
 
         if (type == "Ritual") {
@@ -74,19 +80,20 @@ Deck::Deck() {
             string tempNC, tempAC;
             int numCharges, activationCost;
 
-            getline(f, tempNC, '|');
+            getline(cardVals, tempNC, '|');
             numCharges = stoi(tempNC);
 
-            getline(f, tempAC, '|');
+            getline(cardVals, tempAC, '|');
             activationCost = stoi(tempAC);
-       
-            Ritual newRitual = Ritual(name, cost, description, Card::Location::None,
+
+            Ritual newRitual = Ritual(name, cost, description, 
                 numCharges, activationCost);
-            allCards.push_back(&newRitual);
+            cards.push_back(&newRitual);
+        } 
         }
     }
 }
 
 void Deck::shuffle() {
-    //random_shuffle(cards.begin(), cards.end());
+    random_shuffle(cards.begin(), cards.end());
 }

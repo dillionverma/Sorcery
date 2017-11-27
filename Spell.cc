@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Spell::Spell(string name, int cost, string info, Card::Location location):
-    Card{name, cost, info, location} {}
+Spell::Spell(string name, int cost, string info):
+    Card{name, cost, info} {}
 
 void Spell::playCard() {
 

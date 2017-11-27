@@ -5,11 +5,12 @@
 
 // enchantment will be a decorator
 class Enchantment: public Card { 
-    int effect; // only int for now for skeleton, until implemented
+    
+    void playCard() override;
     
     public:
-    Enchantment(std::string name, int action, std::string info, Card::Location location);
-    void playCard() override;
+    Enchantment(std::string name, int action, std::string info);
+
 };
 
 #endif

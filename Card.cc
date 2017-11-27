@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Card::Card(string name, int cost, string info, Card::Location location):
-     name{name}, cost{cost}, info{info}, location{location} {}
+Card::Card(string name, int cost, string info):
+     name{name}, cost{cost}, info{info} {}
 
 string Card::getName() const {
     return name;
@@ -18,14 +18,3 @@ string Card::getInfo() const {
     return info;
 }
 
-Card::Location Card::getLocation() const {
-    return location;
-}
-
-//void Card::playCard() {
-    //return location;
-//}
-
-void Card::changeLocation(Card::Location newLocation) {
-    location = newLocation;
-}
