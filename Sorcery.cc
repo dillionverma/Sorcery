@@ -57,12 +57,12 @@ int main(int argc, char *argv[]) {
 
     // Create players - this also shuffles and sets up decks and hands
     Board board = Board();
-    Player playerOne(playerOneName, 0);
-    Player playerTwo(playerTwoName, 1);
+    Player playerOne(playerOneName, 1);
+    Player playerTwo(playerTwoName, 2);
     activePlayer = &playerOne;
     nonActivePlayer = &playerTwo;
-    board.setPlayerOne(&playerOne);
-    board.setPlayerTwo(&playerTwo);
+    board.setP1(&playerOne);
+    board.setP2(&playerTwo);
 
     // game begins within no command, so first effects must occur right away
     // activePlayer.updateMana(activePlayer.mana++);

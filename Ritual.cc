@@ -21,28 +21,26 @@ void Ritual::effect(Board &b, Player &p) {
         }
     } else if (name == "Aura of Power") {
         if (p.getState() == State::MinionEnter) {
-            vector<Minion> *cards;
-            if (p.getSide() == 0) {
-                cards = b.getCardsP1();
-            } else {
+            vector<Minion> &cards = b.getCardsP1();
+            if (p.getNum() == 2) {
                 cards = b.getCardsP2();
             }
-            (*cards)[cards->size()-1].gainAtk(1);
-            (*cards)[cards->size()-1].gainDef(1);
+            cards[cards.size()-1].gainAtk(1);
+            cards[cards.size()-1].gainDef(1);
             numCharges -= activationCost;
         }
     } else if (name == "Standstill") {
-        int minionsP1 = b.getCardsP1()->size();
-        int minionsP2 = b.getCardsP2()->size();
+        int minionsP1 = b.getCardsP1().size();
+        int minionsP2 = b.getCardsP2().size();
         if (p.getState() == State::MinionEnter) {
-            if (p.getSide() == 0) {
+            if (p.getNum() == 1) {
                 b.toGraveP1(minionsP1);
             } else {
                 b.toGraveP2(minionsP2);
             }
             numCharges -= activationCost;
         } else if (p.getState() == State::MinionEnterOpp) {
-            if (p.getSide() == 0) {
+            if (p.getNum() == 1) {
                 b.toGraveP2(minionsP2);
             } else {
                 b.toGraveP1(minionsP1);

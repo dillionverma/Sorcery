@@ -12,7 +12,7 @@ class Player {
     std::string name;
     int health = 20;
     int mana = 3;
-    int side;
+    int playerNum;
     State state;
     Deck deck = Deck();
     std::vector<Card *> hand;
@@ -26,7 +26,7 @@ class Player {
         void gainMana(int amount);
         void setState(State newState);
         State getState();
-        int getSide();
+        int getNum();
         std::vector<Minion> &getGrave();
 };
 

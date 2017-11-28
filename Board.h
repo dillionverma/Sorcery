@@ -15,10 +15,10 @@ class Board {
     std::vector<Minion> cardsP2;
     public:
         Board();
-        void setPlayerOne(Player *p);
-        void setPlayerTwo(Player *p);
-        std::vector<Minion> *getCardsP1();
-        std::vector<Minion> *getCardsP2();
+        void setP1(Player *p);
+        void setP2(Player *p);
+        std::vector<Minion> &getCardsP1();
+        std::vector<Minion> &getCardsP2();
         void toGraveP1(int slot);
         void toGraveP2(int slot);
 };

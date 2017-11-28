@@ -4,20 +4,20 @@ using namespace std;
 
 Board::Board() {}
 
-void Board::setPlayerOne(Player *p) {
+void Board::setP1(Player *p) {
     playerOne = p;
 }
 
-void Board::setPlayerTwo(Player *p) {
+void Board::setP2(Player *p) {
     playerTwo = p;
 }
 
-vector<Minion> *Board::getCardsP1() {
-    return &cardsP1;
+vector<Minion> &Board::getCardsP1() {
+    return cardsP1;
 }
 
-vector<Minion> *Board::getCardsP2() {
-    return &cardsP2;
+vector<Minion> &Board::getCardsP2() {
+    return cardsP2;
 }
 
 void Board::toGraveP1(int slot) {
