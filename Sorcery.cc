@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include "Player.h"
+#include "Board.h"
 
 using namespace std;
 
@@ -55,12 +56,13 @@ int main(int argc, char *argv[]) {
     cout << "Welcome, " << playerOneName << " and " << playerTwoName << "!" << endl;
 
     // Create players - this also shuffles and sets up decks and hands
-    Player playerOne(playerOneName);
-    Player playerTwo(playerTwoName);
-    playerOne.setOpponent(&playerTwo);
-    playerTwo.setOpponent(&playerOne);
+    Board board = Board();
+    Player playerOne(playerOneName, 0);
+    Player playerTwo(playerTwoName, 1);
     activePlayer = &playerOne;
     nonActivePlayer = &playerTwo;
+    board.setPlayerOne(&playerOne);
+    board.setPlayerTwo(&playerTwo);
 
     // game begins within no command, so first effects must occur right away
     // activePlayer.updateMana(activePlayer.mana++);

@@ -22,7 +22,7 @@ class Card {
     std::string info;
     
     private:    
-    virtual void display()=0;
+        virtual void display()=0;
 };
 
 #endif

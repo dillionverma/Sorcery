@@ -5,35 +5,29 @@
 #include "Card.h"
 #include "Deck.h"
 #include "State.h"
+#include "Board.h"
 #include "Minion.h"
-#include "Ritual.h"
 
 class Player {
     std::string name;
     int health = 20;
     int mana = 3;
+    int side;
     State state;
     Deck deck = Deck();
-    Ritual *r = nullptr;
-    Player *opponent = nullptr;
     std::vector<Card *> hand;
-    std::vector<Card *> grave;
-    std::vector<Minion *> field;
+    std::vector<Minion *> grave;
 
     public:
-        Player(std::string name);
+        Player(std::string name, int side);
         void shuffleDeck(std::vector<Card *> deck);
         void drawFromDeck();
         void gainHealth(int amount);
         void gainMana(int amount);
         void setState(State newState);
         State getState();
-        void minionGainAtk(int slot, int amount);
-        void minionGainDef(int slot, int amount);
-        int fieldSize();
-        void setOpponent(Player *opp);
-        Player *getOpponent();
-        void toGrave(int slot);
+        int getSide();
+        std::vector<Minion *> &getGrave();
 };
 
 #endif

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Player::Player(string name) : name {name} {
+Player::Player(string name, int side) : name {name}, side {side} {
     state = State::None;
     // DOUBLE CHECK AMOUNT OF CARDS IN DECK VS HAND *** currently 5 in hand, 15 deck
     //Create initial Deck - note this is all cards and not players deck
@@ -58,27 +58,10 @@ State Player::getState() {
     return state;
 }
 
-void Player::minionGainAtk(int slot, int amount) {
-    field[slot]->gainAtk(amount);
+int Player::getSide() {
+    return side;
 }
 
-void Player::minionGainDef(int slot, int amount) {
-    field[slot]->gainDef(amount);
-}
-
-int Player::fieldSize() {
-    return field.size();
-}
-
-void Player::setOpponent(Player *opp) {
-    opponent = opp;
-}
-
-Player *Player::getOpponent() {
-    return opponent;
-}
-
-void Player::toGrave(int slot) {
-    grave.push_back(field[slot]);
-    field.erase(field.begin() + slot);
+vector<Minion *> &Player::getGrave() {
+    return grave;
 }
