@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
     bool init     = false;
     bool testing  = false;
     bool graphics = false;
-    //Player *activePlayer = nullptr;
-    //Player *nonActivePlayer = nullptr;
+    Player *activePlayer = nullptr;
+    Player *nonActivePlayer = nullptr;
 
     // change default state from command line arguments
     for (int i = 1; i < argc; ++i) { 
@@ -57,6 +57,10 @@ int main(int argc, char *argv[]) {
     // Create players - this also shuffles and sets up decks and hands
     Player playerOne(playerOneName);
     Player playerTwo(playerTwoName);
+    playerOne.setOpponent(&playerTwo);
+    playerTwo.setOpponent(&playerOne);
+    activePlayer = &playerOne;
+    nonActivePlayer = &playerTwo;
 
     // game begins within no command, so first effects must occur right away
     // activePlayer.updateMana(activePlayer.mana++);
@@ -64,7 +68,7 @@ int main(int argc, char *argv[]) {
 
     string command;
 
-    while(!cin.fail()) {
+    while(true) {
         int minion = 0;
         int card = 0;
         int targetPlayer = 0;
@@ -73,8 +77,13 @@ int main(int argc, char *argv[]) {
 
         if (init) {
             ifs >> command;
-        } else {
+        } if(!init || ifs.eof()) {
             cin >> command;
+            init = false;
+        }
+
+        if (cin.fail()) {
+            break;
         }
 
         if (command == "help") {
@@ -92,7 +101,7 @@ int main(int argc, char *argv[]) {
         } else if (command == "end") {
             // end of turn events occur for current player
             cout << "end" << endl;
-            // swap(activePlayer, nonActivePlayer);
+            swap(activePlayer, nonActivePlayer);
             // activePlayer.updateMana(activePlayer.mana++);
             // activePlayer.drawFromDeck();
             // beginning of turn events occur for new player
@@ -187,9 +196,6 @@ int main(int argc, char *argv[]) {
             if (testing) {
                 cout << "discard" << endl;
             }
-        }
-        if (ifs.fail()) {
-            init = false;
         }
     }
 }

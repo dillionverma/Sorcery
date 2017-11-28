@@ -6,15 +6,16 @@
 
 class Minion: public Card {
     int attack;
-    int defense;
+    int defence;
     // "Minions start with zero actions"
     int action = 0;
     int abilityCost;
-    void playCard() override;
     
     public:
     Minion(std::string name, int cost, std::string info, int attack, 
         int defense, int abilityCost);
+    void gainAtk(int amount);
+    void gainDef(int amount);
 
 };
 

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Werror=vla -MMD
 EXEC = sorcery
-OBJECTS = sorcery.o Card.o Minion.o Spell.o Enchantment.o Ritual.o Ability.o Player.o Deck.o
+OBJECTS = Sorcery.o Card.o Minion.o Spell.o Enchantment.o Ritual.o Ability.o Player.o Deck.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
