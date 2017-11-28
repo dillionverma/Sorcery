@@ -2,17 +2,18 @@
 #define RITUAL_H
 #include <string>
 #include "Card.h"
+#include "State.h"
+
+class Player; class Board;
 
 class Ritual: public Card {
+
     int numCharges;
     int activationCost;
-
-    void playCard() override;
     
     public:
-    Ritual(std::string name, int cost, std::string info,
-        int numCharges, int activationCost);
-
+        Ritual(std::string name, int cost, std::string info, int numCharges, int activationCost);
+        void notify(Board &b, Player &p);
+        void effect(Board &b, Player &p);
 };
-
 #endif

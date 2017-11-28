@@ -3,10 +3,17 @@
 
 using namespace std;
 
-Minion::Minion(string name, int cost, string info, int attack,
-    int defense, int abilityCost):
-    Card{name, cost, info}, attack{attack}, 
-    defense{defense}, abilityCost(abilityCost)  {} 
+Minion::Minion(string name, int cost, string info, int attack, int defense, int abilityCost):
+    Card{name, cost, info}, attack{attack}, defence{defence}, abilityCost(abilityCost)  {} 
 
-void Minion::playCard() {
+void Minion::gainAtk(int amount) {
+    attack += amount;
+}
+
+void Minion::gainDef(int amount) {
+    defence += amount;
+}
+
+void Minion::display() {
+    // will implement later
 }

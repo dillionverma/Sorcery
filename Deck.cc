@@ -16,80 +16,90 @@ Deck::Deck(bool isFullDeck) {
     // only needed when creating all cards, otherwise, cards are added
     //  to player's deck in Player class
     if (isFullDeck) {
-    // Create vector containing ALL possible cards
-    //vector<Card *> allCards;
-    
-    // reading from formatted file
-    ifstream f("CardList.txt");
-    string line = " ";
+        // Create vector containing ALL possible cards
+        //vector<Card *> allCards;
 
-    while(getline(f, line)) {
-        istringstream cardVals(line);
-        // check if its a commented line
-        if (line.at(0) == '/') {
-            continue;
-        } 
-       
-        string name;
-        getline(cardVals, name, '|');
-        
-        string type;
-        getline(cardVals, type, '|');
-        
-        string description;
-        getline(cardVals, description, '|');
-        
-        string tempCost;
-        int cost;
-        
-        getline(cardVals, tempCost, '|');
-        cost = stoi(tempCost);
+        // reading from formatted file
+        ifstream f("CardList.txt");
+        string line = " ";
 
-        // constructors for various card types
-        if (type == "Minion") {
-            // Minion has more info to take in
-            string tempAtk, tempDef, tempAC;
-            int attack, defense, abilityCost;
+        while(getline(f, line)) {
+            istringstream cardVals(line);
+            // check if its a commented line
+            if (line.at(0) == '/') {
+                continue;
+            } 
 
-            getline(cardVals, tempAtk, '|');
-            attack = stoi(tempAtk);
+            string name;
+            getline(cardVals, name, '|');
 
-            getline(cardVals, tempDef, '|');
-            defense = stoi(tempDef);
- 
-            getline(cardVals, tempAC, '|');
-            abilityCost = stoi(tempAC);
+            string type;
+            getline(cardVals, type, '|');
 
-            Minion newMinion = Minion(name, cost, description,
-                attack, defense, abilityCost);
-            cards.push_back(&newMinion);
-        }
+            string description;
+            getline(cardVals, description, '|');
 
-        if (type == "Enchantment") {
-            Enchantment newEnchantment = Enchantment(name, cost, description);
-            cards.push_back(&newEnchantment);
-        }
+            string tempCost;
+            /*
+            int cost;
 
-        if (type == "Spell") {
-            Spell newSpell = Spell(name, cost, description);
-            cards.push_back(&newSpell);
-        }
+            getline(cardVals, tempCost, '|');
+            cost = stoi(tempCost);
+            */
 
-        if (type == "Ritual") {
-            //Riruals have more info to take in
-            string tempNC, tempAC;
-            int numCharges, activationCost;
+            // constructors for various card types
+            if (type == "Minion") {
+                /*
+                // Minion has more info to take in
+                string tempAtk, tempDef, tempAC;
+                int attack, defense, abilityCost;
 
-            getline(cardVals, tempNC, '|');
-            numCharges = stoi(tempNC);
+                getline(cardVals, tempAtk, '|');
+                attack = stoi(tempAtk);
 
-            getline(cardVals, tempAC, '|');
-            activationCost = stoi(tempAC);
+                getline(cardVals, tempDef, '|');
+                defense = stoi(tempDef);
 
-            Ritual newRitual = Ritual(name, cost, description, 
+                getline(cardVals, tempAC, '|');
+                abilityCost = stoi(tempAC);
+
+                Minion newMinion = Minion(name, cost, description,
+                        attack, defense, abilityCost);
+                */
+                cards.push_back(nullptr);
+            }
+
+            if (type == "Enchantment") {
+                /*
+                Enchantment newEnchantment = Enchantment(name, cost, description);
+                */
+                cards.push_back(nullptr);
+            }
+
+            if (type == "Spell") {
+                /*
+                Spell newSpell = Spell(name, cost, description);
+                */
+                cards.push_back(nullptr);
+            }
+
+            if (type == "Ritual") {
+                /*
+                //Rituals have more info to take in
+                string tempNC, tempAC;
+                int numCharges, activationCost;
+
+                getline(cardVals, tempNC, '|');
+                numCharges = stoi(tempNC);
+
+                getline(cardVals, tempAC, '|');
+                activationCost = stoi(tempAC);
+
+                Ritual newRitual = Ritual(name, cost, description, 
                 numCharges, activationCost);
-            cards.push_back(&newRitual);
-        } 
+                */
+                cards.push_back(nullptr);
+            } 
         }
     }
 }

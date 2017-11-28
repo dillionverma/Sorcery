@@ -5,8 +5,6 @@
 
 class Spell: public Card {
     
-    void playCard() override;
-
     public:
     Spell(std::string, int cost, std::string info); 
 };
