@@ -12,11 +12,11 @@ void Board::setPlayerTwo(Player *p) {
     playerTwo = p;
 }
 
-vector<Minion *> *Board::getCardsP1() {
+vector<Minion> *Board::getCardsP1() {
     return &cardsP1;
 }
 
-vector<Minion *> *Board::getCardsP2() {
+vector<Minion> *Board::getCardsP2() {
     return &cardsP2;
 }
 

@@ -62,6 +62,6 @@ int Player::getSide() {
     return side;
 }
 
-vector<Minion *> &Player::getGrave() {
+vector<Minion> &Player::getGrave() {
     return grave;
 }

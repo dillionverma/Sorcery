@@ -16,6 +16,7 @@ class Minion: public Card {
         int defense, int abilityCost);
     void gainAtk(int amount);
     void gainDef(int amount);
+    void display() override;
 
 };
 

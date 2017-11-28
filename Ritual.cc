@@ -21,14 +21,14 @@ void Ritual::effect(Board &b, Player &p) {
         }
     } else if (name == "Aura of Power") {
         if (p.getState() == State::MinionEnter) {
-            vector<Minion *> *cards;
+            vector<Minion> *cards;
             if (p.getSide() == 0) {
                 cards = b.getCardsP1();
             } else {
                 cards = b.getCardsP2();
             }
-            (*cards)[cards->size()-1]->gainAtk(1);
-            (*cards)[cards->size()-1]->gainDef(1);
+            (*cards)[cards->size()-1].gainAtk(1);
+            (*cards)[cards->size()-1].gainDef(1);
             numCharges -= activationCost;
         }
     } else if (name == "Standstill") {

@@ -13,3 +13,7 @@ void Minion::gainAtk(int amount) {
 void Minion::gainDef(int amount) {
     defence += amount;
 }
+
+void Minion::display() {
+    // will implement later
+}

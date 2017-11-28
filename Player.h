@@ -16,7 +16,7 @@ class Player {
     State state;
     Deck deck = Deck();
     std::vector<Card *> hand;
-    std::vector<Minion *> grave;
+    std::vector<Minion> grave;
 
     public:
         Player(std::string name, int side);
@@ -27,7 +27,7 @@ class Player {
         void setState(State newState);
         State getState();
         int getSide();
-        std::vector<Minion *> &getGrave();
+        std::vector<Minion> &getGrave();
 };
 
 #endif
