@@ -4,11 +4,11 @@
 #include <vector>
 #include "Card.h"
 #include "Deck.h"
-#include "State.h"
 #include "Board.h"
 #include "Minion.h"
+#include "Subject.h"
 
-class Player {
+class Player: public Subject {
     std::string name;
     int health = 20;
     int mana = 3;
@@ -24,10 +24,9 @@ class Player {
         void drawFromDeck();
         void gainHealth(int amount);
         void gainMana(int amount);
-        void setState(State newState);
-        State getState();
-        int getNum();
+        int getNum() const;
         std::vector<Minion> &getGrave();
+        void notifyObservers() override;
 };
 
 #endif

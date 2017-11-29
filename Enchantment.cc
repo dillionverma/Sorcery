@@ -6,3 +6,5 @@ using namespace std;
 Enchantment::Enchantment(string name, int cost, string info):
     Card{name, cost, info} {};
 
+void Enchantment::notify(Board &b, Player &p) {
+}
