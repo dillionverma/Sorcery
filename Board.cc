@@ -93,14 +93,12 @@ void Board::inspect(int currentPlayer, int slot) {
 }
 
 void Board::notify(Player &p) {
-    //vector<Minion> &cards = getCardsP1();
-    //Ritual *ritual = ritualP1;
-    //if (p.getNum() == 2) {
-        //cards = getCardsP2();
-        //ritual = ritualP2;
-    //}
-    //for(unsigned int i = 0; i < cards.size(); ++i) {
-        //cards[i].notify(*this, p);
-    //}
-    //ritual->notify(*this, p);
+  int playerNum = p.getNum();
+  Ritual *ritual = (playerNum == 1 ? ritualP1 : ritualP2); 
+
+  vector<shared_ptr<Minion>> cards = getCards(playerNum);
+  for(unsigned int i = 0; i < cards.size(); ++i) {
+      cards[i]->notify(*this, p);
+  }
+  ritual->notify(*this, p);
 }
