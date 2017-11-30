@@ -38,7 +38,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
     if (c->getType() == "minion") {
       cout << "Playing minion: " << c->getName() << endl;
       cardsP1.push_back(dynamic_pointer_cast<Minion>(c));
-      cout << "Minion added to P1 deck: " << cardsP1.back()->getName() << endl;
+      cout << "Minion added to P1 field: " << cardsP1.back()->getName() << endl;
     } else if (c->getType() == "spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
     } else if (c->getType() == "ritual") {
@@ -61,7 +61,7 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
     if (c->getType() == "minion") {
       cout << "Playing minion: " << c->getName() << endl;
       cardsP2.push_back(dynamic_pointer_cast<Minion>(c));
-      cout << "Minion added to P2 deck: " << cardsP2.back()->getName() << endl;
+      cout << "Minion added to P2 field: " << cardsP2.back()->getName() << endl;
     } else if (c->getType() == "spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
     } else if (c->getType() == "ritual") {
