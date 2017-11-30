@@ -15,7 +15,9 @@ int Minion::getAttack() const { return attack;}
 int Minion::getDefence() const { return defence;}
 
 void Minion::display() {
-     //will implement later
+    // note: the manifest must be altered to support printing minions with abilities
+    card_template_t card = display_minion_no_ability(name, cost, attack, defence);
+    printCard(card);
 }
 
 void Minion::attackMinion(Minion &m) {

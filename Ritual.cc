@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "Ritual.h"
 #include "Player.h"
 
@@ -50,5 +51,6 @@ void Ritual::effect(Board &b, Player &p) {
 }
 
 void Ritual::display() {
-     //will implement later
+    card_template_t card = display_ritual(name, cost, activationCost, info, numCharges);
+    printCard(card);
 }

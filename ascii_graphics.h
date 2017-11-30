@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <iostream>
 
 //SIMPLE_GRAPHICS = 0 displays a fancy style.
 //SIMPLE_GRAPHICS = 1 displays the style shown in the project specification's examples
@@ -7,6 +8,8 @@
 #define SIMPLE_GRAPHICS 0
 
 typedef std::vector<std::string> card_template_t;
+
+void printCard(card_template_t);
 
 card_template_t display_minion_no_ability(std::string name,int cost,int attack,int defence);
 card_template_t display_minion_triggered_ability(std::string name,int cost,int attack,int defence,
