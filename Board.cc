@@ -15,8 +15,11 @@ void Board::setP2(Player *p) {
 }
 
 vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
-  if (playerNum == 1) return cardsP1;
-  if (playerNum == 2) return cardsP2;
+  if (playerNum == 1) {
+      return cardsP1;
+  } else {
+      return cardsP2;
+  }
 }
 
 
