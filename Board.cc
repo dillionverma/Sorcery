@@ -91,3 +91,16 @@ void Board::inspect(int currentPlayer, int slot) {
   cout << "Minion Name: " << c->getName() << endl;
   cout << "Minion Info: " << c->getInfo() << endl;
 }
+
+void Board::notify(Player &p) {
+    //vector<Minion> &cards = getCardsP1();
+    //Ritual *ritual = ritualP1;
+    //if (p.getNum() == 2) {
+        //cards = getCardsP2();
+        //ritual = ritualP2;
+    //}
+    //for(unsigned int i = 0; i < cards.size(); ++i) {
+        //cards[i].notify(*this, p);
+    //}
+    //ritual->notify(*this, p);
+}

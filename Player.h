@@ -4,11 +4,11 @@
 #include <vector>
 #include "Card.h"
 #include "Deck.h"
-#include "State.h"
 #include "Board.h"
 #include "Minion.h"
+#include "Subject.h"
 
-class Player {
+class Player: public Subject {
   std::string name;
   int health = 20;
   int mana = 3;
@@ -30,6 +30,7 @@ class Player {
     int getHealth() const;
     int getMana() const;
     void showHand();
+    void notifyObservers() override;
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
 };

@@ -13,7 +13,7 @@ class Ritual: public Card {
     
     public:
       Ritual(std::string name, int cost, std::string info, int numCharges, int activationCost);
-      void notify(Board &b, Player &p);
+      void notify(Board &b, Player &p) override;
       void effect(Board &b, Player &p);
       void display() override;
 };

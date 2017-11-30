@@ -26,3 +26,6 @@ void Minion::attackMinion(Minion &m) {
 void Minion::attackPlayer(Player &p) {
   p.changeHealth( -1 * attack);
 }
+
+void Minion::notify(Board &b, Player &p) {
+}

@@ -2,6 +2,7 @@
 #define CARD_H
 #include <string>
 
+class Board; class Player;
 
 // abstract card class
 class Card {
@@ -23,6 +24,7 @@ class Card {
   //virtual ~Card();
   private:    
     virtual void display()=0;
+    virtual void notify(Board &b, Player &p)=0;
 };
 
 #endif

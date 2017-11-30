@@ -63,6 +63,8 @@ int main(int argc, char *argv[]) {
     nonActivePlayer = &playerTwo;
     board.setP1(&playerOne);
     board.setP2(&playerTwo);
+    playerOne.addObserver(&board);
+    playerTwo.addObserver(&board);
 
     // game begins within no command, so first effects must occur right away
     // activePlayer.updateMana(activePlayer.mana++);

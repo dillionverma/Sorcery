@@ -4,7 +4,7 @@
 #include "Card.h"
 #include "Ability.h"
 
-class Player;
+class Board; class Player;
 
 class Minion: public Card {
     int attack;
@@ -23,6 +23,7 @@ class Minion: public Card {
       void display() override;
       void attackMinion(Minion &m);
       void attackPlayer(Player &p);
+    void notify(Board &b, Player &p) override;
 };
 
 #endif

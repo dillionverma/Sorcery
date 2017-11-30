@@ -67,3 +67,9 @@ void Player::changeMana(const int amount)   { mana += amount; }
 // Setters
 void Player::setState(const State newState) { state = newState; }
 
+void Player::notifyObservers() {
+    for(unsigned int i = 0; i < observers.size(); ++i) {
+        observers[i]->notify(*this);
+    }
+}
+

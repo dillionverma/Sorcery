@@ -9,3 +9,5 @@ Enchantment::Enchantment(string name, int cost, string info):
 void Enchantment::display() {
      //will implement later
 }
+void Enchantment::notify(Board &b, Player &p) {
+}

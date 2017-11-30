@@ -9,3 +9,5 @@ Spell::Spell(string name, int cost, string info):
 void Spell::display() {
      //will implement later
 }
+void Spell::notify(Board &b, Player &p) {
+}

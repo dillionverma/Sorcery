@@ -5,8 +5,10 @@
 #include "Player.h"
 #include "Ritual.h"
 #include "Minion.h"
+#include "Observer.h"
 
-class Board {
+class Subject;
+class Board: public Observer{
   Player *playerOne = nullptr;
   Player *playerTwo = nullptr;
   Ritual *ritualP1 = nullptr;
@@ -24,6 +26,7 @@ class Board {
     void attackMinion(int currentPlayer, int minion, int otherMinion);
     void attackPlayer(int currentPlayer, int minion);
     void inspect(int currentPlayer, int minion);
+    void notify(Player &p) override;
 };
 
 #endif
