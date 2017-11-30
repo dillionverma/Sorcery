@@ -28,8 +28,6 @@ void Spell::effect(Board &b, Player &p, int target) {
             if (target == 0) {
                 // remove chosen ritual card
                 b.setRitual(nullptr, p);
-                if (b.getRitual(p) == nullptr) {
-                }
             } else {
                 // if minion, send ith card to grave
                 // toGrave takes 1-5 so no need to readjust here
@@ -38,8 +36,7 @@ void Spell::effect(Board &b, Player &p, int target) {
         }
         // Deal 2 Damage to all minions
        else if (name == "Blizzard") {
-            
-            cout << "Target: " << target << endl;
+        
             vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
             
             // decrease damage of all minions for opposing player
