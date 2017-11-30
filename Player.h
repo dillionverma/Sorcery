@@ -20,7 +20,6 @@ class Player {
 
     public:
         Player(std::string name, int side);
-        void shuffleDeck(std::vector<Card *> deck);
         void drawFromDeck();
         void gainHealth(int amount);
         void gainMana(int amount);
@@ -28,6 +27,9 @@ class Player {
         State getState();
         int getNum();
         std::vector<Minion> &getGrave();
+        std::vector<Card *> &getHand();
+        void removeFromHand(Card *cardToRemove); 
+        int &getMana();
 };
 
 #endif

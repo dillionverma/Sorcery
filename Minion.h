@@ -13,11 +13,11 @@ class Minion: public Card {
     
     public:
     Minion(std::string name, int cost, std::string info, int attack, 
-        int defense, int abilityCost);
+        int defence, int abilityCost);
     void gainAtk(int amount);
     void gainDef(int amount);
     void display() override;
-
+    int &getDef();
 };
 
 #endif

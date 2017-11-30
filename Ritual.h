@@ -15,5 +15,7 @@ class Ritual: public Card {
         Ritual(std::string name, int cost, std::string info, int numCharges, int activationCost);
         void notify(Board &b, Player &p);
         void effect(Board &b, Player &p);
+        int &getNC();
+        int &getAC();
 };
 #endif

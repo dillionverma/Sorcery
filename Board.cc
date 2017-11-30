@@ -30,3 +30,10 @@ void Board::toGraveP2(int slot) {
     cardsP2.erase(cardsP2.begin() + slot);
 }
 
+Ritual &Board::getRitual(Player player) {
+    if (player.getNum() == 1) {
+        return *ritualP1;
+    } else {
+        return *ritualP2;
+    }
+}

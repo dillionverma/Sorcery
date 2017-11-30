@@ -21,6 +21,7 @@ class Board {
         std::vector<Minion> &getCardsP2();
         void toGraveP1(int slot);
         void toGraveP2(int slot);
+        Ritual &getRitual(Player player);
 };
 
 #endif

@@ -50,3 +50,10 @@ void Ritual::effect(Board &b, Player &p) {
     }
 }
 
+int &Ritual::getNC() {
+    return numCharges;
+}
+
+int &Ritual::getAC() {
+    return activationCost;
+}
