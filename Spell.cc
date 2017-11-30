@@ -53,11 +53,11 @@ void Spell::effect(Board &b, Player &p, int target) {
             vector<shared_ptr<Minion>> grave = p.getGrave();
             vector<shared_ptr<Card>> hand = p.getHand();
             // most recent minion is at back of grave
-            Minion minionToRes = grave.back();
+            shared_ptr<Minion> minionToRes = grave.back();
             grave.pop_back();
-            hand.push_back(&minionToRes);
+            hand.push_back(minionToRes);
             // set defense to 1
-            int minionDef = minionToRes.getDef();
+            int minionDef = minionToRes->getDefence();
             minionDef = 1;
         }
         // Your ritual gains 3 recharges
@@ -70,9 +70,9 @@ void Spell::effect(Board &b, Player &p, int target) {
         else if (name ==  "Unsummon") {
             vector<shared_ptr<Card>> &hand = p.getHand();            
             vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
-            Minion targetMin = minions.at(target);
+            shared_ptr<Minion> targetMin = minions.at(target);
             minions.erase(minions.begin() + target);
-            hand.push_back(&targetMin);
+            hand.push_back(targetMin);
        }
    
 }
