@@ -105,8 +105,8 @@ void Board::notify(Player &p) {
   ritual->notify(*this, p);
 }
 
-shared_ptr<Ritual> Board::getRitual(Player player) const {
-    if (player.getNum() == 1) {
+shared_ptr<Ritual> Board::getRitual(int playerNum) const {
+    if (playerNum == 1) {
         return ritualP1;
     } else {
         return ritualP2;
@@ -114,8 +114,8 @@ shared_ptr<Ritual> Board::getRitual(Player player) const {
 
 }
 
-void Board::setRitual(shared_ptr<Ritual> ritual, Player player) {
-    if (player.getNum() == 1) {
+void Board::setRitual(shared_ptr<Ritual> ritual, int playerNum) {
+    if (playerNum == 1) {
         ritualP1 = ritual;    
     } else {
         ritualP2 = ritual;

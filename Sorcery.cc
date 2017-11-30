@@ -4,10 +4,6 @@
 #include <fstream>
 #include "Player.h"
 #include "Board.h"
-#include "Spell.h"
-#include "Minion.h"
-#include "Enchantment.h"
-#include "Ritual.h"
 
 using namespace std;
 

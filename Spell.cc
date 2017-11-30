@@ -27,7 +27,7 @@ void Spell::effect(Board &b, Player &p, int target) {
             // if ritual
             if (target == 0) {
                 // remove chosen ritual card
-                b.setRitual(nullptr, p);
+                b.setRitual(nullptr, p.getNum());
             } else {
                 // if minion, send ith card to grave
                 // toGrave takes 1-5 so no need to readjust here
@@ -73,10 +73,10 @@ void Spell::effect(Board &b, Player &p, int target) {
         }
         // Your ritual gains 3 recharges
         else if (name ==  "Recharge") {
-            shared_ptr<Ritual> ritual = b.getRitual(p);
+            shared_ptr<Ritual> ritual = b.getRitual(p.getNum());
                 if (ritual != nullptr) {
                     ritual->setNC(3);
-                    b.setRitual(ritual, p);
+                    b.setRitual(ritual, p.getNum());
                 } else {
                     cout << "No ritual present." << endl;
                 }

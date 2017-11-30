@@ -27,8 +27,8 @@ class Board: public Observer{
     void attackPlayer(int currentPlayer, int minion);
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
-    std::shared_ptr<Ritual> getRitual(Player player) const;
-    void setRitual(std::shared_ptr<Ritual> ritual, Player player);
+    std::shared_ptr<Ritual> getRitual(int playerNum) const;
+    void setRitual(std::shared_ptr<Ritual> ritual, int playerNum);
     void display();
 };
 
