@@ -43,11 +43,9 @@ void Player::drawFromDeck() {
 }
 
 void Player::showHand() { 
-  cout << "1: " << hand.at(0)->getName() << endl;
-  cout << "2: " << hand.at(1)->getName() << endl;
-  cout << "3: " << hand.at(2)->getName() << endl;
-  cout << "4: " << hand.at(3)->getName() << endl;
-  cout << "5: " << hand.at(4)->getName() << endl;
+    for (auto card : hand) {
+        card->display();
+    }
 }
 
 // Constant Getters
@@ -71,5 +69,10 @@ void Player::notifyObservers() {
     for(unsigned int i = 0; i < observers.size(); ++i) {
         observers[i]->notify(*this);
     }
+}
+
+void Player::display() {
+    card_template_t card = display_player_card(playerNum, name, health, mana);
+    printCard(card);
 }
 

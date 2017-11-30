@@ -14,16 +14,15 @@ class Minion: public Card {
     int abilityCost;
 
     public:
-      Minion(std::string name, int cost, std::string info, int attack, 
-          int defense, int abilityCost);
-      void changeAttack(const int amount);
-      void changeDefence(const int amount);
-      int getAttack() const;
-      int getDefence() const;
-      void display() override;
-      void attackMinion(Minion &m);
-      void attackPlayer(Player &p);
-    void notify(Board &b, Player &p) override;
+        Minion(std::string name, int cost, std::string info, int attack, int defense, int abilityCost);
+        void changeAttack(const int amount);
+        void changeDefence(const int amount);
+        int getAttack() const;
+        int getDefence() const;
+        void display() override;
+        void attackMinion(Minion &m);
+        void attackPlayer(Player &p);
+        void notify(Board &b, Player &p) override;
 };
 
 #endif

@@ -7,7 +7,9 @@ Spell::Spell(string name, int cost, string info):
     Card{name, cost, info, "spell"} {}
 
 void Spell::display() {
-     //will implement later
+    card_template_t card = display_spell(name, cost, info);
+    printCard(card);
 }
+
 void Spell::notify(Board &b, Player &p) {
 }

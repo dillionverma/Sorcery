@@ -33,6 +33,7 @@ class Player: public Subject {
     void notifyObservers() override;
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
+    void display();
 };
 
 #endif

@@ -27,6 +27,7 @@ class Board: public Observer{
     void attackPlayer(int currentPlayer, int minion);
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
+    void display();
 };
 
 #endif
