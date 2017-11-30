@@ -17,9 +17,9 @@ class Card {
     int getCost() const;
   protected:
     std::string name;
+    int cost;
     std::string info;
     std::string type;
-    int cost;
 
   //virtual ~Card();
   private:    

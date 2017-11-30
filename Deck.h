@@ -2,6 +2,7 @@
 #define DECK_H
 #include <string>
 #include <vector>
+#include <memory>
 #include "Card.h"
 
 class Deck {
