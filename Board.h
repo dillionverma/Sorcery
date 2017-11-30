@@ -5,8 +5,11 @@
 #include "Player.h"
 #include "Ritual.h"
 #include "Minion.h"
+#include "Observer.h"
 
-class Board {
+class Subject;
+
+class Board: public Observer {
     Player *playerOne = nullptr;
     Player *playerTwo = nullptr;;
     Ritual *ritualP1 = nullptr;
@@ -21,6 +24,7 @@ class Board {
         std::vector<Minion> &getCardsP2();
         void toGraveP1(int slot);
         void toGraveP2(int slot);
+        void notify(Player &p) override;
 };
 
 #endif

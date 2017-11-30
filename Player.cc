@@ -50,18 +50,17 @@ void Player::gainMana(int amount) {
     mana += amount;
 }
 
-void Player::setState(State newState) {
-    state = newState;
-}
-
-State Player::getState() {
-    return state;
-}
-
-int Player::getNum() {
+int Player::getNum() const {
     return playerNum;
 }
 
 vector<Minion> &Player::getGrave() {
     return grave;
 }
+
+void Player::notifyObservers() {
+    for(unsigned int i = 0; i < observers.size(); ++i) {
+        observers[i]->notify(*this);
+    }
+}
+

@@ -17,3 +17,6 @@ void Minion::gainDef(int amount) {
 void Minion::display() {
     // will implement later
 }
+
+void Minion::notify(Board &b, Player &p) {
+}
