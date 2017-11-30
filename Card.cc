@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Card::Card(string name, int cost, string info):
-     name{name}, cost{cost}, info{info} {}
+Card::Card(string name, int cost, string info, string type):
+     name{name}, cost{cost}, info{info}, type{type} {}
 
 string Card::getName() const {
     return name;
@@ -18,3 +18,6 @@ string Card::getInfo() const {
     return info;
 }
 
+string Card::getType() const {
+  return type;
+}

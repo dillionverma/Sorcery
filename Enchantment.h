@@ -9,8 +9,9 @@ class Board; class Player;
 class Enchantment: public Card { 
     
     public:
-        Enchantment(std::string name, int action, std::string info);
-        void notify(Board &b, Player &p) override;
+      Enchantment(std::string name, int action, std::string info);
+      void display() override;
+      void notify(Board &b, Player &p) override;
 };
 
 #endif

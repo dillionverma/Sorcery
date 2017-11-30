@@ -12,8 +12,9 @@ class Ritual: public Card {
     int activationCost;
     
     public:
-        Ritual(std::string name, int cost, std::string info, int numCharges, int activationCost);
-        void notify(Board &b, Player &p) override;
-        void effect(Board &b, Player &p);
+      Ritual(std::string name, int cost, std::string info, int numCharges, int activationCost);
+      void notify(Board &b, Player &p) override;
+      void effect(Board &b, Player &p);
+      void display() override;
 };
 #endif

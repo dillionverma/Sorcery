@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     bool graphics = false;
     Player *activePlayer = nullptr;
     Player *nonActivePlayer = nullptr;
+    srand(time(0));   // Seed Random Number Generator
 
     // change default state from command line arguments
     for (int i = 1; i < argc; ++i) { 
@@ -77,6 +78,7 @@ int main(int argc, char *argv[]) {
         int card = 0;
         int targetPlayer = 0;
         int otherMinion = 0;
+        int currentPlayerNum = activePlayer->getNum();
         string tmp, targetCard;
 
         if (init) {
@@ -107,7 +109,7 @@ int main(int argc, char *argv[]) {
             cout << "end" << endl;
             swap(activePlayer, nonActivePlayer);
             // activePlayer.updateMana(activePlayer.mana++);
-            // activePlayer.drawFromDeck();
+             activePlayer->drawFromDeck();
             // beginning of turn events occur for new player
         } else if (command == "quit") {
             break;
@@ -129,8 +131,11 @@ int main(int argc, char *argv[]) {
             }
             if (otherMinion) {
                 cout << "Active player's minion " << minion << " is attacking other player's minion " << otherMinion << endl;
+                board.attackMinion(currentPlayerNum, minion, otherMinion);
             } else {
                 cout << "Active player's minion " << minion << " is attacking the other player" << endl;
+                board.attackPlayer(currentPlayerNum, minion);
+                cout << "Other player health: " << nonActivePlayer->getHealth() << endl;
             }
         } else if (command == "play") {
             if (init) {
@@ -157,6 +162,11 @@ int main(int argc, char *argv[]) {
                 }
             } else {
                 cout << "Playing card: " << card << endl;
+                if (currentPlayerNum == 1) { // if active player is P1
+                  board.playCardP1(card);
+                } else {
+                  board.playCardP2(card);
+                }
             }
         } else if (command == "use") {
             if (init) {
@@ -187,13 +197,14 @@ int main(int argc, char *argv[]) {
         } else if (command == "inspect") {
             cin >> minion;
             cout << "Inspecting minion: " <<  minion << endl;
+            board.inspect(currentPlayerNum, minion);
         } else if (command == "hand") {
-            cout << "hand" << endl;
+          activePlayer->showHand();
         } else if (command == "board") {
             cout << "board" << endl;
         } else if (command == "draw") {
             if (testing) {
-             //   activePlayer.drawFromDeck();
+             //   activePlayer->drawFromDeck();
                 cout << "draw" << endl;
             }
         } else if (command == "discard") {

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include <memory>
 #include "Deck.h"
 #include "Minion.h"
 #include "Spell.h"
@@ -17,7 +18,6 @@ Deck::Deck(bool isFullDeck) {
     //  to player's deck in Player class
     if (isFullDeck) {
         // Create vector containing ALL possible cards
-        //vector<Card *> allCards;
 
         // reading from formatted file
         ifstream f("CardList.txt");
@@ -39,17 +39,14 @@ Deck::Deck(bool isFullDeck) {
             string description;
             getline(cardVals, description, '|');
 
-            string tempCost;
-            /*
+            string tempCost; 
             int cost;
 
             getline(cardVals, tempCost, '|');
             cost = stoi(tempCost);
-            */
 
             // constructors for various card types
             if (type == "Minion") {
-                /*
                 // Minion has more info to take in
                 string tempAtk, tempDef, tempAC;
                 int attack, defense, abilityCost;
@@ -63,28 +60,22 @@ Deck::Deck(bool isFullDeck) {
                 getline(cardVals, tempAC, '|');
                 abilityCost = stoi(tempAC);
 
-                Minion newMinion = Minion(name, cost, description,
+                shared_ptr<Card> newMinion = make_shared<Minion>(name, cost, description,
                         attack, defense, abilityCost);
-                */
-                cards.push_back(nullptr);
+                cards.push_back(newMinion);
             }
 
             if (type == "Enchantment") {
-                /*
-                Enchantment newEnchantment = Enchantment(name, cost, description);
-                */
-                cards.push_back(nullptr);
+                shared_ptr<Card> newEnchantment = make_shared<Enchantment>(name, cost, description);
+                cards.push_back(newEnchantment);
             }
 
             if (type == "Spell") {
-                /*
-                Spell newSpell = Spell(name, cost, description);
-                */
-                cards.push_back(nullptr);
+                shared_ptr<Card> newSpell = make_shared<Spell>(name, cost, description);
+                cards.push_back(newSpell);
             }
 
             if (type == "Ritual") {
-                /*
                 //Rituals have more info to take in
                 string tempNC, tempAC;
                 int numCharges, activationCost;
@@ -95,15 +86,21 @@ Deck::Deck(bool isFullDeck) {
                 getline(cardVals, tempAC, '|');
                 activationCost = stoi(tempAC);
 
-                Ritual newRitual = Ritual(name, cost, description, 
+                shared_ptr<Card> newRitual = make_shared<Ritual>(name, cost, description, 
                 numCharges, activationCost);
-                */
-                cards.push_back(nullptr);
+                cards.push_back(newRitual);
             } 
         }
     }
+    shuffle(); // shuffle deck
+}
+
+// function for randomness factor
+int myrandom (int i) {  
+  return std::rand()%i;
 }
 
 void Deck::shuffle() {
-    random_shuffle(cards.begin(), cards.end());
+  random_shuffle(cards.begin(), cards.end(), myrandom);
 }
+

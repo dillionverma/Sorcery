@@ -4,7 +4,10 @@
 using namespace std;
 
 Spell::Spell(string name, int cost, string info):
-    Card{name, cost, info} {}
+    Card{name, cost, info, "spell"} {}
 
+void Spell::display() {
+     //will implement later
+}
 void Spell::notify(Board &b, Player &p) {
 }
