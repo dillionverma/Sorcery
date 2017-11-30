@@ -466,6 +466,6 @@ static void prepare_for_replace(card_template_t &text) {
 
 void printCard(card_template_t card) {
     for(auto info : card) {
-        std::cout << info;
+        std::cout << info << std::endl;
     }
 }
