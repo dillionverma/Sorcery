@@ -6,7 +6,7 @@
 using namespace std;
 
 Minion::Minion(string name, int cost, string info, int attack, int defence, int abilityCost):
-    Card{name, cost, info, "minion"}, attack{attack}, defence{defence}, abilityCost(abilityCost)  {} 
+    Card{name, cost, info, "Minion"}, attack{attack}, defence{defence}, abilityCost(abilityCost)  {} 
 
 void Minion::changeAttack(int amount) { attack += amount; }
 void Minion::changeDefence(int amount) { defence += amount; }
@@ -29,5 +29,6 @@ void Minion::attackPlayer(Player &p) {
   p.changeHealth( -1 * attack);
 }
 
-void Minion::notify(Board &b, Player &p) {
+void Minion::notify(Board &b, Player &p, int target) {
 }
+

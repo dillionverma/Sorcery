@@ -38,13 +38,13 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
   playerOne->getHand().erase(playerOne->getHand().begin() + slot - 1); // must erase 
 
   if (otherSlot == 0 && player == 0) {          // if we are playing a card which does not target other things
-    if (c->getType() == "minion") {
+    if (c->getType() == "Minion") {
       cout << "Playing minion: " << c->getName() << endl;
       cardsP1.push_back(dynamic_pointer_cast<Minion>(c));
       cout << "Minion added to P1 field: " << cardsP1.back()->getName() << endl;
-    } else if (c->getType() == "spell") { // TODO: add && to check if spell requires no target
+    } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
-    } else if (c->getType() == "ritual") {
+    } else if (c->getType() == "Ritual") {
       cout << "Playing ritual: " << c->getName() << endl;
     }
 
@@ -61,13 +61,13 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
 
 
   if (otherSlot == 0) {          // if we are playing a card which does not target other things
-    if (c->getType() == "minion") {
+    if (c->getType() == "Minion") {
       cout << "Playing minion: " << c->getName() << endl;
       cardsP2.push_back(dynamic_pointer_cast<Minion>(c));
       cout << "Minion added to P2 field: " << cardsP2.back()->getName() << endl;
-    } else if (c->getType() == "spell") { // TODO: add && to check if spell requires no target
+    } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
-    } else if (c->getType() == "ritual") {
+    } else if (c->getType() == "Ritual") {
       cout << "Playing ritual: " << c->getName() << endl;
     }
   } else {
@@ -76,7 +76,6 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
 
   }
 }
-
 
 void Board::attackMinion(int currentPlayer, int minion, int otherMinion) {
   int otherPlayer = (currentPlayer == 1 ? 2 : 1);
@@ -97,13 +96,30 @@ void Board::inspect(int currentPlayer, int slot) {
 
 void Board::notify(Player &p) {
   int playerNum = p.getNum();
-  Ritual *ritual = (playerNum == 1 ? ritualP1 : ritualP2); 
+  shared_ptr<Ritual> ritual = (playerNum == 1 ? ritualP1 : ritualP2); 
 
   vector<shared_ptr<Minion>> cards = getCards(playerNum);
   for(unsigned int i = 0; i < cards.size(); ++i) {
       cards[i]->notify(*this, p);
   }
   ritual->notify(*this, p);
+}
+
+shared_ptr<Ritual> Board::getRitual(int playerNum) const {
+    if (playerNum == 1) {
+        return ritualP1;
+    } else {
+        return ritualP2;
+    }
+
+}
+
+void Board::setRitual(shared_ptr<Ritual> ritual, int playerNum) {
+    if (playerNum == 1) {
+        ritualP1 = ritual;    
+    } else {
+        ritualP2 = ritual;
+    }
 }
 
 void Board::display() {

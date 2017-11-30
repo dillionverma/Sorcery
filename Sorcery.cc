@@ -157,11 +157,15 @@ int main(int argc, char *argv[]) {
             if (count == 3) {
                 if (targetCard == "r") {
                     cout << "Playing card: " << card << " on player " << targetPlayer << "'s ritual" << endl;
+                    // for sake of simplicity, let 0 represent r
+                    // card.notify(b, targetPlayer, 0);
                 } else {
                     cout << "Playing card: " << card << " on player " << targetPlayer << "'s minion: " << stoi(targetCard) << endl;
-                }
+                    //card.notify(g, targetPlater, stoi(targetCard);
+               }
             } else {
                 cout << "Playing card: " << card << endl;
+                // card.notify(b, currentPlayer);
                 if (currentPlayerNum == 1) { // if active player is P1
                   board.playCardP1(card);
                 } else {
@@ -188,12 +192,18 @@ int main(int argc, char *argv[]) {
             if (count == 3) {
                 if (targetCard == "r") {
                     cout << "Using card: " << card << " on player " << targetPlayer << "'s ritual" << endl;
+                    // for sake of simplicity, let 0 represent r.
+                    //card.notify(b, targetPlayer, 0);
                 } else {
                     cout << "Using card: " << card << " on player " << targetPlayer << "'s minion: " << stoi(targetCard) << endl;
+                    //card.notify(b, targetPlayer, stoi(targetCard);
                 }
             } else {
                 cout << "Using card: " << card << endl;
-            }
+                //card.notify(b, activePlayer);
+           }
+           // remove card from hand
+           // activePlayer.removeCard(card);
         } else if (command == "inspect") {
             cin >> minion;
             cout << "Inspecting minion: " <<  minion << endl;

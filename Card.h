@@ -24,8 +24,9 @@ class Card {
     std::string type;
 
   //virtual ~Card();
-  private:    
-    virtual void notify(Board &b, Player &p)=0;
+//  private:    
+    public:
+    virtual void notify(Board &b, Player &p, int target = -1)=0;
 };
 
 #endif

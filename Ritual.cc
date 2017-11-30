@@ -6,15 +6,15 @@
 using namespace std;
 
 Ritual::Ritual(string name, int cost, string info, int numCharges, int activationCost):
-    Card{name, cost, info, "ritual"}, numCharges{numCharges}, activationCost{activationCost} {}
+    Card{name, cost, info, "Ritual"}, numCharges{numCharges}, activationCost{activationCost} {}
 
-void Ritual::notify(Board &b, Player &p) {
+void Ritual::notify(Board &b, Player &p, int target) {
     if (numCharges >= activationCost) {
         effect(b, p);
     }
 }
 
-void Ritual::effect(Board &b, Player &p) {
+void Ritual::effect(Board &b, Player &p, int target) {
   int playerNum = p.getNum();
 
   if (name == "Dark Ritual") {
@@ -48,6 +48,22 @@ void Ritual::effect(Board &b, Player &p) {
           numCharges -= activationCost;
       }
   }
+}
+
+int Ritual::getNC() const {
+    return numCharges;
+}
+
+int Ritual::getAC() const {
+    return activationCost;
+}
+
+void Ritual::setNC(const int newNC) {
+    numCharges = newNC;
+}
+
+void Ritual::setAC(const int newAC) {
+    activationCost = newAC;
 }
 
 void Ritual::display() {

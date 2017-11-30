@@ -10,7 +10,6 @@ using namespace std;
 
 Player::Player(string name, int playerNum) : name {name}, playerNum {playerNum} {
     state = State::None;
-    // DOUBLE CHECK AMOUNT OF CARDS IN DECK VS HAND *** currently 5 in hand, 15 deck
     //Create initial Deck - note this is all cards and not players deck
     Deck allCards = Deck(true);
     // Randomly choose 20 cards from all cards vector to go in deck
@@ -70,6 +69,13 @@ void Player::notifyObservers() {
         observers[i]->notify(*this);
     }
 }
+
+
+void Player::removeFromHand(Card *card) {
+    // Michelle TODO: Implement 
+    return;
+}
+
 
 void Player::display() {
     card_template_t card = display_player_card(playerNum, name, health, mana);
