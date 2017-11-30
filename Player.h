@@ -29,6 +29,7 @@ class Player {
     int getNum() const;
     int getHealth() const;
     int getMana() const;
+    void showHand();
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
 };

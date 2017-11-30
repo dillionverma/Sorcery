@@ -42,7 +42,13 @@ void Player::drawFromDeck() {
     hand.push_back(drawnCard); // put card in hand
 }
 
-
+void Player::showHand() { 
+  cout << "1: " << hand.at(0)->getName() << endl;
+  cout << "2: " << hand.at(1)->getName() << endl;
+  cout << "3: " << hand.at(2)->getName() << endl;
+  cout << "4: " << hand.at(3)->getName() << endl;
+  cout << "5: " << hand.at(4)->getName() << endl;
+}
 
 // Constant Getters
 State Player::getState() const { return state; }

@@ -196,16 +196,12 @@ int main(int argc, char *argv[]) {
             cout << "Inspecting minion: " <<  minion << endl;
             board.inspect(currentPlayerNum, minion);
         } else if (command == "hand") {
-            cout << "1: " << activePlayer->getHand().at(0)->getName() << endl;
-            cout << "2: " << activePlayer->getHand().at(1)->getName() << endl;
-            cout << "3: " << activePlayer->getHand().at(2)->getName() << endl;
-            cout << "4: " << activePlayer->getHand().at(3)->getName() << endl;
-            cout << "5: " << activePlayer->getHand().at(4)->getName() << endl;
+          activePlayer->showHand();
         } else if (command == "board") {
             cout << "board" << endl;
         } else if (command == "draw") {
             if (testing) {
-             //   activePlayer.drawFromDeck();
+             //   activePlayer->drawFromDeck();
                 cout << "draw" << endl;
             }
         } else if (command == "discard") {
