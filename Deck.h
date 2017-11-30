@@ -5,12 +5,12 @@
 #include "Card.h"
 
 class Deck {
-    public:
-        std::vector<Card *> cards;
+  public:
+    std::vector<std::shared_ptr<Card>> cards;
 
-        // when true, creates a deck containing every possible card
-        Deck(bool isFullDeck = false); 
-        void shuffle();
+    // when true, creates a deck containing every possible card
+    Deck(bool isFullDeck = false); 
+    void shuffle();
 };
 
 #endif

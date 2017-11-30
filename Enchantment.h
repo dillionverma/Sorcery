@@ -7,8 +7,8 @@
 class Enchantment: public Card { 
     
     public:
-    Enchantment(std::string name, int action, std::string info);
-
+      Enchantment(std::string name, int action, std::string info);
+      void display() override;
 };
 
 #endif

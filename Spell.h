@@ -6,7 +6,8 @@
 class Spell: public Card {
     
     public:
-    Spell(std::string, int cost, std::string info); 
+      Spell(std::string, int cost, std::string info); 
+      void display() override;
 };
 
 #endif
