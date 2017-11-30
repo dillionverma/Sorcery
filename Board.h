@@ -11,8 +11,8 @@ class Subject;
 class Board: public Observer{
   Player *playerOne = nullptr;
   Player *playerTwo = nullptr;
-  Ritual *ritualP1 = nullptr;
-  Ritual *ritualP2 = nullptr;
+  std::shared_ptr<Ritual> ritualP1 = nullptr;
+  std::shared_ptr<Ritual> ritualP2 = nullptr;
   std::vector<std::shared_ptr<Minion>> cardsP1;
   std::vector<std::shared_ptr<Minion>> cardsP2;
   public:
@@ -27,8 +27,8 @@ class Board: public Observer{
     void attackPlayer(int currentPlayer, int minion);
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
-    Ritual getRitual(Player player) const;
-    void setRitual(Ritual *ritual, Player player);
+    std::shared_ptr<Ritual> getRitual(Player player) const;
+    void setRitual(std::shared_ptr<Ritual> ritual, Player player);
     void display();
 };
 
