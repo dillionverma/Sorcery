@@ -2,27 +2,29 @@
 #define CARD_H
 #include <string>
 
+class Board; class Player;
 
 // abstract card class
 class Card {
-    public:    
-
+  public:    
     // constructor to initally create cards at beginning of game
-    Card(std::string name, int cost, std::string info);
+    Card(std::string name, int cost, std::string info, std::string type);
 
     // getters for private fields
     std::string getName() const;
-    int getCost() const;
     std::string getInfo() const;
-
-
-    protected:
+    std::string getType() const;
+    int getCost() const;
+  protected:
     std::string name;
     int cost;
     std::string info;
-    
-    private:    
-        virtual void display()=0;
+    std::string type;
+
+  //virtual ~Card();
+  private:    
+    virtual void display()=0;
+    virtual void notify(Board &b, Player &p)=0;
 };
 
 #endif

@@ -4,32 +4,37 @@
 #include <vector>
 #include "Card.h"
 #include "Deck.h"
-#include "State.h"
 #include "Board.h"
 #include "Minion.h"
+#include "Subject.h"
 
-class Player {
-    std::string name;
-    int health = 20;
-    int mana = 3;
-    int playerNum;
-    State state;
-    Deck deck = Deck();
-    std::vector<Card *> hand;
-    std::vector<Minion> grave;
+class Player: public Subject {
+  std::string name;
+  int health = 20;
+  int mana = 3;
+  int playerNum;
+  State state;
+  Deck deck = Deck();
+  std::vector<std::shared_ptr<Minion>> grave;
+  std::vector<std::shared_ptr<Card>> hand;
 
-    public:
-        Player(std::string name, int side);
-        void drawFromDeck();
-        void gainHealth(int amount);
-        void gainMana(int amount);
-        void setState(State newState);
-        State getState();
-        int getNum();
-        std::vector<Minion> &getGrave();
-        std::vector<Card *> &getHand();
-        void removeFromHand(Card *cardToRemove); 
-        int &getMana();
+  public:
+    Player(std::string name, int side);
+    void shuffleDeck(std::vector<Card *> deck);
+    void drawFromDeck();
+    void changeHealth(const int amount);
+    void changeMana(const int amount);
+    void setState(const State newState);
+    State getState() const;
+    int getNum() const;
+    int getHealth() const;
+    int getMana() const;
+    void showHand();
+    void notifyObservers() override;
+    void removeFromHand(Card *cardToRemove); 
+    int &getMana();
+    std::vector<std::shared_ptr<Minion>> &getGrave();
+    std::vector<std::shared_ptr<Card>> &getHand();
 };
 
 #endif

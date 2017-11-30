@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "Card.h"
 
+class Board; class Player;
+
 class Spell: public Card {
     
     public:
@@ -15,6 +17,8 @@ class Spell: public Card {
     //      and 0 is the ritual owned by player p
     void notify (Board &b, Player &p, int target = -1);
     void effect(Board &b, Player &p, int target = -1);
+    void display() override;
+    //void notify(Board &b, Player &p) override;
 };
 
 #endif

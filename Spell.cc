@@ -6,7 +6,7 @@
 using namespace std;
 
 Spell::Spell(string name, int cost, string info):
-    Card{name, cost, info} {}
+    Card{name, cost, info, "spell"} {}
 
 void Spell::notify(Board &b, Player &p, int target) {
     // ensure player can afford to play card
@@ -87,4 +87,5 @@ void Spell::effect(Board &b, Player &p, int target) {
             hand.push_back(&targetMin);
        }
     
+void Spell::display() {
 }
