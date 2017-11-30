@@ -6,7 +6,7 @@
 using namespace std;
 
 Spell::Spell(string name, int cost, string info):
-    Card{name, cost, info, "spell"} {}
+    Card{name, cost, info, "Spell"} {}
 
 void Spell::notify(Board &b, Player &p, int target) {
     // ensure player can afford to play card
@@ -27,9 +27,7 @@ void Spell::effect(Board &b, Player &p, int target) {
             // if ritual
             if (target == 0) {
                 // remove chosen ritual card
-                Ritual *ritual = &b.getRitual(p);
-                // remove ritual card on board
-                ritual = nullptr;
+                b.setRitual(nullptr, p);
             } else {
                 // if minion, send ith card to grave
                 b.toGrave(target, playerNum);
@@ -39,8 +37,13 @@ void Spell::effect(Board &b, Player &p, int target) {
        else if (name == "Blizzard") {
             vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
             // decrease damage of all minions for opposing player
-            for (int i = 0; i < minions.size(); i++) {
+            for (unsigned int i = 0; i < minions.size(); i++) {
+                // take away 2 damage
                 minions.at(i)->changeDefence(-2);
+                // minion moved to graveyard if dead
+                if (minions.at(i)->getDefence() <= 0) {
+                    b.toGrave(target, playerNum);
+                }
             }
         }
         // Destroy the top enchantment on target minion
@@ -57,14 +60,14 @@ void Spell::effect(Board &b, Player &p, int target) {
             grave.pop_back();
             hand.push_back(minionToRes);
             // set defense to 1
-            int minionDef = minionToRes->getDefence();
-            minionDef = 1;
+            int minionDefence = minionToRes->getDefence();
+            minionToRes->changeDefence(- (minionDefence - 1));
         }
         // Your ritual gains 3 recharges
         else if (name ==  "Recharge") {
-            Ritual &ritual = b.getRitual(p);
-            int numCharge = ritual.getNC();
-            numCharge += 3;
+            Ritual ritual = b.getRitual(p);
+            ritual.setNC(3);
+            b.setRitual(&ritual, p);
         }
         //Return target's minion to its owner's hand
         else if (name ==  "Unsummon") {
@@ -81,5 +84,3 @@ void Spell::display() {
     printCard(card);
 }
 
-void Spell::notify(Board &b, Player &p) {
-}

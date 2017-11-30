@@ -55,14 +55,6 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
 
 }
 
-Ritual &Board::getRitual(Player player) {
-    if (player.getNum() == 1) {
-        return *ritualP1;
-    } else {
-        return *ritualP2;
-    }
-
-}
 void Board::playCardP2(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerTwo->getHand().at(slot - 1); // slot - 1 becauase vector starts 0, slot starts 1
   playerTwo->getHand().erase(playerTwo->getHand().begin() + slot - 1); // must erase because we used "move" previous line
@@ -84,7 +76,6 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
 
   }
 }
-
 
 void Board::attackMinion(int currentPlayer, int minion, int otherMinion) {
   int otherPlayer = (currentPlayer == 1 ? 2 : 1);
@@ -112,6 +103,23 @@ void Board::notify(Player &p) {
       cards[i]->notify(*this, p);
   }
   ritual->notify(*this, p);
+}
+
+Ritual Board::getRitual(Player player) const {
+    if (player.getNum() == 1) {
+        return *ritualP1;
+    } else {
+        return *ritualP2;
+    }
+
+}
+
+void Board::setRitual(Ritual *ritual, Player player) {
+    if (player.getNum() == 1) {
+        ritualP1 = ritual;    
+    } else {
+        ritualP2 = ritual;
+    }
 }
 
 void Board::display() {

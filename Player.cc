@@ -76,9 +76,7 @@ void Player::removeFromHand(Card *card) {
     return;
 }
 
-int &Player::getMana() {
-    return mana;
-}
+
 void Player::display() {
     card_template_t card = display_player_card(playerNum, name, health, mana);
     printCard(card);

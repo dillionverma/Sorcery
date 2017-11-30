@@ -27,7 +27,8 @@ class Board: public Observer{
     void attackPlayer(int currentPlayer, int minion);
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
-    Ritual &getRitual(Player player);
+    Ritual getRitual(Player player) const;
+    void setRitual(Ritual *ritual, Player player);
     void display();
 };
 

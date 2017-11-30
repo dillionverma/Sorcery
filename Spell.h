@@ -18,7 +18,6 @@ class Spell: public Card {
     void notify (Board &b, Player &p, int target = -1);
     void effect(Board &b, Player &p, int target = -1);
     void display() override;
-    //void notify(Board &b, Player &p) override;
 };
 
 #endif

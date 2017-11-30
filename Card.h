@@ -25,7 +25,7 @@ class Card {
 
   //virtual ~Card();
   private:    
-    virtual void notify(Board &b, Player &p)=0;
+    virtual void notify(Board &b, Player &p, int target = -1)=0;
 };
 
 #endif

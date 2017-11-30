@@ -28,11 +28,10 @@ class Player: public Subject {
     State getState() const;
     int getNum() const;
     int getHealth() const;
-    int getMana() const;
     void showHand();
     void notifyObservers() override;
     void removeFromHand(Card *cardToRemove); 
-    int &getMana();
+    int getMana() const;
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
     void display();

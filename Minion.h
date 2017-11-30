@@ -2,7 +2,6 @@
 #define MINION_H
 #include <string>
 #include "Card.h"
-#include "Ability.h"
 
 class Board; class Player;
 
@@ -22,7 +21,7 @@ class Minion: public Card {
       void display() override;
       void attackMinion(Minion &m);
       void attackPlayer(Player &p);
-      void notify(Board &b, Player &p) override;
+      void notify(Board &b, Player &p, int target = -1) override;
 };
 
 #endif
