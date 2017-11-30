@@ -20,7 +20,7 @@ void Spell::notify(Board &b, Player &p, int target) {
 // note in this function, player can represent target player
 //      or the current player, depending on the spell.
 void Spell::effect(Board &b, Player &p, int target) {
-    int plrNum = p.getNum(); 
+    int playerNum = p.getNum(); 
     
         // Destroy target minion or ritual
         if (name == "Banish") {
@@ -32,24 +32,15 @@ void Spell::effect(Board &b, Player &p, int target) {
                 ritual = nullptr;
             } else {
                 // if minion, send ith card to grave
-                if (plrNum == 1) {
-                    b.toGraveP1(target);
-                } else {
-                    b.toGraveP2(target);
-                }
+                b.toGrave(target, playerNum);
             }
         }
         // Deal 2 Damage to all minions
        else if (name == "Blizzard") {
-            // cannot assign reference to nothing so much be done this way
-            vector<Minion> &minions = b.getCardsP1();
-            if (plrNum == 2) {
-                minions = b.getCardsP2();
-            }
+            vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
             // decrease damage of all minions for opposing player
             for (int i = 0; i < minions.size(); i++) {
-                int &defVal = minions.at(i).getDef();
-                defVal -= 2;
+                minions.at(i)->changeDefence(-2);
             }
         }
         // Destroy the top enchantment on target minion
@@ -59,8 +50,8 @@ void Spell::effect(Board &b, Player &p, int target) {
         // Resurrect the top minion in your graveyard and set its
         //    defense to 1
         else if (name ==  "Raise Dead") {
-            vector<Minion> grave = p.getGrave();
-            vector<Card *> hand = p.getHand();
+            vector<shared_ptr<Minion>> grave = p.getGrave();
+            vector<shared_ptr<Card>> hand = p.getHand();
             // most recent minion is at back of grave
             Minion minionToRes = grave.back();
             grave.pop_back();
@@ -77,15 +68,13 @@ void Spell::effect(Board &b, Player &p, int target) {
         }
         //Return target's minion to its owner's hand
         else if (name ==  "Unsummon") {
-            vector<Card *> &hand = p.getHand();            
-            vector<Minion> &minions = b.getCardsP1();
-            if (plrNum == 2) {
-                minions = b.getCardsP2();
-            }
+            vector<shared_ptr<Card>> &hand = p.getHand();            
+            vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
             Minion targetMin = minions.at(target);
             minions.erase(minions.begin() + target);
             hand.push_back(&targetMin);
        }
-    
+   
+}
 void Spell::display() {
 }
