@@ -77,4 +77,9 @@ void Spell::effect(Board &b, Player &p, int target) {
    
 }
 void Spell::display() {
+    card_template_t card = display_spell(name, cost, info);
+    printCard(card);
+}
+
+void Spell::notify(Board &b, Player &p) {
 }

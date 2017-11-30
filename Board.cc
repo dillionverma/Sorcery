@@ -113,3 +113,6 @@ void Board::notify(Player &p) {
   }
   ritual->notify(*this, p);
 }
+
+void Board::display() {
+}

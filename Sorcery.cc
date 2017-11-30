@@ -211,7 +211,7 @@ int main(int argc, char *argv[]) {
         } else if (command == "hand") {
           activePlayer->showHand();
         } else if (command == "board") {
-            cout << "board" << endl;
+            board.display();
         } else if (command == "draw") {
             if (testing) {
              //   activePlayer->drawFromDeck();

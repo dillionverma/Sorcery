@@ -14,8 +14,7 @@ class Minion: public Card {
     int abilityCost;
 
     public:
-      Minion(std::string name, int cost, std::string info, int attack, 
-          int defense, int abilityCost);
+      Minion(std::string name, int cost, std::string info, int attack, int defence, int abilityCost);
       void changeAttack(const int amount);
       void changeDefence(const int amount);
       int getAttack() const;

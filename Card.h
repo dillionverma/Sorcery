@@ -1,6 +1,7 @@
 #ifndef CARD_H
 #define CARD_H
 #include <string>
+#include "ascii_graphics.h"
 
 class Board; class Player;
 
@@ -15,6 +16,7 @@ class Card {
     std::string getInfo() const;
     std::string getType() const;
     int getCost() const;
+    virtual void display()=0;
   protected:
     std::string name;
     int cost;
@@ -23,7 +25,6 @@ class Card {
 
   //virtual ~Card();
   private:    
-    virtual void display()=0;
     virtual void notify(Board &b, Player &p)=0;
 };
 

@@ -28,6 +28,7 @@ class Board: public Observer{
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
     Ritual &getRitual(Player player);
+    void display();
 };
 
 #endif
