@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     bool graphics = false;
     Player *activePlayer = nullptr;
     Player *nonActivePlayer = nullptr;
+    srand(time(0));   // Seed Random Number Generator
 
     // change default state from command line arguments
     for (int i = 1; i < argc; ++i) { 

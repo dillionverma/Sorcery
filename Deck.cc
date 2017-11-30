@@ -97,7 +97,6 @@ Deck::Deck(bool isFullDeck) {
 
 // function for randomness factor
 int myrandom (int i) {  
-  srand(time(0));   // Seed Random Number Generator
   return std::rand()%i;
 }
 
