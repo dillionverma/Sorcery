@@ -30,7 +30,7 @@ class Player: public Subject {
     int getHealth() const;
     void showHand();
     void notifyObservers() override;
-    void removeFromHand(Card *cardToRemove); 
+    void removeFromHand(int slot); 
     int getMana() const;
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
