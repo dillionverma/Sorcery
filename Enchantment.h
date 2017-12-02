@@ -4,11 +4,12 @@
 #include "Deck.h"
 #include "Player.h"
 #include "Card.h"
+#include "Decorator.h"
+#include "Component.h"
 
 class Board; class Player;
 
-// enchantment will be a decorator
-class Enchantment: public Card { 
+class Enchantment: public Card, public Component { 
     public:
       Enchantment(std::string name, int action, std::string info);
       void display() override;

@@ -26,7 +26,7 @@ void blizzard(Board &b, int playerNum) {
         minions.at(i)->changeDefence(-2);                
         // minion moved to graveyard if dead
         if (minions.at(i)->getDefence() <= 0) {
-            b.toGrave(i, playerNum);
+            b.toGrave(i + 1, playerNum);
         }
     }
 }

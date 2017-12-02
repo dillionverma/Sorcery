@@ -12,17 +12,17 @@ class Minion: public Card {
     // "Minions start with zero actions"
     int action = 0;
     int abilityCost;
-    std::vector<std::string> enchantments;
-
+    int numEnchantments = 0;
     public:
       Minion(std::string name, int cost, std::string info, int attack, int defence, int abilityCost);
       void changeAttack(const int amount);
       void changeDefence(const int amount);
-      void changeAC(const int amount);
-      void addEnchantment(const std::string newEnchant);
+      void changeAC(const int amount); 
+      void changeEnchants(const int num);
       int getAttack() const;
       int getDefence() const;
       int getAC() const;
+      int getNumEnchants() const;
       std::vector<std::string> getEnchants() const;
       void display() override;
       void attackMinion(Minion &m);
