@@ -59,7 +59,6 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
       playerOne->notifyObservers();
       playerTwo->setState(State::MinionEnterOpp);
       playerTwo->notifyObservers();
-      cout << "Minion added to P1 field: " << cardsP1.back()->getName() << endl;
     } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
     } else if (c->getType() == "Ritual") {
@@ -86,7 +85,6 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
       playerTwo->notifyObservers();
       playerOne->setState(State::MinionEnterOpp);
       playerOne->notifyObservers();
-      cout << "Minion added to P2 field: " << cardsP2.back()->getName() << endl;
     } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
     } else if (c->getType() == "Ritual") {
