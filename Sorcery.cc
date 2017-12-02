@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
         cout << "Player 2, please enter your name:" << endl;
         cin >> playerTwoName;
     }
-    
+
     cout << "Welcome, " << playerOneName << " and " << playerTwoName << "!" << endl;
 
     // Create players - this also shuffles and sets up decks and hands
@@ -107,9 +107,17 @@ int main(int argc, char *argv[]) {
         } else if (command == "end") {
             // end of turn events occur for current player
             cout << "end" << endl;
+            activePlayer->setState(State::EndTurn);
+            activePlayer->notifyObservers();
+            nonActivePlayer->setState(State::EndTurnOpp);
+            nonActivePlayer->notifyObservers();
             swap(activePlayer, nonActivePlayer);
             // activePlayer.updateMana(activePlayer.mana++);
-             activePlayer->drawFromDeck();
+            activePlayer->drawFromDeck();
+            activePlayer->setState(State::StartTurn);
+            activePlayer->notifyObservers();
+            nonActivePlayer->setState(State::StartTurnOpp);
+            nonActivePlayer->notifyObservers();
             // beginning of turn events occur for new player
         } else if (command == "quit") {
             break;
@@ -162,14 +170,14 @@ int main(int argc, char *argv[]) {
                 } else {
                     cout << "Playing card: " << card << " on player " << targetPlayer << "'s minion: " << stoi(targetCard) << endl;
                     //card.notify(g, targetPlater, stoi(targetCard);
-               }
+                }
             } else {
                 cout << "Playing card: " << card << endl;
                 // card.notify(b, currentPlayer);
                 if (currentPlayerNum == 1) { // if active player is P1
-                  board.playCardP1(card);
+                    board.playCardP1(card);
                 } else {
-                  board.playCardP2(card);
+                    board.playCardP2(card);
                 }
             }
         } else if (command == "use") {
@@ -201,20 +209,20 @@ int main(int argc, char *argv[]) {
             } else {
                 cout << "Using card: " << card << endl;
                 //card.notify(b, activePlayer);
-           }
-           // remove card from hand
-           // activePlayer.removeCard(card);
+            }
+            // remove card from hand
+            // activePlayer.removeCard(card);
         } else if (command == "inspect") {
             cin >> minion;
             cout << "Inspecting minion: " <<  minion << endl;
             board.inspect(currentPlayerNum, minion);
         } else if (command == "hand") {
-          activePlayer->showHand();
+            activePlayer->showHand();
         } else if (command == "board") {
             board.display();
         } else if (command == "draw") {
             if (testing) {
-             //   activePlayer->drawFromDeck();
+                //   activePlayer->drawFromDeck();
                 cout << "draw" << endl;
             }
         } else if (command == "discard") {

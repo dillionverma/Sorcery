@@ -34,7 +34,7 @@ class Player: public Subject {
     int getMana() const;
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
-    void display();
+    card_template_t display();
 };
 
 #endif

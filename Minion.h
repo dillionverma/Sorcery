@@ -8,20 +8,22 @@ class Board; class Player;
 class Minion: public Card {
     int attack;
     int defence;
+    std::string triggeredAbility;
     // "Minions start with zero actions"
     int action = 0;
     int abilityCost;
 
     public:
-      Minion(std::string name, int cost, std::string info, int attack, int defence, int abilityCost);
+      Minion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
       void changeAttack(const int amount);
       void changeDefence(const int amount);
       int getAttack() const;
       int getDefence() const;
-      void display() override;
+      card_template_t display() override;
       void attackMinion(Minion &m);
       void attackPlayer(Player &p);
       void notify(Board &b, Player &p, int target = -1) override;
+      void trigger(Board &b, Player &p);
 };
 
 #endif

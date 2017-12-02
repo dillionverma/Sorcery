@@ -19,6 +19,6 @@ class Ritual: public Card {
       int getAC() const;
       void setNC(const int newNC);
       void setAC(const int newAC);
-      void display() override;
+      card_template_t display() override;
 };
 #endif

@@ -48,20 +48,22 @@ Deck::Deck(bool isFullDeck) {
             // constructors for various card types
             if (type == "Minion") {
                 // Minion has more info to take in
-                string tempAtk, tempDef, tempAC;
-                int attack, defense, abilityCost;
+                string tempAtk, tempDef, tempAC, triggeredAbility;
+                int attack, defence, abilityCost;
+
+                getline(cardVals, triggeredAbility, '|');
 
                 getline(cardVals, tempAtk, '|');
                 attack = stoi(tempAtk);
 
                 getline(cardVals, tempDef, '|');
-                defense = stoi(tempDef);
+                defence = stoi(tempDef);
 
                 getline(cardVals, tempAC, '|');
                 abilityCost = stoi(tempAC);
 
                 shared_ptr<Card> newMinion = make_shared<Minion>(name, cost, description,
-                        attack, defense, abilityCost);
+                        attack, defence, triggeredAbility, abilityCost);
                 cards.push_back(newMinion);
             }
 

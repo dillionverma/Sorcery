@@ -42,9 +42,12 @@ void Player::drawFromDeck() {
 }
 
 void Player::showHand() { 
-    for (auto card : hand) {
-        card->display();
+  for (int i = 0; i < cardHeight; ++i) {
+    for (auto c:hand) {
+      cout << c->display()[i];
     }
+    cout << endl;
+  }
 }
 
 // Constant Getters
@@ -77,8 +80,8 @@ void Player::removeFromHand(Card *card) {
 }
 
 
-void Player::display() {
+card_template_t Player::display() {
     card_template_t card = display_player_card(playerNum, name, health, mana);
-    printCard(card);
+    return card;
 }
 

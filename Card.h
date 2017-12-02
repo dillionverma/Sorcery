@@ -16,7 +16,7 @@ class Card {
     std::string getInfo() const;
     std::string getType() const;
     int getCost() const;
-    virtual void display()=0;
+    virtual card_template_t display()=0;
   protected:
     std::string name;
     int cost;
