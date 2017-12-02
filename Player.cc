@@ -44,9 +44,12 @@ void Player::drawFromDeck() {
 void Player::showHand() { 
   for (int i = 0; i < cardHeight; ++i) {
     for (auto c:hand) {
-      cout << c->display()[i];
+      if (c->getType() == "Minion") cout << green << c->display()[i];
+      if (c->getType() == "Enchantment") cout << cyan << c->display()[i];
+      if (c->getType() == "Ritual") cout << magenta << c->display()[i];
+      if (c->getType() == "Spell") cout << blue << c->display()[i];
     }
-    cout << endl;
+    cout << reset << endl;
   }
 }
 

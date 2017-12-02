@@ -100,7 +100,7 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
 }
 
 void Board::attackMinion(int currentPlayer, int minion, int otherMinion) {
-  int otherPlayer = (currentPlayer == 1) ? 2 : 1;
+  int otherPlayer = (currentPlayer == 1 ? 2 : 1);
   shared_ptr<Minion> m1 = getCards(currentPlayer).at(minion - 1);
   shared_ptr<Minion> m2 = getCards(otherPlayer).at(otherMinion - 1);
   m1->attackMinion(*m2);
@@ -155,37 +155,37 @@ void Board::display() {
   bool p2Grave = (playerTwo->getGrave().size() != 0);
 
   // Print top border of board
-  cout << EXTERNAL_BORDER_CHAR_TOP_LEFT;
+  cout << yellow << EXTERNAL_BORDER_CHAR_TOP_LEFT;
   for (int i = 0; i < boardWidth; ++i) cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
   cout << EXTERNAL_BORDER_CHAR_TOP_RIGHT << endl;
 
   // Print first row
   for (int i = 0; i < cardHeight; ++i) {
-    cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    cout << EXTERNAL_BORDER_CHAR_UP_DOWN << reset;
     if (ritualP1) {
-      cout << ritualP1->display()[i];
+      cout << cyan << ritualP1->display()[i] << reset;
     } else {
-      cout << CARD_TEMPLATE_EMPTY[i];
+      cout << yellow << CARD_TEMPLATE_EMPTY[i];
     }
-    cout << CARD_TEMPLATE_EMPTY[i];
-    cout << playerOne->display()[i];
-    cout << CARD_TEMPLATE_EMPTY[i];
+    cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
+    cout << white << playerOne->display()[i] << reset;
+    cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
     if (p1Grave) {
-      cout << playerOne->getGrave().back()->display()[i];
+      cout << red << playerOne->getGrave().back()->display()[i] << reset;
     } else {
-      cout << CARD_TEMPLATE_EMPTY[i];
+      cout << yellow << CARD_TEMPLATE_EMPTY[i];
     }
     cout << EXTERNAL_BORDER_CHAR_UP_DOWN << endl;
   }
 
   // Print second row
   for (int i = 0; i < cardHeight; ++i) {
-    cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    cout << EXTERNAL_BORDER_CHAR_UP_DOWN << reset;
     for (int j = 0; j < p1mc; ++j) {
-      cout << cardsP1.at(j)->display()[i];
+      cout << green << cardsP1.at(j)->display()[i] << reset;
     }
     for (int j = p1mc; j < 5; ++j) {
-      cout << CARD_TEMPLATE_EMPTY[i];
+      cout << yellow << CARD_TEMPLATE_EMPTY[i];
     }
     cout << EXTERNAL_BORDER_CHAR_UP_DOWN << endl;
   }
@@ -195,37 +195,37 @@ void Board::display() {
 
   // Print third row
   for (int i = 0; i < cardHeight; ++i) {
-    cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    cout << yellow << EXTERNAL_BORDER_CHAR_UP_DOWN << reset;
     for (int j = 0; j < p2mc; ++j) {
-      cout << cardsP2.at(j)->display()[i];
+      cout << green << cardsP2.at(j)->display()[i] << reset;
     }
     for (int j = p2mc; j < 5; ++j) {
-      cout << CARD_TEMPLATE_EMPTY[i];
+      cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
     }
-    cout << EXTERNAL_BORDER_CHAR_UP_DOWN << endl;
+    cout << yellow << EXTERNAL_BORDER_CHAR_UP_DOWN << reset << endl;
   }
 
   // Print fourth row
   for (int i = 0; i < cardHeight; ++i) {
-    cout << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    cout << yellow << EXTERNAL_BORDER_CHAR_UP_DOWN << reset;
     if (ritualP2) {
-      cout << ritualP2->display()[i];
+      cout << cyan << ritualP2->display()[i] << reset;
     } else {
-      cout << CARD_TEMPLATE_EMPTY[i];
+      cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
     }
-    cout << CARD_TEMPLATE_EMPTY[i];
-    cout << playerTwo->display()[i];
-    cout << CARD_TEMPLATE_EMPTY[i];
+    cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
+    cout << white << playerTwo->display()[i] << reset;
+    cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
     if (p2Grave) {
-      cout << playerTwo->getGrave().back()->display()[i];
+      cout << red << playerTwo->getGrave().back()->display()[i] << reset;
     } else {
-      cout << CARD_TEMPLATE_EMPTY[i];
+      cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
     }
-    cout << EXTERNAL_BORDER_CHAR_UP_DOWN << endl;
+    cout << yellow << EXTERNAL_BORDER_CHAR_UP_DOWN << reset << endl;
   }
 
   // Print bottom border of board
-  cout << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;
+  cout << yellow << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;
   for (int i = 0; i < boardWidth; ++i) cout << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
-  cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << endl;
+  cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << reset << endl;
 }
