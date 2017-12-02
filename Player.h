@@ -14,12 +14,12 @@ class Player: public Subject {
   int mana = 3;
   int playerNum;
   State state;
-  Deck deck = Deck();
+  Deck deck;
   std::vector<std::shared_ptr<Minion>> grave;
   std::vector<std::shared_ptr<Card>> hand;
 
   public:
-    Player(std::string name, int side);
+    Player(std::string name, int side, std::string deckfile = "default.deck");
     void shuffleDeck(std::vector<Card *> deck);
     void drawFromDeck();
     void changeHealth(const int amount);
