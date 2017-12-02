@@ -8,24 +8,14 @@
 
 using namespace std;
 
-Player::Player(string name, int playerNum) : name {name}, playerNum {playerNum} {
-    state = State::None;
-    //Create initial Deck - note this is all cards and not players deck
-    Deck allCards = Deck(true);
-    // Randomly choose 20 cards from all cards vector to go in deck
-    // cards already shuffled in Deck constructor
-    // put cards in deck
-    for (int i = 0; i < 20; ++i) {
-        // point to instances of classes that inherit from Card but are not abstract
-        shared_ptr<Card> cardToMove = allCards.cards.back();
-        allCards.cards.pop_back();
-        if (i < 15) {
-            deck.cards.push_back(cardToMove);
-       } else {
-        // put last five cards in hand (all random)
-            hand.push_back(cardToMove);
-       }
+Player::Player(string name, int playerNum, string deckfile) : name {name}, playerNum {playerNum}, state{State::None}, deck{deckfile} {
+  for (int i = 0; i < 5; ++i) {
+    if (deck.cards.back()) { // check if exist
+      shared_ptr<Card> c = deck.cards.back();
+      hand.push_back(c);
+      deck.cards.pop_back();
     }
+  }
 }    
    
 void Player::drawFromDeck() {

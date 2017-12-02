@@ -1,0 +1,1 @@
+Raise Dead|Spell|"Resurrect the top minion in your graveyard and set its defence to 1"|1|
