@@ -67,9 +67,8 @@ void Player::notifyObservers() {
 }
 
 
-void Player::removeFromHand(Card *card) {
-    // Michelle TODO: Implement 
-    return;
+void Player::removeFromHand(int slot) {
+  hand.erase(hand.begin() + slot - 1);
 }
 
 
