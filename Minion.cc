@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Minion.h"
 #include "Player.h"
 
@@ -10,9 +11,16 @@ Minion::Minion(string name, int cost, string info, int attack, int defence, int 
 
 void Minion::changeAttack(int amount) { attack += amount; }
 void Minion::changeDefence(int amount) { defence += amount; }
+void Minion::changeAC(int amount) { abilityCost += amount; }
+
+void Minion::addEnchantment(string newEnchant) {
+    enchantments.push_back(newEnchant);
+}
 
 int Minion::getAttack() const { return attack;}
 int Minion::getDefence() const { return defence;}
+int Minion::getAC() const { return abilityCost; }
+vector<string> Minion::getEnchants() const { return enchantments; }
 
 void Minion::display() {
     // note: the manifest must be altered to support printing minions with abilities

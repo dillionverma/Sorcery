@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
     // game begins within no command, so first effects must occur right away
     // activePlayer.updateMana(activePlayer.mana++);
     // activePlayer.drawFromDeck();
-
+    
     string command;
 
     while(true) {
