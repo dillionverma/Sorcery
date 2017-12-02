@@ -19,9 +19,7 @@ void GiantStrength::effect(Board &b, Player &p, int target) {
     if ((int)minions.size() >= target) {
         shared_ptr<Minion> targetMin = minions.at(target - 1);
         targetMin->changeDefence(2);
-        targetMin->changeAttack(2);
-         
-        targetMin->addEnchantment("Giant Strength");
+        targetMin->changeAttack(2);     
     } else {
         cout << "Invalid target minion. No minion exists in that position." << endl;
     }

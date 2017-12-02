@@ -1,5 +1,5 @@
 #include <vector>
-#include "Enrage.h"
+#include "Silence.h"
 #include "Board.h"
 #include "Player.h"
 
@@ -9,7 +9,7 @@ Silence::Silence(Component *component): Decorator(component) {
     comp = component;    
 }
 
-void Enrage::effect(Board &b, Player &p, int target) {
+void Silence::effect(Board &b, Player &p, int target) {
 
     // comp->effect(b, p, target);
     // Enchanted minion cannot use abilites

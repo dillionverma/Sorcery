@@ -9,7 +9,7 @@ Haste::Haste(Component *component): Decorator(component) {
     comp = component;    
 }
 
-void Enrage::effect(Board &b, Player &p, int target) {
+void Haste::effect(Board &b, Player &p, int target) {
     // comp->effect(b, p, target);
     // Enchanted minion gains +1 action each turn
     // part p

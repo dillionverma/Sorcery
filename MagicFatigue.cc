@@ -9,7 +9,7 @@ MagicFatigue::MagicFatigue(Component *component): Decorator(component) {
     comp = component;    
 }
 
-void Enrage::effect(Board &b, Player &p, int target) {
+void MagicFatigue::effect(Board &b, Player &p, int target) {
 
     comp->effect(b, p, target);
 
@@ -19,7 +19,6 @@ void Enrage::effect(Board &b, Player &p, int target) {
     if ((int)minions.size() >= target) {
         shared_ptr<Minion> targetMin = minions.at(target - 1);
         targetMin->changeAC(2);
-        targetMin->addEnchantment("Magic Fatigue");
     } else {
         cout << "Invalid target minion. No minion exists in that position." << endl;
     }

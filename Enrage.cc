@@ -22,8 +22,6 @@ void Enrage::effect(Board &b, Player &p, int target) {
         int minionAttack = targetMin->getAttack();
         targetMin->changeDefence(minionDefence);
         targetMin->changeAttack(minionAttack);
-        
-        targetMin->addEnchantment("Enrage");
     } else {
         cout << "Invalid target minion. No minion exists in that position." << endl;
     }
