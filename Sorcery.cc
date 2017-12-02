@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
 
     // Create players - this also shuffles and sets up decks and hands
     Board board = Board();
-    Player playerOne(playerOneName, 1);
-    Player playerTwo(playerTwoName, 2);
+    Player playerOne(playerOneName, 1, deck1);
+    Player playerTwo(playerTwoName, 2, deck2);
     activePlayer = &playerOne;
     nonActivePlayer = &playerTwo;
     board.setP1(&playerOne);

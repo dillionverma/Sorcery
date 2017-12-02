@@ -10,9 +10,11 @@ using namespace std;
 
 Player::Player(string name, int playerNum, string deckfile) : name {name}, playerNum {playerNum}, state{State::None}, deck{deckfile} {
   for (int i = 0; i < 5; ++i) {
-    shared_ptr<Card> c = deck.cards.back();
-    hand.push_back(c);
-    deck.cards.pop_back();
+    if (deck.cards.back()) { // check if exist
+      shared_ptr<Card> c = deck.cards.back();
+      hand.push_back(c);
+      deck.cards.pop_back();
+    }
   }
 }    
    
