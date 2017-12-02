@@ -6,7 +6,7 @@
 #include <sstream>
 #include <memory>
 #include "Deck.h"
-#include "Minion.h"
+#include "BasicMinion.h"
 #include "Spell.h"
 #include "Enchantment.h"
 #include "Ritual.h"
@@ -45,7 +45,7 @@ Deck::Deck(string deckfile) {
         defence = stoi(tempDef);
         abilityCost = stoi(tempAC);
 
-        shared_ptr<Card> newMinion = make_shared<Minion>(name, cost, description,
+        shared_ptr<Card> newMinion = make_shared<BasicMinion>(name, cost, description,
                 attack, defence, triggeredAbility, abilityCost);
         cards.push_back(newMinion);
     }

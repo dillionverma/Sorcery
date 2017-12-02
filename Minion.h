@@ -6,28 +6,29 @@
 #include "Player.h"
 #include "Card.h"
 
+class Enchantment;
+
 class Minion: public Card {
-    int attack;
-    int defence;
-    std::string triggeredAbility;
-    // "Minions start with zero actions"
-    int action = 0;
-    int abilityCost;
     protected:
-        <shared_ptr<Enchantment>> enchantments;
+        std::shared_ptr<Enchantment> enchantments;
+        int attack;
+        int defence;
+        std::string triggeredAbility;
+        // "Minions start with zero actions"
+        int action = 0;
+        int abilityCost;
     public:
-      Minion(std::string name, int cost, std::string info, int attack, int defence, int abilityCost);
+      Minion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
+      card_template_t display()=0;
       virtual void changeAttack(const int amount)=0;
       virtual void changeDefence(const int amount)=0;
       virtual void changeAC(const int amount)=0; 
-      virtual int getAttack()=0 const;
-      virtual int getDefence()=0 const;
-      virtual int getAC()=0 const;
-      virtual void display() override;
-      virtual void attackMinion(Minion &m);
-      virtual void attackPlayer(Player &p);
-      void notify(Board &b, Player &p, int target = -1) override;
-      void trigger(Board &b, Player &p);
+      virtual int getAttack() const=0;
+      virtual int getDefence() const=0;
+      virtual int getAC() const=0;
+      virtual void attackMinion(Minion &m)=0;
+      virtual void attackPlayer(Player &p)=0;
+      virtual void notify(Board &b, Player &p, int target = -1)=0;
 };
 
 #endif

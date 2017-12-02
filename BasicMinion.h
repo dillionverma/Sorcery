@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Card.h"
+#include "Minion.h"
 
 class Board; class Player;
 
@@ -13,18 +14,18 @@ class BasicMinion: public Minion {
     int action = 0;
     int abilityCost;
     public:
-      BasicMinion(std::string name, int cost, std::string info, int attack, int defence, int abilityCost);
-      void changeAttack(const int amount);
-      void changeDefence(const int amount);
-      void changeAC(const int amount); 
-      int getAttack() const;
-      int getDefence() const;
-      int getAC() const;
-      int getNumEnchants() const;
-      void display() override;
-      void attackMinion(Minion &m);
-      void attackPlayer(Player &p);
+      BasicMinion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
+      card_template_t display() override;
+      void changeAttack(const int amount) override;
+      void changeDefence(const int amount) override;
+      void changeAC(const int amount) override; 
+      int getAttack() const override;
+      int getDefence() const override;
+      int getAC() const override;
+      void attackMinion(Minion &m) override;
+      void attackPlayer(Player &p) override;
       void notify(Board &b, Player &p, int target = -1) override;
+      void trigger(Board &b, Player &p);
 };
 
 #endif
