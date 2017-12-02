@@ -8,24 +8,14 @@
 
 using namespace std;
 
-Player::Player(string name, int playerNum) : name {name}, playerNum {playerNum} {
-    state = State::None;
-    //Create initial Deck - note this is all cards and not players deck
-    Deck allCards = Deck(true);
-    // Randomly choose 20 cards from all cards vector to go in deck
-    // cards already shuffled in Deck constructor
-    // put cards in deck
-    for (int i = 0; i < 20; ++i) {
-        // point to instances of classes that inherit from Card but are not abstract
-        shared_ptr<Card> cardToMove = allCards.cards.back();
-        allCards.cards.pop_back();
-        if (i < 15) {
-            deck.cards.push_back(cardToMove);
-       } else {
-        // put last five cards in hand (all random)
-            hand.push_back(cardToMove);
-       }
+Player::Player(string name, int playerNum, string deckfile) : name {name}, playerNum {playerNum}, state{State::None}, deck{deckfile} {
+  for (int i = 0; i < 5; ++i) {
+    if (deck.cards.back()) { // check if exist
+      shared_ptr<Card> c = deck.cards.back();
+      hand.push_back(c);
+      deck.cards.pop_back();
     }
+  }
 }    
    
 void Player::drawFromDeck() {
@@ -42,9 +32,15 @@ void Player::drawFromDeck() {
 }
 
 void Player::showHand() { 
-    for (auto card : hand) {
-        card->display();
+  for (int i = 0; i < cardHeight; ++i) {
+    for (auto c:hand) {
+      if (c->getType() == "Minion") cout << green << c->display()[i];
+      if (c->getType() == "Enchantment") cout << cyan << c->display()[i];
+      if (c->getType() == "Ritual") cout << magenta << c->display()[i];
+      if (c->getType() == "Spell") cout << blue << c->display()[i];
     }
+    cout << reset << endl;
+  }
 }
 
 // Constant Getters
@@ -71,14 +67,13 @@ void Player::notifyObservers() {
 }
 
 
-void Player::removeFromHand(Card *card) {
-    // Michelle TODO: Implement 
-    return;
+void Player::removeFromHand(int slot) {
+  hand.erase(hand.begin() + slot - 1);
 }
 
 
-void Player::display() {
+card_template_t Player::display() {
     card_template_t card = display_player_card(playerNum, name, health, mana);
-    printCard(card);
+    return card;
 }
 

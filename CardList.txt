@@ -1,31 +1,31 @@
 // MINIONS
-// Name, Type, Description, Cost, Attack, Defense, Ability Cost (no description = no ability,
+// Name, Type, Description, Cost, Triggered Ability, Attack, Defense, Ability Cost (no description = no ability,
 //   description, no ability cost = triggered ability, description, ability cost = activated ability)
-Air Elemental|Minion|/|0|1|1|0|
-Earth Elemental|Minion|/|3|4|4|0|
-Fire Elemental|Minion|"Whenever an opponents's minion enters play, deal 1 damage to it."|2|2|2|0|
-Potion Seller|Minion|"At the end of your turn, all minions gain +0/+1."|2|1|3|0|
-Novice Pyromancer|Minion|"Deal 1 damage to target minion"|1|0|1|1|
-Apprentice Summoner|Minion|"Summon a 1/1 air elemental"|1|1|1|1|
-Master Summoner|Minion|"Summon up to three 1/1 air elementals"|3|2|3|2|
-Bone Golem|Minion|"Gain +1/+1 whenever a minion leaved play."|2|1|3|0|
-// SPELLS
-// Name, Type, Description, Cost
+Air Elemental|Minion|""|0|""|1|1|0|
+Earth Elemental|Minion|""|3|""|4|4|0|
+Fire Elemental|Minion|"Whenever an opponents's minion enters play, deal 1 damage to it."|2|Deal One|2|2|0|
+Potion Seller|Minion|"At the end of your turn, all minions gain +0/+1."|2|Gain Defence|1|3|0|
+Novice Pyromancer|Minion|"Deal 1 damage to target minion"|1|""|0|1|1|
+Apprentice Summoner|Minion|"Summon a 1/1 air elemental"|1|""|1|1|1|
+Master Summoner|Minion|"Summon up to three 1/1 air elementals"|3|""|2|3|2|
+Bone Golem|Minion|"Gain +1/+1 whenever a minion leaved play."|2|Gain Both|1|3|0|
+/ SPELLS
+/ Name, Type, Description, Cost
 Banish|Spell|"Destroy target minion or ritual"|2|
 Unsummon|Spell|"Return target minion to its owner's hand"|1|
 Recharge|Spell|"Your ritual gains 3 charges"|1|
 Disenchant|Spell|"Destroy the top enchantment on target minion"|1|
 Raise Dead|Spell|"Resurrect the top minion in your graveyard and set its defence to 1"|1|
 Blizzard|Spell|"Deal 2 damage to all minions"|3|
-// ENCHANTMENTS
-// Name, Type, Description, Cost
-Giant Strength|Enchantment|/|1|
-Magic Fatigue|Enchantment|/|0|
+/ ENCHANTMENTS
+/ Name, Type, Description, Cost
+Giant Strength|Enchantment|""|1|
+Magic Fatigue|Enchantment|""|0|
 Silence|Enchantment|"Enchanted minion's activated ability costs 2 more"|0|
-Enrage|Enchantment|/|2|
+Enrage|Enchantment|""|2|
 Haste|Enchantment|"Enchanted minion gains +1 action each turn"|1|
-// RITUALS
-// Name, Type, Description, Cost,  number of charges, activation cost
+/ RITUALS
+/ Name, Type, Description, Cost,  number of charges, activation cost
 Dark Ritual|Ritual|"At the start of your turn, gain 1 magic"|0|5|1|
 Aura of Power|Ritual|"Whenever a minion enter a play under your control, it gains +1/+1"|1|4|1|
 Standstill|Ritual|"Whenever a minion enter a play, destroy it"|3|4|2|

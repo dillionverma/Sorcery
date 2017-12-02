@@ -8,8 +8,17 @@
 #define SIMPLE_GRAPHICS 0
 
 typedef std::vector<std::string> card_template_t;
+const int boardWidth = 165;
+const int cardHeight = 11;
+const std::string red("\033[0;31m");    // grave
+const std::string green("\033[1;32m");  // minion
+const std::string yellow("\033[1;33m"); // board
+const std::string cyan("\033[0;36m");   // enchantment
+const std::string magenta("\033[0;35m");// ritual
+const std::string blue("\033[0;34m");   // spell
+const std::string white("\033[0;37m");    // player
+const std::string reset("\033[0m");     // 
 
-void printCard(card_template_t);
 
 card_template_t display_minion_no_ability(std::string name,int cost,int attack,int defence);
 card_template_t display_minion_triggered_ability(std::string name,int cost,int attack,int defence,

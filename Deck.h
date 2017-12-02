@@ -10,7 +10,7 @@ class Deck {
     std::vector<std::shared_ptr<Card>> cards;
 
     // when true, creates a deck containing every possible card
-    Deck(bool isFullDeck = false); 
+    Deck(std::string deckfile); 
     void shuffle();
 };
 

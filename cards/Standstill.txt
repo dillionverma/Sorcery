@@ -1,0 +1,1 @@
+Standstill|Ritual|"Whenever a minion enter a play, destroy it"|3|4|2|
