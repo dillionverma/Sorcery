@@ -1,6 +1,8 @@
-#include "Component.h"
+#include "Minion.h"
 #include "Decorator.h"
 
-Decorator::Decorator(Component *component): component{component} {}
+using namespace std;
 
-//Decorator::~Decorator() { delete component; }
+Decorator::Decorator(shared_ptr<Minion> minion): minion {minion} {}
+
+Decorator::~Decorator() { delete minion; }

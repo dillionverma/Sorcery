@@ -1,13 +1,13 @@
 #ifndef DECORATOR_H
 #define DECORATOR_H
-#include "Component.h"
+#include "Minion.h"
 
-class Decorator: public Component {
+class Decorator: public Minion {
     protected:
-    Component *component;
+        std::shared_ptr<Minion> minion;
     public:
-    Decorator(Component *component);
-//    virtual ~Decorator();
+        Decorator(std::shared_ptr<Minion> minion);
+        virtual ~Decorator()=0;
 };
 
 #endif
