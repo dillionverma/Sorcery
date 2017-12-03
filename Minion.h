@@ -2,13 +2,14 @@
 #define MINION_H
 #include <string>
 #include <vector>
-#include "Board.h"
-#include "Player.h"
+#include <memory>
 #include "Card.h"
+
+class Enchantment; class Player; class Board;
 
 class Minion: public Card {
     protected:
-        <shared_ptr<Enchantment>> enchantments;
+        std::shared_ptr<Enchantment> enchantments;
         int attack;
         int defence;
         std::string triggeredAbility;
@@ -29,6 +30,7 @@ class Minion: public Card {
         virtual void changeDefence(const int amount)=0;
         virtual void changeAC(const int amount)=0; 
         virtual void changeAction(const int amount)=0;
+        virtual void setAction(const int amount)=0;
         virtual int getAttack() const=0;
         virtual int getDefence() const=0;
         virtual int getAC() const=0;

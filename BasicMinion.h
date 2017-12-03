@@ -17,6 +17,7 @@ class BasicMinion: public Minion {
       void changeDefence(const int amount) override;
       void changeAC(const int amount) override; 
       void changeAction(const int amount) override;
+      void setAction(const int amount) override;
       int getAttack() const override;
       int getDefence() const override;
       int getAC() const override;

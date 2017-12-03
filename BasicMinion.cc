@@ -16,6 +16,7 @@ void BasicMinion::changeAttack(int amount) { attack += amount; }
 void BasicMinion::changeDefence(int amount) { defence += amount; }
 void BasicMinion::changeAC(int amount) { abilityCost += amount; }
 void BasicMinion::changeAction(const int amount) { action += amount; }
+void BasicMinion::setAction(const int amount) { action = amount; }
 
 int BasicMinion::getAttack() const { return attack;}
 int BasicMinion::getDefence() const { return defence;}
@@ -37,6 +38,9 @@ void BasicMinion::attackPlayer(Player &p) {
 }
 
 void BasicMinion::notify(Board &b, Player &p, int target) {
+    if (p.getState() == State::StartTurn) {
+        setAction(1);
+    }
     trigger(b, p);
 }
 

@@ -74,8 +74,7 @@ int main(int argc, char *argv[]) {
     playerOne.addObserver(&board);
     playerTwo.addObserver(&board);
 
-    // game begins within no command, so first effects must occur right away
-    // activePlayer.updateMana(activePlayer.mana++);
+    activePlayer->changeMana(1);
     string command;
 
     while(true) {

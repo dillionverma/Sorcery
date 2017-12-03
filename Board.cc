@@ -1,10 +1,12 @@
 #include <iostream>
+#include <algorithm>
 #include "Board.h"
 #include "Card.h"
 #include "GiantStrength.h"
 #include "Enrage.h"
 #include "Silence.h"
 #include "MagicFatigue.h"
+#include "Haste.h"
 
 using namespace std;
 
@@ -26,31 +28,12 @@ void Board::endTurn(Player *activePlayer, Player *nonActivePlayer) {
   nonActivePlayer->notifyObservers();
   //swap(activePlayer, nonActivePlayer);
   // activePlayer.updateMana(activePlayer.mana++);
-  nonActivePlayer->drawFromDeck(1);
   nonActivePlayer->changeMana(1);
+  nonActivePlayer->drawFromDeck(1);
   nonActivePlayer->setState(State::StartTurn);
   nonActivePlayer->notifyObservers();
   activePlayer->setState(State::StartTurnOpp);
   activePlayer->notifyObservers();
-  // beginning of turn events occur for new player
-  // At the start of every turn, every minion owned by the player
-  //    whose turn it is is restored to 1 action
-  int playerNum = nonActivePlayer->getNum();
-  vector<shared_ptr<Minion>> minions = getCards(playerNum);
-  for (unsigned int i = 0; i < minions.size(); i++) {
-    shared_ptr<Minion> currentMin = minions.at(i);
-    int actions = currentMin->getAction();
-
-    if (actions == 0) {
-       currentMin->changeAction(1);
-    } else if (actions >= 2) {
-        // bring back down to 1
-        // this occurs when Haste is used
-        // "Extra actions granted by haste do not last between turns" 
-        currentMin->changeAction(- (actions - 1));
-    }
-    // Note that a minion which already had 1 action remains at 1 action
-  }
 }
 
 vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
@@ -88,23 +71,30 @@ void Board::toHand(int slot, int playerNum) {
 
 
 void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int otherSlot) {
+  Player *player = (playerNum == 1) ? playerOne : playerTwo;
   vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? cardsP1: cardsP2;
   shared_ptr<Minion> m = cards.at(slot - 1); 
-
-  if (otherSlot == -1 && targetPlayer == -1) {
-    if (m->getAA() == "Summon") {
-      int summonAmount = m->getSummonAmount();
-      for (int i = 0; i < summonAmount; ++i) {
-        shared_ptr<Minion> tmp = dynamic_pointer_cast<Minion>(Card::load(m->getSummonName()));
-        cards.push_back(tmp); // TODO: need to setup state stuff for observer pattern
+  if (m->getAction() > 0 && (player->getMana() - m->getAC()) >= 0 ) {
+      if (otherSlot == -1 && targetPlayer == -1) {
+        if (m->getAA() == "Summon") {
+          int summonAmount = m->getSummonAmount();
+          int slotsAvailable = 5-(int)(cards.size());
+          for (int i = 0; i < min(summonAmount, slotsAvailable); ++i) {
+            shared_ptr<Minion> tmp = dynamic_pointer_cast<Minion>(Card::load(m->getSummonName()));
+            cards.push_back(tmp); // TODO: need to setup state stuff for observer pattern
+          }
+        }
+      } else {
+        if (m->getAA() == "Damage") {
+          vector<shared_ptr<Minion>> &targetCards = (targetPlayer == 1) ? cardsP1: cardsP2;
+          int dmg = m->getAADamage();
+          targetCards.at(otherSlot - 1)->changeDefence(-dmg);
+        }
       }
-    }
+      m->changeAction(-1);
+      player->changeMana(-1 * m->getAC());
   } else {
-    if (m->getAA() == "Damage") {
-      vector<shared_ptr<Minion>> &targetCards = (targetPlayer == 1) ? cardsP1: cardsP2;
-      int dmg = m->getAADamage();
-      targetCards.at(otherSlot - 1)->changeDefence(-dmg);
-    }
+      cout << "Not enough action points/mana to use an activated ability" << endl;
   }
 }
 
@@ -112,70 +102,82 @@ void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int o
 void Board::playCardP1(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerOne->getHand().at(slot - 1);              // slot - 1 becauase vector starts 0, slot starts 1
   playerOne->getHand().erase(playerOne->getHand().begin() + slot - 1); // must erase 
+  vector<shared_ptr<Minion>> &cards = (player == 1) ? cardsP1: cardsP2;
+    if (playerOne->getMana() - c->getCost() >= 0) {
+      if (otherSlot == -1 && player == -1) {          // if we are playing a card which does not target other things
+        if (c->getType() == "Minion") {
+          cout << "Playing minion: " << c->getName() << endl;
+          cardsP1.push_back(dynamic_pointer_cast<Minion>(c));
+          playerOne->setState(State::MinionEnter);
+          playerOne->notifyObservers();
+          playerTwo->setState(State::MinionEnterOpp);
+          playerTwo->notifyObservers();
+        } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
+          cout << "Playing spell: " << c->getName() << endl;
+        } else if (c->getType() == "Ritual") {
+          ritualP1 = dynamic_pointer_cast<Ritual>(c);
+        }
 
-  if (otherSlot == -1 && player == -1) {          // if we are playing a card which does not target other things
-    if (c->getType() == "Minion") {
-      cout << "Playing minion: " << c->getName() << endl;
-      cardsP1.push_back(dynamic_pointer_cast<Minion>(c));
-      playerOne->setState(State::MinionEnter);
-      playerOne->notifyObservers();
-      playerTwo->setState(State::MinionEnterOpp);
-      playerTwo->notifyObservers();
-    } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
-      cout << "Playing spell: " << c->getName() << endl;
-    } else if (c->getType() == "Ritual") {
-      ritualP1 = dynamic_pointer_cast<Ritual>(c);
-    }
-
-  } else {
-      if (c->getType() == "Enchantment") {
-          shared_ptr<Minion> target = cardsP1[otherSlot-1];
-          if (c->getName() == "Giant Strength") {
-              cardsP1[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
-          } else if (c->getName() == "Enrage") {
-              cardsP1[otherSlot-1] = make_shared<Enrage>(Enrage(target));
-          } else if (c->getName() == "Silence") {
-               cardsP1[otherSlot-1] = make_shared<Silence>(Silence(target));
-          } else if (c->getName() == "Magic Fatigue") {
-               cardsP1[otherSlot-1] = make_shared<MagicFatigue>(MagicFatigue(target));
+      } else {
+          if (c->getType() == "Enchantment") {
+              shared_ptr<Minion> target = cards[otherSlot-1];
+              if (c->getName() == "Giant Strength") {
+                  cards[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
+              } else if (c->getName() == "Enrage") {
+                  cards[otherSlot-1] = make_shared<Enrage>(Enrage(target));
+              } else if (c->getName() == "Silence") {
+                   cards[otherSlot-1] = make_shared<Silence>(Silence(target));
+              } else if (c->getName() == "Magic Fatigue") {
+                   cards[otherSlot-1] = make_shared<MagicFatigue>(MagicFatigue(target));
+              } else if (c->getName() == "Haste") {
+                   cards[otherSlot-1] = make_shared<Haste>(Haste(target));
+              }
           }
       }
-  }
-
+      playerOne->changeMana(-1 * c->getCost());
+    } else {
+        cout << "Not enough mana" << endl;
+    }
 }
     
 
 void Board::playCardP2(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerTwo->getHand().at(slot - 1); // slot - 1 becauase vector starts 0, slot starts 1
   playerTwo->getHand().erase(playerTwo->getHand().begin() + slot - 1); // must erase because we used "move" previous line
-
-
-  if (otherSlot == -1 && player == -1) {          // if we are playing a card which does not target other things
-    if (c->getType() == "Minion") {
-      cout << "Playing minion: " << c->getName() << endl;
-      cardsP2.push_back(dynamic_pointer_cast<Minion>(c));
-      playerTwo->setState(State::MinionEnter);
-      playerTwo->notifyObservers();
-      playerOne->setState(State::MinionEnterOpp);
-      playerOne->notifyObservers();
-    } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
-      cout << "Playing spell: " << c->getName() << endl;
-    } else if (c->getType() == "Ritual") {
-        ritualP2 = dynamic_pointer_cast<Ritual>(c);
-    }
-  } else {
-      if (c->getType() == "Enchantment") {
-          shared_ptr<Minion> target = cardsP2[otherSlot-1];
-          if (c->getName() == "Giant Strength") {
-              cardsP2[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
-          } else if (c->getName() == "Enrage") {
-              cardsP2[otherSlot-1] = make_shared<Enrage>(Enrage(target));
-          } else if (c->getName() == "Silence") {
-               cardsP2[otherSlot-1] = make_shared<Silence>(Silence(target));
-          } else if (c->getName() == "Magic Fatigue") {
-               cardsP2[otherSlot-1] = make_shared<MagicFatigue>(MagicFatigue(target));
+  vector<shared_ptr<Minion>> &cards = (player == 1) ? cardsP1: cardsP2;
+  if (playerTwo->getMana() - c->getCost() >= 0) {
+      if (otherSlot == -1 && player == -1) {          // if we are playing a card which does not target other things
+        if (c->getType() == "Minion") {
+          cout << "Playing minion: " << c->getName() << endl;
+          cardsP2.push_back(dynamic_pointer_cast<Minion>(c));
+          playerTwo->setState(State::MinionEnter);
+          playerTwo->notifyObservers();
+          playerOne->setState(State::MinionEnterOpp);
+          playerOne->notifyObservers();
+        } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
+          cout << "Playing spell: " << c->getName() << endl;
+        } else if (c->getType() == "Ritual") {
+            ritualP2 = dynamic_pointer_cast<Ritual>(c);
+        }
+      } else {
+          if (c->getType() == "Enchantment") {
+              shared_ptr<Minion> target = cards[otherSlot-1];
+              if (c->getName() == "Giant Strength") {
+                  cards[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
+              } else if (c->getName() == "Enrage") {
+                  cards[otherSlot-1] = make_shared<Enrage>(Enrage(target));
+              } else if (c->getName() == "Silence") {
+                   cards[otherSlot-1] = make_shared<Silence>(Silence(target));
+              } else if (c->getName() == "Magic Fatigue") {
+                   cards[otherSlot-1] = make_shared<MagicFatigue>(MagicFatigue(target));
+              } else if (c->getName() == "Haste") {
+                   cards[otherSlot-1] = make_shared<Haste>(Haste(target));
+              }
           }
       }
+      playerTwo->changeMana(-1 * c->getCost());
+  } else {
+      cout << "Not enough mana" << endl;
   }
 }
 
@@ -199,7 +201,7 @@ void Board::attackPlayer(int currentPlayer, int minion) {
   shared_ptr<Minion> attackingMin = getCards(currentPlayer).at(minion - 1);
   if (attackingMin->getAction() > 0) {
     attackingMin->attackPlayer(*otherPlayer);
-    // decrease by one aciton point
+    // decrease by one action point
     attackingMin->changeAction(-1);
   } else {
     cout << "Not enough action points to attack." << endl;

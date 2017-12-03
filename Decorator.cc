@@ -20,6 +20,10 @@ void Decorator::changeAction(const int amount) {
     minion->changeAction(amount);
 }
 
+void Decorator::setAction(const int amount) {
+    minion->setAction(amount);
+}
+
 string Decorator::getName() const {
     return minion->getName();
 }
