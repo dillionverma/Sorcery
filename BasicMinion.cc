@@ -64,11 +64,11 @@ void BasicMinion::trigger(Board &b, Player &p) {
 }
 
 card_template_t BasicMinion::display() {
-    //if (triggered_ability) {
-      //return display_minion_triggered_ability(name, cost, attack, defence, trigger_desc);
-    //} else if(activated_ability) {
-      //return display_minion_activated_ability(name, cost, attack, defence, abilityCost, ability_desc);
-    //} else {
+    if (!triggeredAbility.empty()) {
+      return display_minion_triggered_ability(name, cost, attack, defence, triggeredAbility);
+    } else if(!activatedAbility.empty()) {
+      return display_minion_activated_ability(name, cost, attack, defence, abilityCost, activatedAbility);
+    } else {
       return display_minion_no_ability(name, cost, attack, defence);
-    //}
+    }
 }
