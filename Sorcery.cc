@@ -203,7 +203,13 @@ int main(int argc, char *argv[]) {
         } else if (command == "hand")               { activePlayer->showHand();
         } else if (command == "board")              { board.display();
         } else if (command == "draw" && testing)    { activePlayer->drawFromDeck(1);
-        } else if (command == "discard" && testing) { cin >> minion; activePlayer->removeFromHand(minion);
+        } else if (command == "discard" && testing) { 
+            if (init) {
+                ifs >> minion;
+            } else {
+                cin >> minion;
+            }
+            activePlayer->removeFromHand(minion);
         }
         if (activePlayer->getHealth() <= 0 and nonActivePlayer->getHealth() <= 0) {
             cout << activePlayer->getName() << " and " << nonActivePlayer->getName() << " tied!" << endl;

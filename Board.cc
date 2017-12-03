@@ -45,8 +45,13 @@ void Board::toGrave(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;
     vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? getCards(1) : getCards(2);
-    player->getGrave().push_back(cards[slot-1]);
+    shared_ptr<Minion> m = cards[slot-1];
     cards.erase(cards.begin() + slot - 1);
+    while (m->getEnchantments().size() > 0) {
+        m->removeEnchantment();
+        m = dynamic_pointer_cast<Decorator>(m)->getMinion();
+    }
+    player->getGrave().push_back(m);
     player->setState(State::MinionLeave);
     player->notifyObservers();
     opponent->setState(State::MinionLeaveOpp);
@@ -58,8 +63,13 @@ void Board::toHand(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;
     vector<shared_ptr<Minion>> cards = (playerNum == 1) ? getCards(1) : getCards(2);
-    player->getHand().push_back(cards[slot-1]);
+    shared_ptr<Minion> m = cards[slot-1];
     cards.erase(cards.begin() + slot - 1);
+    while (m->getEnchantments().size() > 0) {
+        m->removeEnchantment();
+        m = dynamic_pointer_cast<Decorator>(m)->getMinion();
+    }
+    player->getHand().push_back(m);
     player->setState(State::MinionLeave);
     player->notifyObservers();
     opponent->setState(State::MinionLeaveOpp);
