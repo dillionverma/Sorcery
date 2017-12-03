@@ -8,18 +8,18 @@ class Decorator: public Minion {
         std::shared_ptr<Minion> minion;
     public:
         Decorator(std::shared_ptr<Minion> minion);
-        virtual card_template_t display() override;
-        virtual void changeAttack(const int amount) override;
-        virtual void changeDefence(const int amount) override;
-        virtual void changeAC(const int amount) override; 
-        virtual int getAttack() const override;
-        virtual int getDefence() const override;
-        virtual int getAC() const override;
-        virtual std::string getName() const;
-        virtual int getCost() const;
-        virtual void attackMinion(Minion &m) override;
-        virtual void attackPlayer(Player &p) override;
-        virtual void notify(Board &b, Player &p, int target = -1) override;
+        card_template_t display() override;
+        void changeAttack(const int amount) override;
+        void changeDefence(const int amount) override;
+        void changeAC(const int amount) override; 
+        int getAttack() const override;
+        int getDefence() const override;
+        int getAC() const override;
+        std::string getName() const;
+        int getCost() const;
+        void attackMinion(Minion &m) override;
+        void attackPlayer(Player &p) override;
+        void notify(Board &b, Player &p, int target = -1) override;
 };
 
 #endif
