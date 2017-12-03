@@ -9,6 +9,9 @@ Spell::Spell(string name, int cost, string info):
     Card{name, cost, info, "Spell"} {}
 
 void Spell::notify(Board &b, Player &p, int target) {
+}
+
+void Spell::useSpell(Board &b, Player &p, int target) {
     // ensure player can afford to play card
     if (p.getMana() >= cost) {
         effect(b, p, target);
