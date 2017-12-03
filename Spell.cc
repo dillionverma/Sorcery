@@ -11,16 +11,6 @@ Spell::Spell(string name, int cost, string info):
 void Spell::notify(Board &b, Player &p, int target) {
 }
 
-void Spell::useSpell(Board &b, Player &p, int target) {
-    // ensure player can afford to play card
-    if (p.getMana() >= cost) {
-        effect(b, p, target);
-        p.changeMana(-cost);
-    } else {
-        cout << "You do not have enough magic to play this card." << endl;
-    }
-}
-
 void blizzard(Board &b, int playerNum) {
     vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
     // decrease damage of all minions for opposing player

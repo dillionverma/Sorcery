@@ -225,23 +225,20 @@ void Board::attackPlayer(int currentPlayer, int minion) {
 }
 
 void Board::inspect(int currentPlayer, int slot) {
-  shared_ptr<Card> c = getCards(currentPlayer).at(slot - 1);
+  shared_ptr<Minion> c = getCards(currentPlayer).at(slot - 1);
   for (int i = 0; i < cardHeight; ++i) {
     cout << c->display()[i] << endl; // print card first
   }
   // PRINT ALL ENCHANTMENTS, 5 AT A TIME
   //int ctr = 1;
   //for (auto line:cardHeight) {
-    //cout << c->displayEnchantmnets;
-    //cout << c->displayEnchantmnets;
-    //cout << c->displayEnchantmnets;
-    //cout << c->displayEnchantmnets;
+    //cout << c->displayEnchantments;
+    //cout << c->displayEnchantments;
+    //cout << c->displayEnchantments;
+    //cout << c->displayEnchantments;
     //if (ctr%5 == 0) cout << endl;
     //ctr++;
   //}
-  cout << "This card is a: " << c->getType() << endl;
-  cout << "Minion Name: " << c->getName() << endl;
-  cout << "Minion Info: " << c->getInfo() << endl;
 }
 
 void Board::notify(Player &p) {
