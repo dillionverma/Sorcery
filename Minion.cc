@@ -26,7 +26,7 @@ card_template_t Minion::display() {
 
 void Minion::attackMinion(Minion &m) {
   defence -= m.attack;
-  m.defence -= m.attack;
+  m.defence -= attack;
 }
 
 void Minion::attackPlayer(Player &p) {

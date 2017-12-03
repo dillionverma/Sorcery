@@ -17,15 +17,18 @@ int main(int argc, char *argv[]) {
     bool init     = false;
     bool testing  = false;
     bool graphics = false;
-    Player *activePlayer = nullptr;
+    Board board;
+    Player *activePlayer    = nullptr;
     Player *nonActivePlayer = nullptr;
+    string playerOneName;
+    string playerTwoName;
     srand(time(0));   // Seed Random Number Generator
 
     // change default state from command line arguments
     for (int i = 1; i < argc; ++i) { 
-        if (string(argv[i]) == "-deck1") deck1 = argv[i+1];
-        if (string(argv[i]) == "-deck2") deck2 = argv[i+1];
-        if (string(argv[i]) == "-testing") testing = true;
+        if (string(argv[i]) == "-deck1")    deck1 = argv[i+1];
+        if (string(argv[i]) == "-deck2")    deck2 = argv[i+1];
+        if (string(argv[i]) == "-testing")  testing = true;
         if (string(argv[i]) == "-graphics") graphics = true;
         if (string(argv[i]) == "-init") {
             initfile = argv[i+1];
@@ -35,15 +38,13 @@ int main(int argc, char *argv[]) {
     }
 
     // print game state (for testing purposes
-    cout << "init: " << init << " " << initfile << endl;
+    cout << "init: "     << init     << " " << initfile << endl;
     cout << "graphics: " << graphics << endl;
-    cout << "testing: " << testing << endl;
-    cout << "deck1: " << deck1 << endl;
-    cout << "deck2: " << deck2 << endl;
+    cout << "testing: "  << testing  << endl;
+    cout << "deck1: "    << deck1    << endl;
+    cout << "deck2: "    << deck2    << endl;
 
     // The game begins by first asking both players for their names.
-    string playerOneName;
-    string playerTwoName;
     if (init) {
         ifs >> playerOneName;
         ifs >> playerTwoName;
@@ -57,19 +58,24 @@ int main(int argc, char *argv[]) {
     cout << "Welcome, " << playerOneName << " and " << playerTwoName << "!" << endl;
 
     // Create players - this also shuffles and sets up decks and hands
-    Board board = Board();
     Player playerOne(playerOneName, 1, deck1);
     Player playerTwo(playerTwoName, 2, deck2);
-    activePlayer = &playerOne;
+    if (!testing) {
+      playerOne.shuffleDeck();
+      playerTwo.shuffleDeck();
+    }
+    playerOne.drawFromDeck(5); // draw 5 cards
+    playerTwo.drawFromDeck(5); // draw 5 cards
+
+    activePlayer    = &playerOne;
     nonActivePlayer = &playerTwo;
-    board.setP1(&playerOne);
-    board.setP2(&playerTwo);
+    board.setPlayer(&playerOne, 1);
+    board.setPlayer(&playerTwo, 2);
     playerOne.addObserver(&board);
     playerTwo.addObserver(&board);
 
     // game begins within no command, so first effects must occur right away
     // activePlayer.updateMana(activePlayer.mana++);
-    // activePlayer.drawFromDeck();
 
     string command;
 
@@ -104,22 +110,6 @@ int main(int argc, char *argv[]) {
                 "      inspect minion -- View a minion's card and all enchantments on that minion.\n"
                 "      hand -- Describe all cards in your hand.\n"
                 "      board -- Describe all cards on the board.\n";
-        } else if (command == "end") {
-            // end of turn events occur for current player
-            activePlayer->setState(State::EndTurn);
-            activePlayer->notifyObservers();
-            nonActivePlayer->setState(State::EndTurnOpp);
-            nonActivePlayer->notifyObservers();
-            swap(activePlayer, nonActivePlayer);
-            // activePlayer.updateMana(activePlayer.mana++);
-            activePlayer->drawFromDeck();
-            activePlayer->setState(State::StartTurn);
-            activePlayer->notifyObservers();
-            nonActivePlayer->setState(State::StartTurnOpp);
-            nonActivePlayer->notifyObservers();
-            // beginning of turn events occur for new player
-        } else if (command == "quit") {
-            break;
         } else if (command == "attack") {
             if (init) {
                 getline(ifs, tmp);
@@ -211,10 +201,12 @@ int main(int argc, char *argv[]) {
             }
             // remove card from hand
             // activePlayer.removeCard(card);
+        } else if (command == "end")                { board.endTurn(activePlayer, nonActivePlayer); swap(activePlayer, nonActivePlayer);
+        } else if (command == "quit")               { break;
         } else if (command == "inspect")            { cin >> minion; board.inspect(currentPlayerNum, minion);
         } else if (command == "hand")               { activePlayer->showHand();
         } else if (command == "board")              { board.display();
-        } else if (command == "draw" && testing)    { activePlayer->drawFromDeck();
+        } else if (command == "draw" && testing)    { activePlayer->drawFromDeck(1);
         } else if (command == "discard" && testing) { cin >> minion; activePlayer->removeFromHand(minion);
         }
     }

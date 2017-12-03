@@ -6,12 +6,28 @@ using namespace std;
 
 Board::Board() {}
 
-void Board::setP1(Player *p) {
+void Board::setPlayer(Player *p, int playerNum) {
+  if (playerNum == 1) {
     playerOne = p;
+  } else {
+    playerTwo = p;
+  }
 }
 
-void Board::setP2(Player *p) {
-    playerTwo = p;
+void Board::endTurn(Player *activePlayer, Player *nonActivePlayer) {
+  // end of turn events occur for current player
+  activePlayer->setState(State::EndTurn);
+  activePlayer->notifyObservers();
+  nonActivePlayer->setState(State::EndTurnOpp);
+  nonActivePlayer->notifyObservers();
+  //swap(activePlayer, nonActivePlayer);
+  // activePlayer.updateMana(activePlayer.mana++);
+  nonActivePlayer->drawFromDeck(1);
+  nonActivePlayer->setState(State::StartTurn);
+  nonActivePlayer->notifyObservers();
+  activePlayer->setState(State::StartTurnOpp);
+  activePlayer->notifyObservers();
+  // beginning of turn events occur for new player
 }
 
 vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
@@ -51,7 +67,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerOne->getHand().at(slot - 1);              // slot - 1 becauase vector starts 0, slot starts 1
   playerOne->getHand().erase(playerOne->getHand().begin() + slot - 1); // must erase 
 
-  if (otherSlot == 0 && player == 0) {          // if we are playing a card which does not target other things
+  if (otherSlot == -1 && player == -1) {          // if we are playing a card which does not target other things
     if (c->getType() == "Minion") {
       cout << "Playing minion: " << c->getName() << endl;
       cardsP1.push_back(dynamic_pointer_cast<Minion>(c));
@@ -62,7 +78,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
     } else if (c->getType() == "Spell") { // TODO: add && to check if spell requires no target
       cout << "Playing spell: " << c->getName() << endl;
     } else if (c->getType() == "Ritual") {
-        ritualP1 = dynamic_pointer_cast<Ritual>(c);
+      ritualP1 = dynamic_pointer_cast<Ritual>(c);
     }
 
   } else {
@@ -77,7 +93,7 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
   playerTwo->getHand().erase(playerTwo->getHand().begin() + slot - 1); // must erase because we used "move" previous line
 
 
-  if (otherSlot == 0) {          // if we are playing a card which does not target other things
+  if (otherSlot == -1 && player == -1) {          // if we are playing a card which does not target other things
     if (c->getType() == "Minion") {
       cout << "Playing minion: " << c->getName() << endl;
       cardsP2.push_back(dynamic_pointer_cast<Minion>(c));
@@ -113,6 +129,19 @@ void Board::attackPlayer(int currentPlayer, int minion) {
 
 void Board::inspect(int currentPlayer, int slot) {
   shared_ptr<Card> c = getCards(currentPlayer).at(slot - 1);
+  for (int i = 0; i < cardHeight; ++i) {
+    cout << c->display()[i] << endl; // print card first
+  }
+  // PRINT ALL ENCHANTMENTS, 5 AT A TIME
+  //int ctr = 1;
+  //for (auto line:cardHeight) {
+    //cout << c->displayEnchantmnets;
+    //cout << c->displayEnchantmnets;
+    //cout << c->displayEnchantmnets;
+    //cout << c->displayEnchantmnets;
+    //if (ctr%5 == 0) cout << endl;
+    //ctr++;
+  //}
   cout << "This card is a: " << c->getType() << endl;
   cout << "Minion Name: " << c->getName() << endl;
   cout << "Minion Info: " << c->getInfo() << endl;
