@@ -39,6 +39,7 @@ int Decorator::getDefence() const {
 int Decorator::getAC() const {
     return minion->getAC();
 }
+
 string Decorator::getAA() const { return minion->getAA(); }
 string Decorator::getTA() const { return minion->getTA(); }
 int Decorator::getAADamage() const { return minion->getAADamage(); }

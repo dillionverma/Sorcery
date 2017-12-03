@@ -17,7 +17,7 @@ class Card {
     virtual std::string getName() const;
     virtual std::string getInfo() const;
     virtual std::string getType() const;
-    int getCost() const;
+    virtual int getCost() const;
     static std::shared_ptr<Card> load(std::string cardName); 
     virtual card_template_t display()=0;
   protected:
