@@ -1,1 +1,1 @@
-Bone Golem|Minion|"Gain +1/+1 whenever a minion leaved play."|2|Gain Both|1|3|0|
+Bone Golem|Minion|Gain +1/+1 whenever a minion leaved play.|2|Gain Both|1|3|0|

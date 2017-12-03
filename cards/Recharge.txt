@@ -1,1 +1,1 @@
-Recharge|Spell|"Your ritual gains 3 charges"|1|
+Recharge|Spell|Your ritual gains 3 charges.|1|

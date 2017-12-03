@@ -1,1 +1,1 @@
-Enrage|Enchantment|""|2|
+Enrage|Enchantment||2|

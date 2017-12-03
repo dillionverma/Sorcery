@@ -5,8 +5,9 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Board.h"
-#include "Minion.h"
 #include "Subject.h"
+
+class Minion;
 
 class Player: public Subject {
   std::string name;

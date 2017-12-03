@@ -18,6 +18,19 @@ void Spell::notify(Board &b, Player &p, int target) {
     }
 }
 
+void blizzard(Board &b, int playerNum) {
+    vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
+    // decrease damage of all minions for opposing player
+    for (unsigned int i = 0; i < minions.size(); i++) {
+        // take away 2 damage
+        minions.at(i)->changeDefence(-2);                
+        // minion moved to graveyard if dead
+        if (minions.at(i)->getDefence() <= 0) {
+            b.toGrave(i + 1, playerNum);
+        }
+    }
+}
+
 // note in this function, player can represent target player
 //      or the current player, depending on the spell.
 void Spell::effect(Board &b, Player &p, int target) {
@@ -36,19 +49,8 @@ void Spell::effect(Board &b, Player &p, int target) {
         }
         // Deal 2 Damage to all minions
        else if (name == "Blizzard") {
-        
-            vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
-            
-            // decrease damage of all minions for opposing player
-            for (unsigned int i = 0; i < minions.size(); i++) {
-                // take away 2 damage
-                minions.at(i)->changeDefence(-2);
-                
-                // minion moved to graveyard if dead
-                if (minions.at(i)->getDefence() <= 0) {
-                    b.toGrave(target, playerNum);
-                }
-            }
+            blizzard(b, 1);
+            blizzard(b, 2);
         }
         // Destroy the top enchantment on target minion
         else if (name == "Disenchant") {

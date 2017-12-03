@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Board.h"
 #include "Card.h"
+#include "GiantStrength.h"
+#include "Enrage.h"
+#include "Silence.h"
 
 using namespace std;
 
@@ -38,7 +41,6 @@ vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
   }
 }
 
-
 void Board::toGrave(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;
@@ -63,6 +65,29 @@ void Board::toHand(int slot, int playerNum) {
     opponent->notifyObservers();
 }
 
+
+void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int otherSlot) {
+  vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? cardsP1: cardsP2;
+  shared_ptr<Minion> m = cards.at(slot - 1); 
+
+  if (otherSlot == -1 && targetPlayer == -1) {
+    if (m->getAA() == "Summon") {
+      int summonAmount = m->getSummonAmount();
+      for (int i = 0; i < summonAmount; ++i) {
+        shared_ptr<Minion> tmp = dynamic_pointer_cast<Minion>(Card::load(m->getSummonName()));
+        cards.push_back(tmp); // TODO: need to setup state stuff for observer pattern
+      }
+    }
+  } else {
+    if (m->getAA() == "Damage") {
+      vector<shared_ptr<Minion>> &targetCards = (targetPlayer == 1) ? cardsP1: cardsP2;
+      int dmg = m->getAADamage();
+      targetCards.at(otherSlot - 1)->changeDefence(-dmg);
+    }
+  }
+}
+
+
 void Board::playCardP1(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerOne->getHand().at(slot - 1);              // slot - 1 becauase vector starts 0, slot starts 1
   playerOne->getHand().erase(playerOne->getHand().begin() + slot - 1); // must erase 
@@ -82,11 +107,20 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
     }
 
   } else {
-    // implement cards which target other things
-
+      if (c->getType() == "Enchantment") {
+          shared_ptr<Minion> target = cardsP1[otherSlot-1];
+          if (c->getName() == "Giant Strength") {
+              cardsP1[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
+          } else if (c->getName() == "Enrage") {
+              cardsP1[otherSlot-1] = make_shared<Enrage>(Enrage(target));
+          } else if (c->getName() == "Silence") {
+               cardsP1[otherSlot-1] = make_shared<Silence>(Silence(target));
+          }
+      }
   }
 
 }
+    
 
 void Board::playCardP2(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerTwo->getHand().at(slot - 1); // slot - 1 becauase vector starts 0, slot starts 1
@@ -107,9 +141,17 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
         ritualP2 = dynamic_pointer_cast<Ritual>(c);
     }
   } else {
-    // implement cards which target other things
-    
+      if (c->getType() == "Enchantment") {
+          shared_ptr<Minion> target = cardsP2[otherSlot-1];
+          if (c->getName() == "Giant Strength") {
+              cardsP2[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
+          } else if (c->getName() == "Enrage") {
+              cardsP2[otherSlot-1] = make_shared<Enrage>(Enrage(target));
+          } else if (c->getName() == "Silence") {
+               cardsP2[otherSlot-1] = make_shared<Silence>(Silence(target));
+          }
 
+      }
   }
 }
 

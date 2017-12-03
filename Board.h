@@ -2,12 +2,13 @@
 #define BOARD_H
 #include <string>
 #include <vector>
+#include <memory>
+#include "Observer.h"
 #include "Player.h"
 #include "Ritual.h"
 #include "Minion.h"
-#include "Observer.h"
+#include "Decorator.h"
 
-class Subject;
 class Board: public Observer{
   Player *playerOne = nullptr;
   Player *playerTwo = nullptr;
@@ -25,6 +26,7 @@ class Board: public Observer{
     void toHand(int slot, int playerNum);
     void attackMinion(int currentPlayer, int minion, int otherMinion);
     void attackPlayer(int currentPlayer, int minion);
+    void useActivatedAbility(int currentPlayer, int slot, int player = -1, int otherSlot = -1); 
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
     std::shared_ptr<Ritual> getRitual(int playerNum) const;

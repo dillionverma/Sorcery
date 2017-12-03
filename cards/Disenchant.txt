@@ -1,1 +1,1 @@
-Disenchant|Spell|"Destroy the top enchantment on target minion"|1|
+Disenchant|Spell|Destroy the top enchantment on target minion|1|
