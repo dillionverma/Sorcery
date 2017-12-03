@@ -35,6 +35,10 @@ int Decorator::getDefence() const {
 int Decorator::getAC() const {
     return minion->getAC();
 }
+string Decorator::getAA() const { return minion->getAA(); }
+int Decorator::getAADamage() const { return minion->getAADamage(); }
+string Decorator::getSummonName() const { return minion->getSummonName(); }
+int Decorator::getSummonAmount() const { return minion->getSummonAmount(); }
 
 void Decorator::attackMinion(Minion &m) {
   minion->changeDefence(-m.getAttack());

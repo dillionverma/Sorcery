@@ -32,6 +32,10 @@ class Minion: public Card {
         virtual int getAttack() const=0;
         virtual int getDefence() const=0;
         virtual int getAC() const=0;
+        virtual std::string getAA() const=0;
+        virtual int getAADamage() const=0;
+        virtual std::string getSummonName() const=0;
+        virtual int getSummonAmount() const=0;
         virtual void attackMinion(Minion &m)=0;
         virtual void attackPlayer(Player &p)=0;
         virtual void notify(Board &b, Player &p, int target = -1)=0;

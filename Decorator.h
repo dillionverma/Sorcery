@@ -15,6 +15,10 @@ class Decorator: public Minion {
         int getAttack() const override;
         int getDefence() const override;
         int getAC() const override;
+        std::string getAA() const override;
+        int getAADamage() const override;
+        std::string getSummonName() const override;
+        int getSummonAmount() const override;
         std::string getName() const;
         int getCost() const;
         void attackMinion(Minion &m) override;

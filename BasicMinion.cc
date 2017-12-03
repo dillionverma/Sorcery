@@ -19,6 +19,10 @@ void BasicMinion::changeAC(int amount) { abilityCost += amount; }
 int BasicMinion::getAttack() const { return attack;}
 int BasicMinion::getDefence() const { return defence;}
 int BasicMinion::getAC() const { return abilityCost; }
+string BasicMinion::getAA() const { return activatedAbility; }
+int BasicMinion::getAADamage() const { return activatedAbilityDamage; }
+string BasicMinion::getSummonName() const { return summonMinion; }
+int BasicMinion::getSummonAmount() const { return summonAmount; }
 
 void BasicMinion::attackMinion(Minion &m) {
   defence -= m.getAttack();

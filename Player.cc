@@ -12,7 +12,6 @@ Player::Player(string name, int playerNum, string deckfile) : name {name},
   playerNum {playerNum}, state{State::None}, deck{deckfile} {}    
    
 void Player::drawFromDeck(int num) {
-  deck.loadCard("Apprentice Summoner");
     // check first that hand is not full
     if (hand.size() == 5) {
         cout << "No cards drawn from deck as hand is full." << endl;
