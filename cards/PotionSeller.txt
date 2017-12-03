@@ -1,1 +1,1 @@
-Potion Seller|Minion|"At the end of your turn, all minions gain +0/+1."|2|Gain Defence|1|3|0|
+Potion Seller|Minion|At the end of your turn, all minions gain +0/+1.|2|Gain Defence|1|3|0|

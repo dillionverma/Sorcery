@@ -65,6 +65,29 @@ void Board::toHand(int slot, int playerNum) {
     opponent->notifyObservers();
 }
 
+
+void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int otherSlot) {
+  vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? cardsP1: cardsP2;
+  shared_ptr<Minion> m = cards.at(slot - 1); 
+
+  if (otherSlot == -1 && targetPlayer == -1) {
+    if (m->getAA() == "Summon") {
+      int summonAmount = m->getSummonAmount();
+      for (int i = 0; i < summonAmount; ++i) {
+        shared_ptr<Minion> tmp = dynamic_pointer_cast<Minion>(Card::load(m->getSummonName()));
+        cards.push_back(tmp); // TODO: need to setup state stuff for observer pattern
+      }
+    }
+  } else {
+    if (m->getAA() == "Damage") {
+      vector<shared_ptr<Minion>> &targetCards = (targetPlayer == 1) ? cardsP1: cardsP2;
+      int dmg = m->getAADamage();
+      targetCards.at(otherSlot - 1)->changeDefence(-dmg);
+    }
+  }
+}
+
+
 void Board::playCardP1(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerOne->getHand().at(slot - 1);              // slot - 1 becauase vector starts 0, slot starts 1
   playerOne->getHand().erase(playerOne->getHand().begin() + slot - 1); // must erase 
@@ -97,6 +120,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
   }
 
 }
+    
 
 void Board::playCardP2(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerTwo->getHand().at(slot - 1); // slot - 1 becauase vector starts 0, slot starts 1

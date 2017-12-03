@@ -1,1 +1,1 @@
-Aura of Power|Ritual|"Whenever a minion enter a play under your control, it gains +1/+1"|1|4|1|
+Aura of Power|Ritual|Whenever a minion enter a play under your control, it gains +1/+1.|1|4|1|

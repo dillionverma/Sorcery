@@ -13,11 +13,17 @@ class Minion: public Card {
         int attack;
         int defence;
         std::string triggeredAbility;
+        std::string activatedAbility;
+        int abilityCost;
+        int activatedAbilityDamage = 0;
+        std::string summonMinion;
+        int summonAmount = 0;
         // "Minions start with zero actions"
         int action = 0;
-        int abilityCost;
     public:
-        Minion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
+        Minion(std::string name, int cost, std::string info, int attack, 
+            int defence, std::string triggeredAbility, std::string activatedAbility, 
+            int abilityCost, int activatedAbilityDamage, std::string summonMinion, int summonAmount);
         Minion();
         virtual card_template_t display()=0;
         virtual void changeAttack(const int amount)=0;
@@ -26,6 +32,10 @@ class Minion: public Card {
         virtual int getAttack() const=0;
         virtual int getDefence() const=0;
         virtual int getAC() const=0;
+        virtual std::string getAA() const=0;
+        virtual int getAADamage() const=0;
+        virtual std::string getSummonName() const=0;
+        virtual int getSummonAmount() const=0;
         virtual void attackMinion(Minion &m)=0;
         virtual void attackPlayer(Player &p)=0;
         virtual void notify(Board &b, Player &p, int target = -1)=0;

@@ -5,9 +5,9 @@ Air Elemental|Minion|""|0|""|1|1|0|
 Earth Elemental|Minion|""|3|""|4|4|0|
 Fire Elemental|Minion|"Whenever an opponents's minion enters play, deal 1 damage to it."|2|Deal One|2|2|0|
 Potion Seller|Minion|"At the end of your turn, all minions gain +0/+1."|2|Gain Defence|1|3|0|
-Novice Pyromancer|Minion|"Deal 1 damage to target minion"|1|""|0|1|1|
-Apprentice Summoner|Minion|"Summon a 1/1 air elemental"|1|""|1|1|1|
-Master Summoner|Minion|"Summon up to three 1/1 air elementals"|3|""|2|3|2|
+Novice Pyromancer|Minion|"Deal 1 damage to target minion"|1|""|0|1|1|"Damage"|
+Apprentice Summoner|Minion|"Summon a 1/1 air elemental"|1|""|1|1|1|"Summon"|"Air Elemental"|1|
+Master Summoner|Minion|"Summon up to three 1/1 air elementals"|3|""|2|3|2|"Summon"|"Air Elemental"|3|
 Bone Golem|Minion|"Gain +1/+1 whenever a minion leaved play."|2|Gain Both|1|3|0|
 / SPELLS
 / Name, Type, Description, Cost

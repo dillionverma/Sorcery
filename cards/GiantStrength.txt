@@ -1,1 +1,1 @@
-Giant Strength|Enchantment|""|1|
+Giant Strength|Enchantment||1|

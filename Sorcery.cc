@@ -187,20 +187,14 @@ int main(int argc, char *argv[]) {
                 }
             }
             if (count == 3) {
-                if (targetCard == "r") {
-                    cout << "Using card: " << card << " on player " << targetPlayer << "'s ritual" << endl;
-                    // for sake of simplicity, let 0 represent r.
-                    //card.notify(b, targetPlayer, 0);
-                } else {
-                    cout << "Using card: " << card << " on player " << targetPlayer << "'s minion: " << stoi(targetCard) << endl;
-                    //card.notify(b, targetPlayer, stoi(targetCard);
-                }
+                cout << "Using card: " << card << " on player " << targetPlayer << "'s minion: " << stoi(targetCard) << endl;
+                board.useActivatedAbility(currentPlayerNum, card, targetPlayer, stoi(targetCard));
+                //card.notify(b, targetPlayer, stoi(targetCard);
             } else {
                 cout << "Using card: " << card << endl;
+                board.useActivatedAbility(currentPlayerNum, card);
                 //card.notify(b, activePlayer);
             }
-            // remove card from hand
-            // activePlayer.removeCard(card);
         } else if (command == "end")                { board.endTurn(activePlayer, nonActivePlayer); swap(activePlayer, nonActivePlayer);
         } else if (command == "quit")               { break;
         } else if (command == "inspect")            { cin >> minion; board.inspect(currentPlayerNum, minion);
