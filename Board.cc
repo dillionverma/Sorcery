@@ -66,14 +66,24 @@ void Board::toHand(int slot, int playerNum) {
 }
 
 
-void useActivatedAbility(int currentPlayer, int slot, int player, int otherSlot) {
+void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int otherSlot) {
+  vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? cardsP1: cardsP2;
+  shared_ptr<Minion> m = cards.at(slot - 1); 
 
-  if (otherSlot == -1 && player == -1) {
-    if (true) {
-    // using activated ability with no target
+  if (otherSlot == -1 && targetPlayer == -1) {
+    if (m->getAA() == "Summon") {
+      int summonAmount = m->getSummonAmount();
+      for (int i = 0; i < summonAmount; ++i) {
+        shared_ptr<Minion> tmp = dynamic_pointer_cast<Minion>(Card::load(m->getSummonName()));
+        cards.push_back(tmp); // TODO: need to setup state stuff for observer pattern
+      }
     }
   } else {
-    // activated ability with target
+    if (m->getAA() == "Damage") {
+      vector<shared_ptr<Minion>> &targetCards = (targetPlayer == 1) ? cardsP1: cardsP2;
+      int dmg = m->getAADamage();
+      targetCards.at(otherSlot - 1)->changeDefence(-dmg);
+    }
   }
 }
 
