@@ -18,7 +18,6 @@ class Decorator: public Minion {
         virtual int getCost() const;
         virtual void attackMinion(Minion &m) override;
         virtual void attackPlayer(Player &p) override;
-        virtual ~Decorator()=0;
 };
 
 #endif
