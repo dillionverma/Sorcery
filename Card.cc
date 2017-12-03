@@ -5,6 +5,8 @@ using namespace std;
 
 Card::Card(string name, int cost, string info, string type):
      name{name}, cost{cost}, info{info}, type{type} {}
+    
+Card::Card() {}
 
 string Card::getName() const {
     return name;

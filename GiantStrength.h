@@ -1,13 +1,15 @@
 #ifndef GIANTSTRENGTH_H
 #define GIANTSTRENGTH_H
 #include "Decorator.h"
-#include "Component.h"
 
 class GiantStrength: public Decorator {
-    Component *comp;
     public:
-    GiantStrength(Component *component);
-    void effect(Board &b, Player &p, int target = -1);
+        GiantStrength(std::shared_ptr<Minion> minion);
+        int getAttack() const;
+        int getDefence() const;
+        void attackMinion(Minion &m);
+        void attackPlayer(Player &p);
+        card_template_t display();
 };
 
 #endif

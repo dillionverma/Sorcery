@@ -1,26 +1,34 @@
 #include <vector>
 #include "GiantStrength.h"
-#include "Board.h"
-#include "Player.h"
 
 using namespace std;
 
-GiantStrength::GiantStrength(Component *component): Decorator(component) {
-    comp = component;    
+GiantStrength::GiantStrength(shared_ptr<Minion> minion): Decorator {minion} {
 }
 
-void GiantStrength::effect(Board &b, Player &p, int target) {
+int GiantStrength::getAttack() const {
+    return minion->getAttack()+2;
+}
 
-    comp->effect(b, p, target);
+int GiantStrength::getDefence() const {
+    return minion->getDefence()+2;
+}
 
-    // double minion attack and defence
-    int playerNum = p.getNum();
-    vector<shared_ptr<Minion>> minions = b.getCards(playerNum);
-    if ((int)minions.size() >= target) {
-        shared_ptr<Minion> targetMin = minions.at(target - 1);
-        targetMin->changeDefence(2);
-        targetMin->changeAttack(2);     
-    } else {
-        cout << "Invalid target minion. No minion exists in that position." << endl;
-    }
+void GiantStrength::attackMinion(Minion &m) {
+  minion->changeDefence(-m.getAttack());
+  m.changeDefence(-minion->getAttack()+2);
+}
+
+void GiantStrength::attackPlayer(Player &p) {
+  p.changeHealth( -1 * (minion->getAttack()+2));
+}
+
+card_template_t GiantStrength::display() {
+    //if (triggered_ability) {
+      //return display_minion_triggered_ability(name, cost, attack, defence, trigger_desc);
+    //} else if(activated_ability) {
+      //return display_minion_activated_ability(name, cost, attack, defence, abilityCost, ability_desc);
+    //} else {
+      return display_minion_no_ability(minion->getName(), minion->getCost(), minion->getAttack()+2, minion->getDefence()+2);
+    //}
 }

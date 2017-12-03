@@ -10,6 +10,7 @@ class Card {
   public:    
     // constructor to initally create cards at beginning of game
     Card(std::string name, int cost, std::string info, std::string type);
+    Card();
 
     // getters for private fields
     std::string getName() const;
