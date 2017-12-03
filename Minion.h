@@ -2,44 +2,30 @@
 #define MINION_H
 #include <string>
 #include <vector>
-#include <memory>
+#include "Board.h"
+#include "Player.h"
 #include "Card.h"
 
-class Enchantment; class Player; class Board;
-
 class Minion: public Card {
+    int attack;
+    int defence;
+    // "Minions start with zero actions"
+    int action = 0;
+    int abilityCost;
     protected:
-        std::shared_ptr<Enchantment> enchantments;
-        int attack;
-        int defence;
-        std::string triggeredAbility;
-        std::string activatedAbility;
-        int abilityCost;
-        int activatedAbilityDamage = 0;
-        std::string summonMinion;
-        int summonAmount = 0;
-        // "Minions start with zero actions"
-        int action = 0;
+        <shared_ptr<Enchantment>> enchantments;
     public:
-        Minion(std::string name, int cost, std::string info, int attack, 
-            int defence, std::string triggeredAbility, std::string activatedAbility, 
-            int abilityCost, int activatedAbilityDamage, std::string summonMinion, int summonAmount);
-        Minion();
-        virtual card_template_t display()=0;
-        virtual void changeAttack(const int amount)=0;
-        virtual void changeDefence(const int amount)=0;
-        virtual void changeAC(const int amount)=0; 
-        virtual int getAttack() const=0;
-        virtual int getDefence() const=0;
-        virtual int getAC() const=0;
-        virtual std::string getAA() const=0;
-        virtual std::string getTA() const=0;
-        virtual int getAADamage() const=0;
-        virtual std::string getSummonName() const=0;
-        virtual int getSummonAmount() const=0;
-        virtual void attackMinion(Minion &m)=0;
-        virtual void attackPlayer(Player &p)=0;
-        virtual void notify(Board &b, Player &p, int target = -1)=0;
+      Minion(std::string name, int cost, std::string info, int attack, int defence, int abilityCost);
+      virtual void changeAttack(const int amount)=0;
+      virtual void changeDefence(const int amount)=0;
+      virtual void changeAC(const int amount)=0; 
+      virtual int getAttack()=0 const;
+      virtual int getDefence()=0 const;
+      virtual int getAC()=0 const;
+      virtual void display() override;
+      virtual void attackMinion(Minion &m);
+      virtual void attackPlayer(Player &p);
+      void notify(Board &b, Player &p, int target = -1) override;
 };
 
 #endif

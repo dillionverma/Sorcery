@@ -4,6 +4,7 @@
 #include "GiantStrength.h"
 #include "Enrage.h"
 #include "Silence.h"
+#include "MagicFatigue.h"
 
 using namespace std;
 
@@ -135,6 +136,8 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
               cardsP1[otherSlot-1] = make_shared<Enrage>(Enrage(target));
           } else if (c->getName() == "Silence") {
                cardsP1[otherSlot-1] = make_shared<Silence>(Silence(target));
+          } else if (c->getName() == "Magic Fatigue") {
+               cardsP1[otherSlot-1] = make_shared<MagicFatigue>(MagicFatigue(target));
           }
       }
   }
@@ -169,8 +172,9 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
               cardsP2[otherSlot-1] = make_shared<Enrage>(Enrage(target));
           } else if (c->getName() == "Silence") {
                cardsP2[otherSlot-1] = make_shared<Silence>(Silence(target));
+          } else if (c->getName() == "Magic Fatigue") {
+               cardsP2[otherSlot-1] = make_shared<MagicFatigue>(MagicFatigue(target));
           }
-
       }
   }
 }

@@ -4,3 +4,4 @@ sorcery
 *.o
 *.swp
 *.out
+.nfs*

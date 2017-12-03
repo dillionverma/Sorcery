@@ -69,3 +69,4 @@ void Decorator::notify(Board &b, Player &p, int target) {
     minion->notify(b, p, target);
 }
 
+Decorator::~Decorator() { delete minion; }
