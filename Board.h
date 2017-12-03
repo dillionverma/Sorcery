@@ -2,12 +2,13 @@
 #define BOARD_H
 #include <string>
 #include <vector>
+#include <memory>
+#include "Observer.h"
 #include "Player.h"
 #include "Ritual.h"
 #include "Minion.h"
-#include "Observer.h"
+#include "Decorator.h"
 
-class Subject;
 class Board: public Observer{
   Player *playerOne = nullptr;
   Player *playerTwo = nullptr;

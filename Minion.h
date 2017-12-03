@@ -2,11 +2,10 @@
 #define MINION_H
 #include <string>
 #include <vector>
-#include "Board.h"
-#include "Player.h"
+#include <memory>
 #include "Card.h"
 
-class Enchantment;
+class Enchantment; class Player; class Board;
 
 class Minion: public Card {
     protected:

@@ -3,6 +3,7 @@
 #include <string>
 #include "Card.h"
 #include "State.h"
+#include "Minion.h"
 
 class Player; class Board;
 

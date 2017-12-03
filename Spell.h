@@ -1,11 +1,11 @@
 #ifndef SPELL_H
 #define SPELL_H
 #include <string>
-#include "Deck.h"
 #include "Player.h"
+#include "Board.h"
 #include "Card.h"
-
-class Board; class Player;
+#include "Minion.h"
+#include "Ritual.h"
 
 class Spell: public Card {
     

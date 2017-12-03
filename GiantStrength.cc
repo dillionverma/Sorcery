@@ -1,4 +1,3 @@
-#include <vector>
 #include "GiantStrength.h"
 
 using namespace std;
@@ -16,11 +15,11 @@ int GiantStrength::getDefence() const {
 
 void GiantStrength::attackMinion(Minion &m) {
   minion->changeDefence(-m.getAttack());
-  m.changeDefence(-minion->getAttack()+2);
+  m.changeDefence(-1 * (minion->getAttack()+2));
 }
 
 void GiantStrength::attackPlayer(Player &p) {
-  p.changeHealth( -1 * (minion->getAttack()+2));
+  p.changeHealth(-1 * (minion->getAttack()+2));
 }
 
 card_template_t GiantStrength::display() {

@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Board.h"
 #include "Card.h"
+#include "GiantStrength.h"
+#include "Enrage.h"
+#include "Silence.h"
 
 using namespace std;
 
@@ -81,8 +84,16 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
     }
 
   } else {
-    // implement cards which target other things
-
+      if (c->getType() == "Enchantment") {
+          shared_ptr<Minion> target = cardsP1[otherSlot-1];
+          if (c->getName() == "Giant Strength") {
+              cardsP1[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
+          } else if (c->getName() == "Enrage") {
+              cardsP1[otherSlot-1] = make_shared<Enrage>(Enrage(target));
+          } else if (c->getName() == "Silence") {
+               cardsP1[otherSlot-1] = make_shared<Silence>(Silence(target));
+          }
+      }
   }
 
 }
@@ -106,9 +117,17 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
         ritualP2 = dynamic_pointer_cast<Ritual>(c);
     }
   } else {
-    // implement cards which target other things
-    
+      if (c->getType() == "Enchantment") {
+          shared_ptr<Minion> target = cardsP2[otherSlot-1];
+          if (c->getName() == "Giant Strength") {
+              cardsP2[otherSlot-1] = make_shared<GiantStrength>(GiantStrength(target));
+          } else if (c->getName() == "Enrage") {
+              cardsP2[otherSlot-1] = make_shared<Enrage>(Enrage(target));
+          } else if (c->getName() == "Silence") {
+               cardsP2[otherSlot-1] = make_shared<Silence>(Silence(target));
+          }
 
+      }
   }
 }
 

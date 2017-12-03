@@ -1,4 +1,3 @@
-#include "Minion.h"
 #include "Decorator.h"
 
 using namespace std;
@@ -55,3 +54,8 @@ card_template_t Decorator::display() {
       return display_minion_no_ability(minion->getName(), minion->getCost(), minion->getAttack(), minion->getDefence());
     //}
 }
+
+void Decorator::notify(Board &b, Player &p, int target) {
+    minion->notify(b, p, target);
+}
+
