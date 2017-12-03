@@ -38,7 +38,6 @@ vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
   }
 }
 
-
 void Board::toGrave(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;

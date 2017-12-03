@@ -8,11 +8,6 @@
 class Board; class Player;
 
 class BasicMinion: public Minion {
-    int attack;
-    int defence;
-    // "Minions start with zero actions"
-    int action = 0;
-    int abilityCost;
     public:
       BasicMinion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
       card_template_t display() override;
