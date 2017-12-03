@@ -6,6 +6,7 @@
 #include "Observer.h"
 #include "Player.h"
 #include "Ritual.h"
+#include "Spell.h"
 #include "Minion.h"
 #include "Decorator.h"
 
@@ -29,9 +30,10 @@ class Board: public Observer{
     void useActivatedAbility(int currentPlayer, int slot, int player = -1, int otherSlot = -1); 
     void inspect(int currentPlayer, int minion);
     void notify(Player &p) override;
-    std::shared_ptr<Ritual> getRitual(int playerNum) const;
+    std::shared_ptr<Ritual> getRitual(int playerNum);
     std::vector<std::shared_ptr<Minion>> &getCards(int playerNum);
     void setRitual(std::shared_ptr<Ritual> ritual, int playerNum);
+    void sendNotification(int player, State s);
     void display();
 };
 

@@ -62,6 +62,10 @@ void Ritual::setNC(const int newNC) {
     numCharges = newNC;
 }
 
+void Ritual::changeNC(const int amount) {
+    numCharges += amount;
+}
+
 void Ritual::setAC(const int newAC) {
     activationCost = newAC;
 }

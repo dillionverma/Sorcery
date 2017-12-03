@@ -83,7 +83,13 @@ shared_ptr<Card> Card::load(string cardName) {
   }
 
   if (type == "Enchantment") {
-      shared_ptr<Card> newEnchantment = make_shared<Enchantment>(name, cost, description);
+      string tempAtk, tempDef;
+      int attack, defence;
+      getline(cardVals, tempAtk, '|');
+      getline(cardVals, tempDef, '|');
+      attack = stoi(tempAtk);
+      defence = stoi(tempDef);
+      shared_ptr<Card> newEnchantment = make_shared<Enchantment>(name, cost, description, attack, defence);
       return newEnchantment;
   }
 

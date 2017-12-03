@@ -26,6 +26,7 @@ class Decorator: public Minion {
         std::string getName() const override;
         std::string getInfo() const override;
         int getCost() const;
+        std::shared_ptr<Minion> getMinion();
         void attackMinion(Minion &m) override;
         void attackPlayer(Player &p) override;
         void notify(Board &b, Player &p, int target = -1) override;
