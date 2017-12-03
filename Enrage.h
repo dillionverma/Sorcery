@@ -9,7 +9,7 @@ class Enrage: public Decorator {
         int getDefence() const;
         void attackMinion(Minion &m);
         void attackPlayer(Player &p);
-        card_template_t display();
+        card_template_t display() override;
 };
 
 #endif

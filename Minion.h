@@ -19,7 +19,7 @@ class Minion: public Card {
     public:
         Minion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
         Minion();
-        card_template_t display()=0;
+        virtual card_template_t display()=0;
         virtual void changeAttack(const int amount)=0;
         virtual void changeDefence(const int amount)=0;
         virtual void changeAC(const int amount)=0; 

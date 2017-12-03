@@ -13,9 +13,9 @@ class Card {
     Card();
 
     // getters for private fields
-    std::string getName() const;
-    std::string getInfo() const;
-    std::string getType() const;
+    virtual std::string getName() const;
+    virtual std::string getInfo() const;
+    virtual std::string getType() const;
     int getCost() const;
     virtual card_template_t display()=0;
   protected:
