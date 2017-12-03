@@ -84,3 +84,15 @@ card_template_t Decorator::display() {
 void Decorator::notify(Board &b, Player &p, int target) {
     minion->notify(b, p, target);
 }
+
+void Decorator::addEnchantment(std::shared_ptr<Enchantment> e) {
+    minion->addEnchantment(e);
+}
+
+void Decorator::removeEnchantment() {
+    minion->removeEnchantment();
+}
+
+std::vector<std::shared_ptr<Enchantment>> Decorator::getEnchantments() {
+    return minion->getEnchantments();
+}

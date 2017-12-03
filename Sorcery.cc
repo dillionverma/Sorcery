@@ -205,5 +205,15 @@ int main(int argc, char *argv[]) {
         } else if (command == "draw" && testing)    { activePlayer->drawFromDeck(1);
         } else if (command == "discard" && testing) { cin >> minion; activePlayer->removeFromHand(minion);
         }
+        if (activePlayer->getHealth() <= 0 and nonActivePlayer->getHealth() <= 0) {
+            cout << activePlayer->getName() << " and " << nonActivePlayer->getName() << " tied!" << endl;
+            break;
+        } else if (activePlayer->getHealth() <= 0) {
+            cout << nonActivePlayer->getName() << " won!" << endl;;
+            break;
+        } else if (nonActivePlayer->getHealth() <= 0) {
+            cout << activePlayer->getName() << " won!" << endl;;
+            break;
+        }
     }
 }

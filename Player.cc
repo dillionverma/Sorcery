@@ -55,6 +55,7 @@ State Player::getState() const { return state; }
 int Player::getNum()     const { return playerNum; }
 int Player::getHealth()  const { return health; }
 int Player::getMana()    const { return mana; }
+string Player::getName() const { return name; }
 
 // Mutable Getters
 vector<shared_ptr<Minion>> &Player::getGrave() { return grave; }

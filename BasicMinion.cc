@@ -79,3 +79,19 @@ card_template_t BasicMinion::display() {
       return display_minion_no_ability(name, cost, attack, defence);
     }
 }
+
+void BasicMinion::addEnchantment(std::shared_ptr<Enchantment> e) {
+    enchantments.push_back(e);
+};
+
+void BasicMinion::removeEnchantment() {
+    if (enchantments.size() > 0) {
+        enchantments.pop_back();
+    }
+};
+
+std::vector<std::shared_ptr<Enchantment>> BasicMinion::getEnchantments() {
+    return enchantments;
+}
+
+

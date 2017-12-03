@@ -21,13 +21,10 @@ void Board::setPlayer(Player *p, int playerNum) {
 }
 
 void Board::endTurn(Player *activePlayer, Player *nonActivePlayer) {
-  // end of turn events occur for current player
   activePlayer->setState(State::EndTurn);
   activePlayer->notifyObservers();
   nonActivePlayer->setState(State::EndTurnOpp);
   nonActivePlayer->notifyObservers();
-  //swap(activePlayer, nonActivePlayer);
-  // activePlayer.updateMana(activePlayer.mana++);
   nonActivePlayer->changeMana(1);
   nonActivePlayer->drawFromDeck(1);
   nonActivePlayer->setState(State::StartTurn);
@@ -133,6 +130,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
                   } else if (c->getName() == "Haste") {
                        cards[otherSlot-1] = make_shared<Haste>(Haste(target));
                   }
+                  cards[otherSlot-1]->addEnchantment(dynamic_pointer_cast<Enchantment>(c));
               } else if (c->getType() == "Spell") {
                 Player &p = (player == 1) ? *playerOne : *playerTwo;
                 dynamic_pointer_cast<Spell>(c)->useSpell(*this, p, otherSlot);
@@ -181,6 +179,7 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
                   } else if (c->getName() == "Haste") {
                        cards[otherSlot-1] = make_shared<Haste>(Haste(target));
                   }               
+                  cards[otherSlot-1]->addEnchantment(dynamic_pointer_cast<Enchantment>(c));
               }
               else if (c->getType() == "Spell") {
                 Player &p = (player == 1) ? *playerOne : *playerTwo;
@@ -225,20 +224,10 @@ void Board::attackPlayer(int currentPlayer, int minion) {
 }
 
 void Board::inspect(int currentPlayer, int slot) {
-  shared_ptr<Minion> c = getCards(currentPlayer).at(slot - 1);
-  for (int i = 0; i < cardHeight; ++i) {
-    cout << c->display()[i] << endl; // print card first
-  }
-  // PRINT ALL ENCHANTMENTS, 5 AT A TIME
-  //int ctr = 1;
-  //for (auto line:cardHeight) {
-    //cout << c->displayEnchantments;
-    //cout << c->displayEnchantments;
-    //cout << c->displayEnchantments;
-    //cout << c->displayEnchantments;
-    //if (ctr%5 == 0) cout << endl;
-    //ctr++;
-  //}
+    shared_ptr<Minion> c = getCards(currentPlayer).at(slot - 1);
+    for (int i = 0; i < cardHeight; ++i) {
+        cout << green << c->display()[i] << reset << endl; // print card first
+    }
 }
 
 void Board::notify(Player &p) {
