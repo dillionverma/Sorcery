@@ -1,1 +1,1 @@
-Master Summoner|Minion|"Summon up to three 1/1 air elementals"|3|""|2|3|2|
+Master Summoner|Minion|"Summon up to three 1/1 air elementals"|3|""|2|3|2|Summon|Air Elemental|3|

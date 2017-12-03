@@ -1,1 +1,1 @@
-Novice Pyromancer|Minion|"Deal 1 damage to target minion"|1|""|0|1|1|
+Novice Pyromancer|Minion|"Deal 1 damage to target minion"|1|""|0|1|1|Damage|1|

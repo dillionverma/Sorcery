@@ -41,19 +41,33 @@ shared_ptr<Card> Deck::loadCard(string cardName) {
   // constructors for various card types
   if (type == "Minion") {
       // Minion has more info to take in
-      string tempAtk, tempDef, tempAC, triggeredAbility, activatedAbility;
-      int attack, defence, abilityCost;
+      string tempAtk, tempDef, tempAC, tempAAdmg, tempSA, triggeredAbility, activatedAbility, summonMinion;
+      int attack, defence, abilityCost, activatedAbilityDamage, summonAmount;
 
       getline(cardVals, triggeredAbility, '|');
       getline(cardVals, tempAtk, '|');
       getline(cardVals, tempDef, '|');
       getline(cardVals, tempAC, '|');
+      getline(cardVals, activatedAbility, '|');
+      if (activatedAbility == "Summon") {
+        getline(cardVals, summonMinion, '|');
+        getline(cardVals, tempSA, '|');
+        summonAmount = stoi(tempSA);
+        activatedAbilityDamage = 0;
+      }
+      if (activatedAbility == "Damage") {
+        getline(cardVals, tempAAdmg, '|');
+        activatedAbilityDamage = stoi(tempAAdmg);
+        summonMinion = "";
+        summonAmount = 0;
+      }
       attack = stoi(tempAtk);
       defence = stoi(tempDef);
       abilityCost = stoi(tempAC);
 
       shared_ptr<Card> newMinion = make_shared<BasicMinion>(name, cost, description,
-              attack, defence, triggeredAbility, activatedAbility, abilityCost);
+              attack, defence, triggeredAbility, activatedAbility, abilityCost,
+              activatedAbilityDamage, summonMinion, summonAmount);
       return newMinion;
   }
 
