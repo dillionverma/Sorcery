@@ -20,6 +20,7 @@ class BasicMinion: public Minion {
       int getDefence() const override;
       int getAC() const override;
       std::string getAA() const override;
+      std::string getTA() const override;
       int getAADamage() const override;
       std::string getSummonName() const override;
       int getSummonAmount() const override;

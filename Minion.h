@@ -33,6 +33,7 @@ class Minion: public Card {
         virtual int getDefence() const=0;
         virtual int getAC() const=0;
         virtual std::string getAA() const=0;
+        virtual std::string getTA() const=0;
         virtual int getAADamage() const=0;
         virtual std::string getSummonName() const=0;
         virtual int getSummonAmount() const=0;

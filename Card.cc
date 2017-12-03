@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <memory>
+#include <algorithm>
 #include "Card.h"
 #include "BasicMinion.h"
 #include "Spell.h"

@@ -23,11 +23,11 @@ void GiantStrength::attackPlayer(Player &p) {
 }
 
 card_template_t GiantStrength::display() {
-    //if (triggered_ability) {
-      //return display_minion_triggered_ability(name, cost, attack, defence, trigger_desc);
-    //} else if(activated_ability) {
-      //return display_minion_activated_ability(name, cost, attack, defence, abilityCost, ability_desc);
-    //} else {
+    if (!minion->getTA().empty()) {
+      return display_minion_triggered_ability(minion->getName(), minion->getCost(), minion->getAttack()+2, minion->getDefence()+2, minion->getInfo());
+    } else if(!minion->getAA().empty()) {
+      return display_minion_activated_ability(minion->getName(), minion->getCost(), minion->getAttack()+2, minion->getDefence()+2, minion->getAC(), minion->getInfo());
+    } else {
       return display_minion_no_ability(minion->getName(), minion->getCost(), minion->getAttack()+2, minion->getDefence()+2);
-    //}
+    }
 }

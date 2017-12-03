@@ -20,6 +20,10 @@ string Decorator::getName() const {
     return minion->getName();
 }
 
+string Decorator::getInfo() const {
+    return minion->getInfo();
+}
+
 int Decorator::getCost() const {
     return minion->getCost();
 }
@@ -36,6 +40,7 @@ int Decorator::getAC() const {
     return minion->getAC();
 }
 string Decorator::getAA() const { return minion->getAA(); }
+string Decorator::getTA() const { return minion->getTA(); }
 int Decorator::getAADamage() const { return minion->getAADamage(); }
 string Decorator::getSummonName() const { return minion->getSummonName(); }
 int Decorator::getSummonAmount() const { return minion->getSummonAmount(); }
@@ -50,13 +55,13 @@ void Decorator::attackPlayer(Player &p) {
 }
 
 card_template_t Decorator::display() {
-    //if (triggered_ability) {
-      //return display_minion_triggered_ability(name, cost, attack, defence, trigger_desc);
-    //} else if(activated_ability) {
-      //return display_minion_activated_ability(name, cost, attack, defence, abilityCost, ability_desc);
-    //} else {
+    if (!minion->getTA().empty()) {
+      return display_minion_triggered_ability(minion->getName(), minion->getCost(), minion->getAttack(), minion->getDefence(), minion->getInfo());
+    } else if(!minion->getAA().empty()) {
+      return display_minion_activated_ability(minion->getName(), minion->getCost(), minion->getAttack(), minion->getDefence(), minion->getAC(), minion->getInfo());
+    } else {
       return display_minion_no_ability(minion->getName(), minion->getCost(), minion->getAttack(), minion->getDefence());
-    //}
+    }
 }
 
 void Decorator::notify(Board &b, Player &p, int target) {
