@@ -8,27 +8,21 @@
 
 using namespace std;
 
-Player::Player(string name, int playerNum, string deckfile) : name {name}, playerNum {playerNum}, state{State::None}, deck{deckfile} {
-  for (int i = 0; i < 5; ++i) {
-    if (deck.cards.back()) { // check if exist
-      shared_ptr<Card> c = deck.cards.back();
-      hand.push_back(c);
-      deck.cards.pop_back();
-    }
-  }
-}    
+Player::Player(string name, int playerNum, string deckfile) : name {name}, 
+  playerNum {playerNum}, state{State::None}, deck{deckfile} {}    
    
-void Player::drawFromDeck() {
+void Player::drawFromDeck(int num) {
     // check first that hand is not full
     if (hand.size() == 5) {
         cout << "No cards drawn from deck as hand is full." << endl;
         return;
     } 
-    cout << "Card is drawn from deck." << endl;
-    
-    shared_ptr<Card> drawnCard = deck.cards.back();
-    deck.cards.pop_back();     // remove card from deck
-    hand.push_back(drawnCard); // put card in hand
+    for (int i = 0; i < num; ++i) {
+      cout << "Card is drawn from deck." << endl;
+      shared_ptr<Card> drawnCard = deck.cards.front();
+      deck.cards.erase(deck.cards.begin());     // remove card from deck
+      hand.push_back(drawnCard);                // put card in hand
+    }
 }
 
 void Player::showHand() { 
@@ -60,20 +54,15 @@ void Player::changeMana(const int amount)   { mana += amount; }
 // Setters
 void Player::setState(const State newState) { state = newState; }
 
+
+void Player::removeFromHand(int slot) { hand.erase(hand.begin() + slot - 1); }
+void Player::shuffleDeck() { deck.shuffle(); }
+card_template_t Player::display() { return display_player_card(playerNum, name, health, mana); }
+
+
 void Player::notifyObservers() {
     for(unsigned int i = 0; i < observers.size(); ++i) {
         observers[i]->notify(*this);
     }
-}
-
-
-void Player::removeFromHand(int slot) {
-  hand.erase(hand.begin() + slot - 1);
-}
-
-
-card_template_t Player::display() {
-    card_template_t card = display_player_card(playerNum, name, health, mana);
-    return card;
 }
 

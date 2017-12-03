@@ -21,8 +21,8 @@ class Player: public Subject {
 
   public:
     Player(std::string name, int side, std::string deckfile = "default.deck");
-    void shuffleDeck(std::vector<Card *> deck);
-    void drawFromDeck();
+    void shuffleDeck();
+    void drawFromDeck(int num);
     void changeHealth(const int amount);
     void changeMana(const int amount);
     void setState(const State newState);

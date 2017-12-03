@@ -75,7 +75,6 @@ Deck::Deck(string deckfile) {
         cards.push_back(newRitual);
     } 
   }
-  shuffle(); // shuffle deck
 }
 
 // function for randomness factor
