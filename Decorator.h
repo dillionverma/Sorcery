@@ -11,6 +11,8 @@ class Decorator: public Minion {
         void changeAttack(const int amount) override;
         void changeDefence(const int amount) override;
         void changeAC(const int amount) override; 
+        void changeAction(const int amount) override;
+        int getAction() const override;
         int getAttack() const override;
         int getDefence() const override;
         int getAC() const override;

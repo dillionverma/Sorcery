@@ -15,10 +15,12 @@ BasicMinion::BasicMinion(string name, int cost, string info, int attack, int def
 void BasicMinion::changeAttack(int amount) { attack += amount; }
 void BasicMinion::changeDefence(int amount) { defence += amount; }
 void BasicMinion::changeAC(int amount) { abilityCost += amount; }
+void BasicMinion::changeAction(const int amount) { action += amount; }
 
 int BasicMinion::getAttack() const { return attack;}
 int BasicMinion::getDefence() const { return defence;}
 int BasicMinion::getAC() const { return abilityCost; }
+int BasicMinion::getAction() const { return action; }
 string BasicMinion::getAA() const { return activatedAbility; }
 string BasicMinion::getTA() const { return triggeredAbility; }
 int BasicMinion::getAADamage() const { return activatedAbilityDamage; }

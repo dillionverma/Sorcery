@@ -16,6 +16,10 @@ void Decorator::changeAC(const int amount) {
     minion->changeAC(amount);
 }
 
+void Decorator::changeAction(const int amount) {
+    minion->changeAction(amount);
+}
+
 string Decorator::getName() const {
     return minion->getName();
 }
@@ -26,6 +30,10 @@ string Decorator::getInfo() const {
 
 int Decorator::getCost() const {
     return minion->getCost();
+}
+
+int Decorator::getAction() const {
+    return minion->getAction();
 }
 
 int Decorator::getAttack() const {
@@ -68,5 +76,3 @@ card_template_t Decorator::display() {
 void Decorator::notify(Board &b, Player &p, int target) {
     minion->notify(b, p, target);
 }
-
-Decorator::~Decorator() { delete minion; }
