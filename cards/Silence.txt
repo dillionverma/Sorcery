@@ -1,1 +1,1 @@
-Silence|Enchantment|"Enchanted minion cannot use abilities"|0|
+Silence|Enchantment|Enchanted minion cannot use abilities.|0|
