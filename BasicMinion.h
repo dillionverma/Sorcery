@@ -9,7 +9,7 @@ class Board; class Player;
 
 class BasicMinion: public Minion {
     public:
-      BasicMinion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
+      BasicMinion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, std::string activatedAbility, int abilityCost);
       card_template_t display() override;
       void changeAttack(const int amount) override;
       void changeDefence(const int amount) override;

@@ -6,8 +6,8 @@
 
 using namespace std;
 
-BasicMinion::BasicMinion(string name, int cost, string info, int attack, int defence, string triggeredAbility, int abilityCost):
-    Minion{name, cost, info, attack, defence, triggeredAbility, abilityCost} {} 
+BasicMinion::BasicMinion(string name, int cost, string info, int attack, int defence, string triggeredAbility, string activatedAbility, int abilityCost):
+    Minion{name, cost, info, attack, defence, triggeredAbility, activatedAbility, abilityCost} {} 
 
 void BasicMinion::changeAttack(int amount) { attack += amount; }
 void BasicMinion::changeDefence(int amount) { defence += amount; }

@@ -97,6 +97,17 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
   }
 
 }
+    
+
+void useActivatedAbility(int currentPlayer, int slot, int player, int otherSlot) {
+
+  if (otherSlot == -1 && player == -1) {
+
+    // using activated ability with no target
+  } else {
+    // activated ability with target
+  }
+}
 
 void Board::playCardP2(int slot, int player, int otherSlot) {
   shared_ptr<Card> c = playerTwo->getHand().at(slot - 1); // slot - 1 becauase vector starts 0, slot starts 1

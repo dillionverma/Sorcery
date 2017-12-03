@@ -13,11 +13,13 @@ class Minion: public Card {
         int attack;
         int defence;
         std::string triggeredAbility;
+        std::string activatedAbility;
         // "Minions start with zero actions"
         int action = 0;
         int abilityCost;
     public:
-        Minion(std::string name, int cost, std::string info, int attack, int defence, std::string triggeredAbility, int abilityCost);
+        Minion(std::string name, int cost, std::string info, int attack, 
+            int defence, std::string triggeredAbility, std::string activatedAbility, int abilityCost);
         Minion();
         card_template_t display()=0;
         virtual void changeAttack(const int amount)=0;
