@@ -26,11 +26,30 @@ void Board::endTurn(Player *activePlayer, Player *nonActivePlayer) {
   //swap(activePlayer, nonActivePlayer);
   // activePlayer.updateMana(activePlayer.mana++);
   nonActivePlayer->drawFromDeck(1);
+  nonActivePlayer->changeMana(1);
   nonActivePlayer->setState(State::StartTurn);
   nonActivePlayer->notifyObservers();
   activePlayer->setState(State::StartTurnOpp);
   activePlayer->notifyObservers();
   // beginning of turn events occur for new player
+  // At the start of every turn, every minion owned by the player
+  //    whose turn it is is restored to 1 action
+  int playerNum = nonActivePlayer->getNum();
+  vector<shared_ptr<Minion>> minions = getCards(playerNum);
+  for (unsigned int i = 0; i < minions.size(); i++) {
+    shared_ptr<Minion> currentMin = minions.at(i);
+    int actions = currentMin->getAction();
+
+    if (actions == 0) {
+       currentMin->changeAction(1);
+    } else if (actions >= 2) {
+        // bring back down to 1
+        // this occurs when Haste is used
+        // "Extra actions granted by haste do not last between turns" 
+        currentMin->changeAction(- (actions - 1));
+    }
+    // Note that a minion which already had 1 action remains at 1 action
+  }
 }
 
 vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
@@ -51,6 +70,7 @@ void Board::toGrave(int slot, int playerNum) {
     player->notifyObservers();
     opponent->setState(State::MinionLeaveOpp);
     opponent->notifyObservers();
+    cout << "Minion sent to grave." << endl;
 }
 
 void Board::toHand(int slot, int playerNum) {
@@ -159,14 +179,27 @@ void Board::attackMinion(int currentPlayer, int minion, int otherMinion) {
   int otherPlayer = (currentPlayer == 1 ? 2 : 1);
   shared_ptr<Minion> m1 = getCards(currentPlayer).at(minion - 1);
   shared_ptr<Minion> m2 = getCards(otherPlayer).at(otherMinion - 1);
-  m1->attackMinion(*m2);
-  if (m1->getDefence() <= 0) toGrave(minion, currentPlayer);
-  if (m2->getDefence() <= 0) toGrave(otherMinion, otherPlayer);
+  if (m1->getAction() > 0) {
+    m1->attackMinion(*m2);
+    // decrease by one action point
+    m1->changeAction(-1);
+    if (m1->getDefence() <= 0) toGrave(minion, currentPlayer);
+    if (m2->getDefence() <= 0) toGrave(otherMinion, otherPlayer);
+  } else {
+    cout << "Not enough action points to attack." << endl;
+  }
 }
 
 void Board::attackPlayer(int currentPlayer, int minion) {
   Player *otherPlayer = (currentPlayer == 1 ? playerTwo : playerOne);
-  getCards(currentPlayer).at(minion - 1)->attackPlayer(*otherPlayer);
+  shared_ptr<Minion> attackingMin = getCards(currentPlayer).at(minion - 1);
+  if (attackingMin->getAction() > 0) {
+    attackingMin->attackPlayer(*otherPlayer);
+    // decrease by one aciton point
+    attackingMin->changeAction(-1);
+  } else {
+    cout << "Not enough action points to attack." << endl;
+  }
 }
 
 void Board::inspect(int currentPlayer, int slot) {

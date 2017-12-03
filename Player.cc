@@ -17,11 +17,24 @@ void Player::drawFromDeck(int num) {
         cout << "No cards drawn from deck as hand is full." << endl;
         return;
     } 
+
+    // ensure there are cards in deck
+    if (deck.cards.size() == 0) {
+        cout << "No cards drawn from deck as deck is empty." << endl;
+        return;
+    }
+
     for (int i = 0; i < num; ++i) {
-      cout << "Card is drawn from deck." << endl;
       shared_ptr<Card> drawnCard = deck.cards.front();
       deck.cards.erase(deck.cards.begin());     // remove card from deck
-      hand.push_back(drawnCard);                // put card in hand
+      hand.push_back(drawnCard);                // put card in hand 
+    }
+
+    if (num == 1) {
+        cout << "Card is drawn from deck." << endl;
+    } else {
+        // used at beginning 
+        cout << num << " cards drawn from deck for " << name << "." << endl;
     }
 }
 
