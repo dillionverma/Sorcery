@@ -62,7 +62,7 @@ void Board::toGrave(int slot, int playerNum) {
 void Board::toHand(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;
-    vector<shared_ptr<Minion>> cards = (playerNum == 1) ? getCards(1) : getCards(2);
+    vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? getCards(1) : getCards(2);
     shared_ptr<Minion> m = cards[slot-1];
     cards.erase(cards.begin() + slot - 1);
     while (m->getEnchantments().size() > 0) {

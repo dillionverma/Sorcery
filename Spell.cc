@@ -88,16 +88,7 @@ void Spell::useSpell(Board &b, Player &p, int target) {
         }
         //Return target's minion to its owner's hand
         else if (name ==  "Unsummon") {
-            vector<shared_ptr<Card>> &hand = p.getHand();            
-            vector<shared_ptr<Minion>> &minions = b.getCards(playerNum);
-            if ((int)minions.size() >= target) {
-                // - 1 to account for vector starting at 0
-                shared_ptr<Minion> targetMin = minions.at(target - 1);
-                minions.erase(minions.begin() + target - 1);
-                hand.push_back(targetMin);
-            } else {
-                cout << "Invalid target minion. No minion exists in that position." << endl;
-            }
+            b.toHand(target, playerNum);
        }
    
 }
