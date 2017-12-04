@@ -50,6 +50,7 @@ void Spell::useSpell(Board &b, Player &p, int target) {
             vector<shared_ptr<Minion>> &cards = b.getCards(p.getNum());
             shared_ptr<Decorator> minion = dynamic_pointer_cast<Decorator>(cards[target-1]);
             if (minion) {
+                cards[target-1]->removeEnchantment();
                 cards[target-1] = minion->getMinion();
             } else {
                 cout << "no enchantment on me sir!" << endl;

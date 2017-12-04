@@ -9,7 +9,7 @@ class Enchantment; class Player; class Board;
 
 class Minion: public Card {
     protected:
-        std::shared_ptr<Enchantment> enchantments;
+        std::vector<std::shared_ptr<Enchantment>> enchantments;
         int attack;
         int defence;
         std::string triggeredAbility;
@@ -43,6 +43,9 @@ class Minion: public Card {
         virtual void attackMinion(Minion &m)=0;
         virtual void attackPlayer(Player &p)=0;
         virtual void notify(Board &b, Player &p, int target = -1)=0;
+        virtual void addEnchantment(std::shared_ptr<Enchantment> e)=0;
+        virtual void removeEnchantment()=0;
+        virtual std::vector<std::shared_ptr<Enchantment>> getEnchantments()=0;
 };
 
 #endif

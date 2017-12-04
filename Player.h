@@ -28,6 +28,7 @@ class Player: public Subject {
     void setState(const State newState);
     State getState() const;
     int getNum() const;
+    std::string getName() const;
     int getHealth() const;
     void showHand();
     void notifyObservers() override;

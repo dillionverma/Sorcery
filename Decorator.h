@@ -30,6 +30,9 @@ class Decorator: public Minion {
         void attackMinion(Minion &m) override;
         void attackPlayer(Player &p) override;
         void notify(Board &b, Player &p, int target = -1) override;
+        void addEnchantment(std::shared_ptr<Enchantment> e) override;
+        void removeEnchantment() override;
+        std::vector<std::shared_ptr<Enchantment>> getEnchantments() override;
 };
 
 #endif

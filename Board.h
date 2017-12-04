@@ -9,6 +9,7 @@
 #include "Spell.h"
 #include "Minion.h"
 #include "Decorator.h"
+#include "Enchantment.h"
 
 class Board: public Observer{
   Player *playerOne = nullptr;

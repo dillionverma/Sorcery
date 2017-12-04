@@ -21,13 +21,10 @@ void Board::setPlayer(Player *p, int playerNum) {
 }
 
 void Board::endTurn(Player *activePlayer, Player *nonActivePlayer) {
-  // end of turn events occur for current player
   activePlayer->setState(State::EndTurn);
   activePlayer->notifyObservers();
   nonActivePlayer->setState(State::EndTurnOpp);
   nonActivePlayer->notifyObservers();
-  //swap(activePlayer, nonActivePlayer);
-  // activePlayer.updateMana(activePlayer.mana++);
   nonActivePlayer->changeMana(1);
   nonActivePlayer->drawFromDeck(1);
   nonActivePlayer->setState(State::StartTurn);
@@ -48,8 +45,13 @@ void Board::toGrave(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;
     vector<shared_ptr<Minion>> &cards = (playerNum == 1) ? getCards(1) : getCards(2);
-    player->getGrave().push_back(cards[slot-1]);
+    shared_ptr<Minion> m = cards[slot-1];
     cards.erase(cards.begin() + slot - 1);
+    while (m->getEnchantments().size() > 0) {
+        m->removeEnchantment();
+        m = dynamic_pointer_cast<Decorator>(m)->getMinion();
+    }
+    player->getGrave().push_back(m);
     player->setState(State::MinionLeave);
     player->notifyObservers();
     opponent->setState(State::MinionLeaveOpp);
@@ -61,8 +63,13 @@ void Board::toHand(int slot, int playerNum) {
     Player *player = (playerNum == 1) ? playerOne : playerTwo;
     Player *opponent = (player == playerOne) ? playerTwo : playerOne;
     vector<shared_ptr<Minion>> cards = (playerNum == 1) ? getCards(1) : getCards(2);
-    player->getHand().push_back(cards[slot-1]);
+    shared_ptr<Minion> m = cards[slot-1];
     cards.erase(cards.begin() + slot - 1);
+    while (m->getEnchantments().size() > 0) {
+        m->removeEnchantment();
+        m = dynamic_pointer_cast<Decorator>(m)->getMinion();
+    }
+    player->getHand().push_back(m);
     player->setState(State::MinionLeave);
     player->notifyObservers();
     opponent->setState(State::MinionLeaveOpp);
@@ -133,6 +140,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
                   } else if (c->getName() == "Haste") {
                        cards[otherSlot-1] = make_shared<Haste>(Haste(target));
                   }
+                  cards[otherSlot-1]->addEnchantment(dynamic_pointer_cast<Enchantment>(c));
               } else if (c->getType() == "Spell") {
                 Player &p = (player == 1) ? *playerOne : *playerTwo;
                 dynamic_pointer_cast<Spell>(c)->useSpell(*this, p, otherSlot);
@@ -181,6 +189,7 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
                   } else if (c->getName() == "Haste") {
                        cards[otherSlot-1] = make_shared<Haste>(Haste(target));
                   }               
+                  cards[otherSlot-1]->addEnchantment(dynamic_pointer_cast<Enchantment>(c));
               }
               else if (c->getType() == "Spell") {
                 Player &p = (player == 1) ? *playerOne : *playerTwo;
@@ -225,23 +234,10 @@ void Board::attackPlayer(int currentPlayer, int minion) {
 }
 
 void Board::inspect(int currentPlayer, int slot) {
-  shared_ptr<Card> c = getCards(currentPlayer).at(slot - 1);
-  for (int i = 0; i < cardHeight; ++i) {
-    cout << c->display()[i] << endl; // print card first
-  }
-  // PRINT ALL ENCHANTMENTS, 5 AT A TIME
-  //int ctr = 1;
-  //for (auto line:cardHeight) {
-    //cout << c->displayEnchantmnets;
-    //cout << c->displayEnchantmnets;
-    //cout << c->displayEnchantmnets;
-    //cout << c->displayEnchantmnets;
-    //if (ctr%5 == 0) cout << endl;
-    //ctr++;
-  //}
-  cout << "This card is a: " << c->getType() << endl;
-  cout << "Minion Name: " << c->getName() << endl;
-  cout << "Minion Info: " << c->getInfo() << endl;
+    shared_ptr<Minion> c = getCards(currentPlayer).at(slot - 1);
+    for (int i = 0; i < cardHeight; ++i) {
+        cout << green << c->display()[i] << reset << endl; // print card first
+    }
 }
 
 void Board::notify(Player &p) {
