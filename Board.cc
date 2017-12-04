@@ -236,11 +236,35 @@ void Board::attackPlayer(int currentPlayer, int minion) {
   }
 }
 
+int min(int a, int b) { return a < b ? a : b; }
+
 void Board::inspect(int currentPlayer, int slot) {
-    shared_ptr<Minion> c = getCards(currentPlayer).at(slot - 1);
-    for (int i = 0; i < cardHeight; ++i) {
-        cout << green << c->display()[i] << reset << endl; // print card first
+  shared_ptr<Minion> m = getCards(currentPlayer).at(slot - 1);
+  vector<shared_ptr<Enchantment>> e = m->getEnchantments();
+
+  // print minion
+  for (int i = 0; i < cardHeight; ++i) {
+    cout << m->display()[i] << endl;
+  }
+
+  // print enchantments
+  int numRows = (e.size()%5 == 0) ? e.size()/5 : e.size()/5 + 1;
+  int col = 0;
+  for (int i = 0; i < numRows; ++i) {                         // print for each row
+    for (int j = 0; j < cardHeight; ++j) {                    // for card height
+      int ctr = 0;
+      for (int k = col; k < min(5*(i+1), e.size()); ++k) {    // print enchantmnets
+        cout << e.at(k)->display()[j];
+        if (ctr == 4 || e.back() == e.at(k)) { 
+          cout << endl;
+          ctr = 0;
+          continue;
+        }
+        ctr++;
+      }
     }
+    col = 5*(i+1);
+  }
 }
 
 void Board::notify(Player &p) {
