@@ -25,6 +25,7 @@ class Player: public Subject {
     void drawFromDeck(int num);
     void changeHealth(const int amount);
     void changeMana(const int amount);
+    void setMana(const int amount);
     void setState(const State newState);
     State getState() const;
     int getNum() const;

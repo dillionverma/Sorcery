@@ -18,8 +18,9 @@ class Board: public Observer{
   std::shared_ptr<Ritual> ritualP2 = nullptr;
   std::vector<std::shared_ptr<Minion>> cardsP1;
   std::vector<std::shared_ptr<Minion>> cardsP2;
+  bool testing;
   public:
-    Board();
+    Board(bool testing=false);
     void setPlayer(Player *p, int playerNum);
     void endTurn(Player *activePlayer, Player *nonActivePlayer);
     void playCardP1(int slot, int player = -1, int otherSlot = -1); // play card at P1 slot

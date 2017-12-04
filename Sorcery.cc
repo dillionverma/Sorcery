@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
     bool init     = false;
     bool testing  = false;
     bool graphics = false;
-    Board board;
     Player *activePlayer    = nullptr;
     Player *nonActivePlayer = nullptr;
     string playerOneName;
@@ -69,6 +68,7 @@ int main(int argc, char *argv[]) {
 
     activePlayer    = &playerOne;
     nonActivePlayer = &playerTwo;
+    Board board(testing);
     board.setPlayer(&playerOne, 1);
     board.setPlayer(&playerTwo, 2);
     playerOne.addObserver(&board);

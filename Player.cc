@@ -80,3 +80,7 @@ void Player::notifyObservers() {
     }
 }
 
+void Player::setMana(const int amount) {
+    mana = amount;
+}
+
