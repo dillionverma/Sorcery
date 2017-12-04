@@ -244,7 +244,7 @@ void Board::inspect(int currentPlayer, int slot) {
 
   // print minion
   for (int i = 0; i < cardHeight; ++i) {
-    cout << m->display()[i] << endl;
+    cout << green << m->display()[i] << reset << endl;
   }
 
   // print enchantments
@@ -254,7 +254,7 @@ void Board::inspect(int currentPlayer, int slot) {
     for (int j = 0; j < cardHeight; ++j) {                    // for card height
       int ctr = 0;
       for (int k = col; k < min(5*(i+1), e.size()); ++k) {    // print enchantmnets
-        cout << e.at(k)->display()[j];
+        cout << cyan << e.at(k)->display()[j] << reset;
         if (ctr == 4 || e.back() == e.at(k)) { 
           cout << endl;
           ctr = 0;
