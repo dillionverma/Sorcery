@@ -1,6 +1,11 @@
-# Sorcery
- * Implementation of Hearthstone in c++
- 
+# Sorcery - Remake of Hearthstone in c++
+![image](https://github.com/AllanMukundi/Sorcery/blob/update-readme/pictures/textDisplay.png)
+![image](https://github.com/AllanMukundi/Sorcery/blob/update-readme/pictures/hand.png)
+
+## Optional Graphic Display
+
+ * run the game with `-graphics` flag to play with optional graphics display 
+![image](https://github.com/AllanMukundi/Sorcery/blob/update-readme/pictures/graphicsDisplay.png)
 
 ## How to work with github
 
