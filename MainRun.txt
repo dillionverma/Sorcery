@@ -12,7 +12,6 @@ play 3 1
 end
 attack 1
 play 2
-attack
 end
 hand
 play 4
