@@ -1,12 +1,10 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
-
-class Player;
-class Board;
+#include "Player.h"
 
 class Observer {
     public:
-        virtual void notify(Player &p)=0;
+      virtual void notify(Player &p)=0;
 };
 
 #endif

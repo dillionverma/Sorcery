@@ -9,7 +9,7 @@
 using namespace std;
 
 Player::Player(string name, int playerNum, string deckfile) : name {name}, 
-  playerNum {playerNum}, state{State::None}, deck{deckfile} {}    
+  playerNum {playerNum}, state{State::NoState}, deck{deckfile} {}    
    
 void Player::drawFromDeck(int num) {
     // check first that hand is not full
@@ -29,6 +29,7 @@ void Player::drawFromDeck(int num) {
       deck.cards.erase(deck.cards.begin());     // remove card from deck
       hand.push_back(drawnCard);                // put card in hand 
     }
+    notifyObservers();
 
     if (num == 1) {
         cout << "Card is drawn from deck." << endl;
@@ -56,20 +57,22 @@ int Player::getNum()     const { return playerNum; }
 int Player::getHealth()  const { return health; }
 int Player::getMana()    const { return mana; }
 string Player::getName() const { return name; }
+bool Player::getActive() const { return active; }
 
 // Mutable Getters
 vector<shared_ptr<Minion>> &Player::getGrave() { return grave; }
 vector<shared_ptr<Card>>   &Player::getHand()  { return hand; }
 
 // Changers
-void Player::changeHealth(const int amount) { health += amount; }
+void Player::changeHealth(const int amount) { health += amount; notifyObservers(); }
 void Player::changeMana(const int amount)   { mana += amount; }
 
 // Setters
 void Player::setState(const State newState) { state = newState; }
+void Player::setActive(const bool a) { active = a; }
 
 
-void Player::removeFromHand(int slot) { hand.erase(hand.begin() + slot - 1); }
+void Player::removeFromHand(int slot) { hand.erase(hand.begin() + slot - 1); notifyObservers(); }
 void Player::shuffleDeck() { deck.shuffle(); }
 card_template_t Player::display() { return display_player_card(playerNum, name, health, mana); }
 

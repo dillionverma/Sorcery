@@ -19,3 +19,6 @@ card_template_t Enchantment::display() {
 
 void Enchantment::notify(Board &b, Player &p, int target) {
 }
+
+int Enchantment::getAttack() const { return attack;}
+int Enchantment::getDefence() const { return defence;}

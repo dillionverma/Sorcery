@@ -18,7 +18,7 @@ class Player: public Subject {
   Deck deck;
   std::vector<std::shared_ptr<Minion>> grave;
   std::vector<std::shared_ptr<Card>> hand;
-
+  bool active = false;
   public:
     Player(std::string name, int side, std::string deckfile = "default.deck");
     void shuffleDeck();
@@ -28,13 +28,15 @@ class Player: public Subject {
     void setMana(const int amount);
     void setState(const State newState);
     State getState() const;
-    int getNum() const;
     std::string getName() const;
+    int getNum() const;
     int getHealth() const;
+    bool getActive() const;
     void showHand();
     void notifyObservers() override;
     void removeFromHand(int slot); 
     int getMana() const;
+    void setActive(const bool a);
     std::vector<std::shared_ptr<Minion>> &getGrave();
     std::vector<std::shared_ptr<Card>> &getHand();
     card_template_t display();

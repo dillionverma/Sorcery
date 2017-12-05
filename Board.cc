@@ -21,16 +21,18 @@ void Board::setPlayer(Player *p, int playerNum) {
 }
 
 void Board::endTurn(Player *activePlayer, Player *nonActivePlayer) {
+  activePlayer->setActive(false);
+  nonActivePlayer->setActive(true);
   activePlayer->setState(State::EndTurn);
   activePlayer->notifyObservers();
   nonActivePlayer->setState(State::EndTurnOpp);
   nonActivePlayer->notifyObservers();
-  nonActivePlayer->changeMana(1);
-  nonActivePlayer->drawFromDeck(1);
-  nonActivePlayer->setState(State::StartTurn);
-  nonActivePlayer->notifyObservers();
   activePlayer->setState(State::StartTurnOpp);
   activePlayer->notifyObservers();
+  nonActivePlayer->changeMana(1);
+  nonActivePlayer->setState(State::StartTurn);
+  nonActivePlayer->notifyObservers();
+  nonActivePlayer->drawFromDeck(1);
 }
 
 vector<shared_ptr<Minion>> &Board::getCards(int playerNum) {
@@ -89,6 +91,8 @@ void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int o
           for (int i = 0; i < min(summonAmount, slotsAvailable); ++i) {
             shared_ptr<Minion> tmp = dynamic_pointer_cast<Minion>(Card::load(m->getSummonName()));
             cards.push_back(tmp); // TODO: need to setup state stuff for observer pattern
+            player->setState(State::MinionEnter);
+            player->notifyObservers();
           }
         }
       } else {
@@ -96,11 +100,13 @@ void Board::useActivatedAbility(int playerNum, int slot, int targetPlayer, int o
           vector<shared_ptr<Minion>> &targetCards = (targetPlayer == 1) ? cardsP1: cardsP2;
           int dmg = m->getAADamage();
           targetCards.at(otherSlot - 1)->changeDefence(-dmg);
+          player->notifyObservers();
         }
       }
       m->changeAction(-1);
       player->changeMana(-1 * m->getAC());
       player->setMana(max(player->getMana(), 0));
+      player->notifyObservers();
   } else {
       cout << "Not enough action points/mana to use an activated ability" << endl;
   }
@@ -149,7 +155,7 @@ void Board::playCardP1(int slot, int player, int otherSlot) {
           }
           playerOne->changeMana(-1 * c->getCost());
           playerOne->setMana(max(playerOne->getMana(), 0));
-          playerOne->getHand().erase(playerOne->getHand().begin() + slot - 1); // must erase 
+          playerOne->removeFromHand(slot); 
         } else {
             cout << "Not enough mana" << endl;
         }
@@ -200,7 +206,7 @@ void Board::playCardP2(int slot, int player, int otherSlot) {
           }
           playerTwo->changeMana(-1 * c->getCost());
           playerTwo->setMana(max(playerTwo->getMana(), 0));
-          playerTwo->getHand().erase(playerTwo->getHand().begin() + slot - 1); // must erase because we used "move" previous line
+          playerTwo->removeFromHand(slot); 
       } else {
           cout << "Not enough mana" << endl;
       }
@@ -222,6 +228,8 @@ void Board::attackMinion(int currentPlayer, int minion, int otherMinion) {
   } else {
     cout << "Not enough action points to attack." << endl;
   }
+  if (currentPlayer == 1) playerOne->notifyObservers();
+  if (currentPlayer == 2) playerTwo->notifyObservers();
 }
 
 void Board::attackPlayer(int currentPlayer, int minion) {
@@ -234,6 +242,8 @@ void Board::attackPlayer(int currentPlayer, int minion) {
   } else {
     cout << "Not enough action points to attack." << endl;
   }
+  if (currentPlayer == 1) playerOne->notifyObservers();
+  if (currentPlayer == 2) playerTwo->notifyObservers();
 }
 
 int min(int a, int b) { return a < b ? a : b; }
@@ -309,7 +319,7 @@ void Board::display() {
   for (int i = 0; i < cardHeight; ++i) {
     cout << EXTERNAL_BORDER_CHAR_UP_DOWN << reset;
     if (ritualP1) {
-      cout << cyan << ritualP1->display()[i] << reset;
+      cout << magenta << ritualP1->display()[i] << reset;
     } else {
       cout << yellow << CARD_TEMPLATE_EMPTY[i];
     }
@@ -355,7 +365,7 @@ void Board::display() {
   for (int i = 0; i < cardHeight; ++i) {
     cout << yellow << EXTERNAL_BORDER_CHAR_UP_DOWN << reset;
     if (ritualP2) {
-      cout << cyan << ritualP2->display()[i] << reset;
+      cout << magenta << ritualP2->display()[i] << reset;
     } else {
       cout << yellow << CARD_TEMPLATE_EMPTY[i] << reset;
     }

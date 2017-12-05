@@ -2,8 +2,8 @@
 #define SUBJECT_H
 #include <vector>
 #include "State.h"
-#include "Observer.h"
 
+class Observer;
 class Subject {
     protected:
         std::vector<Observer *> observers;

@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Player.h"
 #include "Board.h"
+#include "GraphicBoard.h"
 
 using namespace std;
 
@@ -57,24 +58,38 @@ int main(int argc, char *argv[]) {
     cout << "Welcome, " << playerOneName << " and " << playerTwoName << "!" << endl;
 
     // Create players - this also shuffles and sets up decks and hands
+
     Player playerOne(playerOneName, 1, deck1);
     Player playerTwo(playerTwoName, 2, deck2);
     if (!testing) {
       playerOne.shuffleDeck();
       playerTwo.shuffleDeck();
     }
-    playerOne.drawFromDeck(5); // draw 5 cards
-    playerTwo.drawFromDeck(5); // draw 5 cards
 
     activePlayer    = &playerOne;
     nonActivePlayer = &playerTwo;
+    activePlayer->setActive(true);
+    activePlayer->setState(State::StartTurn);
     Board board(testing);
     board.setPlayer(&playerOne, 1);
     board.setPlayer(&playerTwo, 2);
+
+    activePlayer->changeMana(1);
     playerOne.addObserver(&board);
     playerTwo.addObserver(&board);
 
-    activePlayer->changeMana(1);
+    shared_ptr<GraphicBoard> gb= nullptr;
+    if (graphics) {
+      auto g = make_shared<GraphicBoard>(800);
+      gb = g;
+      gb->setBoard(&board);
+      playerOne.addObserver(&*gb);
+      playerTwo.addObserver(&*gb);
+    }
+
+    playerOne.drawFromDeck(5); // draw 5 cards
+    playerTwo.drawFromDeck(5); // draw 5 cards
+
     string command;
 
     while(true) {
