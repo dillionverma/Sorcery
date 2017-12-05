@@ -1,0 +1,1 @@
+Master Priest|Minion|Give 3 health to target minion|3||3|3|2|Damage|-3|
