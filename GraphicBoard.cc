@@ -70,10 +70,10 @@ void drawCard(int x, int y, Xwindow &xw, shared_ptr<Card> c, bool dead = false) 
     if (e->getAttack() != 0 && e->getDefence() != 0) {
       if (e->getName() == "Giant Strength") {
         xw.drawString(x + 5, y + 105, "+" + to_string(e->getAttack()), strCol);
-        xw.drawString(x + 110, y + 105, "+" + to_string(e->getDefence()), strCol);
+        xw.drawString(x + 105, y + 105, "+" + to_string(e->getDefence()), strCol);
       } else if (e->getName() == "Enrage") {
         xw.drawString(x + 5, y + 105, "*" + to_string(e->getAttack()), strCol);
-        xw.drawString(x + 110, y + 105, "*" + to_string(e->getDefence()), strCol);
+        xw.drawString(x + 105, y + 105, "*" + to_string(e->getDefence()), strCol);
       }
     }
   }
