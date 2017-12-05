@@ -6,6 +6,7 @@ play 2
 end
 hand
 play 5
+inspect 1
 board 
 end
 play 3

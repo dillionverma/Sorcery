@@ -214,7 +214,13 @@ int main(int argc, char *argv[]) {
             }
         } else if (command == "end")                { board.endTurn(activePlayer, nonActivePlayer); swap(activePlayer, nonActivePlayer);
         } else if (command == "quit")               { break;
-        } else if (command == "inspect")            { cin >> minion; board.inspect(currentPlayerNum, minion);
+        } else if (command == "inspect")            { 
+            if (init) {
+                ifs >> minion; 
+            } else {
+                cin >> minion;
+            }
+            board.inspect(currentPlayerNum, minion);
         } else if (command == "hand")               { activePlayer->showHand();
         } else if (command == "board")              { board.display();
         } else if (command == "draw" && testing)    { activePlayer->drawFromDeck(1);
