@@ -2,7 +2,6 @@ Michelle
 Alex
 hand
 play 2
-inspect 1
 play 4
 end
 board
