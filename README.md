@@ -1,11 +1,12 @@
 # Sorcery - Remake of Hearthstone in c++
-![image](https://github.com/AllanMukundi/Sorcery/blob/update-readme/pictures/textDisplay.png)
-![image](https://github.com/AllanMukundi/Sorcery/blob/update-readme/pictures/hand.png)
+![image](https://github.com/dillionverma/Sorcery/blob/master/pictures/textDisplay.png)
+![image](https://github.com/dillionverma/Sorcery/blob/master/pictures/hand.png)
+![image](https://github.com/dillionverma/Sorcery/blob/master/pictures/UML.png)
 
 ## Optional Graphic Display
 
  * run the game with `-graphics` flag to play with optional graphics display 
-![image](https://github.com/AllanMukundi/Sorcery/blob/update-readme/pictures/graphicsDisplay.png)
+![image](https://github.com/dillionverma/Sorcery/blob/master/pictures/graphicsDisplay.png)
 
 ## How to work with github
 
@@ -20,7 +21,7 @@ Once done a small portion of code, do the following:
 3. `git push origin new_branch_name` - push ur code and branch to github
 
 Once you are done your whole feature and want to merge to master:
-1. Go to https://github.com/AllanMukundi/Sorcery/pulls and open a **New pull request**
+1. Go to https://github.com/dillionverma/Sorcery/pulls and open a **New pull request**
 2. The base branch should be `master`, the compare branch should be `new_branch_name`
 3. Click **Create pull request**
 4. Notify team that you have created a pull request so we can review
